@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(
+    45deg,
+    #f6f7fe 0%,
+    #f6f8fe 28.97%,
+    #f2f4fe 100%,
+    #f2f4fe 100%
+  );
+  margin: 0;
+  font-family: Proxima Nova Rg, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+input {
+  font-family: Graphik;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.customModal {
+  border-radius: 10px;
+  padding: 0px !important;
+  max-width: 900px !important;
+}

@@ -1,0 +1,383 @@
+@font-face {
+  font-family: "Proxima Nova Bl";
+  src: url("ProximaNova-Black.eot");
+  src: local("Proxima Nova Black"), local("ProximaNova-Black"),
+    url("ProximaNova-Black.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Black.woff2") format("woff2"),
+    url("ProximaNova-Black.woff") format("woff"),
+    url("ProximaNova-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Th";
+  src: url("ProximaNova-Extrabld.eot");
+  src: local("Proxima Nova Extrabold"), local("ProximaNova-Extrabld"),
+    url("ProximaNova-Extrabld.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Extrabld.woff2") format("woff2"),
+    url("ProximaNova-Extrabld.woff") format("woff"),
+    url("ProximaNova-Extrabld.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Lt";
+  src: url("ProximaNova-SemiboldIt.eot");
+  src: local("Proxima Nova Semibold Italic"), local("ProximaNova-SemiboldIt"),
+    url("ProximaNova-SemiboldIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-SemiboldIt.woff2") format("woff2"),
+    url("ProximaNova-SemiboldIt.woff") format("woff"),
+    url("ProximaNova-SemiboldIt.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Th";
+  src: url("ProximaNovaT-Thin.eot");
+  src: local("Proxima Nova Thin"), local("ProximaNovaT-Thin"),
+    url("ProximaNovaT-Thin.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNovaT-Thin.woff2") format("woff2"),
+    url("ProximaNovaT-Thin.woff") format("woff"),
+    url("ProximaNovaT-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Lt";
+  src: url("ProximaNova-Light.eot");
+  src: local("Proxima Nova Light"), local("ProximaNova-Light"),
+    url("ProximaNova-Light.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Light.woff2") format("woff2"),
+    url("ProximaNova-Light.woff") format("woff"),
+    url("ProximaNova-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Bl";
+  src: url("ProximaNova-BlackIt.eot");
+  src: local("Proxima Nova Black Italic"), local("ProximaNova-BlackIt"),
+    url("ProximaNova-BlackIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-BlackIt.woff2") format("woff2"),
+    url("ProximaNova-BlackIt.woff") format("woff"),
+    url("ProximaNova-BlackIt.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Rg";
+  src: url("ProximaNova-BoldIt.eot");
+  src: local("Proxima Nova Bold Italic"), local("ProximaNova-BoldIt"),
+    url("ProximaNova-BoldIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-BoldIt.woff2") format("woff2"),
+    url("ProximaNova-BoldIt.woff") format("woff"),
+    url("ProximaNova-BoldIt.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Th";
+  src: url("ProximaNova-ThinIt.eot");
+  src: local("Proxima Nova Thin Italic"), local("ProximaNova-ThinIt"),
+    url("ProximaNova-ThinIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-ThinIt.woff2") format("woff2"),
+    url("ProximaNova-ThinIt.woff") format("woff"),
+    url("ProximaNova-ThinIt.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Rg";
+  src: url("ProximaNova-Bold.eot");
+  src: local("Proxima Nova Bold"), local("ProximaNova-Bold"),
+    url("ProximaNova-Bold.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Bold.woff2") format("woff2"),
+    url("ProximaNova-Bold.woff") format("woff"),
+    url("ProximaNova-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Rg";
+  src: url("ProximaNova-RegularIt.eot");
+  src: local("Proxima Nova Regular Italic"), local("ProximaNova-RegularIt"),
+    url("ProximaNova-RegularIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-RegularIt.woff2") format("woff2"),
+    url("ProximaNova-RegularIt.woff") format("woff"),
+    url("ProximaNova-RegularIt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Th";
+  src: url("ProximaNova-ExtrabldIt.eot");
+  src: local("Proxima Nova Extrabold Italic"), local("ProximaNova-ExtrabldIt"),
+    url("ProximaNova-ExtrabldIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-ExtrabldIt.woff2") format("woff2"),
+    url("ProximaNova-ExtrabldIt.woff") format("woff"),
+    url("ProximaNova-ExtrabldIt.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Rg";
+  src: url("ProximaNova-Regular.eot");
+  src: local("Proxima Nova Regular"), local("ProximaNova-Regular"),
+    url("ProximaNova-Regular.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Regular.woff2") format("woff2"),
+    url("ProximaNova-Regular.woff") format("woff"),
+    url("ProximaNova-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Proxima Nova Lt";
+  src: url("ProximaNova-LightIt.eot");
+  src: local("Proxima Nova Light Italic"), local("ProximaNova-LightIt"),
+    url("ProximaNova-LightIt.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-LightIt.woff2") format("woff2"),
+    url("ProximaNova-LightIt.woff") format("woff"),
+    url("ProximaNova-LightIt.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Proxima Nova Lt";
+  src: url("ProximaNova-Semibold.eot");
+  src: local("Proxima Nova Semibold"), local("ProximaNova-Semibold"),
+    url("ProximaNova-Semibold.eot?#iefix") format("embedded-opentype"),
+    url("ProximaNova-Semibold.woff2") format("woff2"),
+    url("ProximaNova-Semibold.woff") format("woff"),
+    url("ProximaNova-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Thin.eot");
+  src: local("Graphik Thin"), local("Graphik-Thin"),
+    url("Graphik-Thin.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Thin.woff2") format("woff2"),
+    url("Graphik-Thin.woff") format("woff"),
+    url("Graphik-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-ThinItalic.eot");
+  src: local("Graphik Thin Italic"), local("Graphik-ThinItalic"),
+    url("Graphik-ThinItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-ThinItalic.woff2") format("woff2"),
+    url("Graphik-ThinItalic.woff") format("woff"),
+    url("Graphik-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik Super";
+  src: url("Graphik-SuperItalic.eot");
+  src: local("Graphik Super Italic"), local("Graphik-SuperItalic"),
+    url("Graphik-SuperItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-SuperItalic.woff2") format("woff2"),
+    url("Graphik-SuperItalic.woff") format("woff"),
+    url("Graphik-SuperItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Medium.eot");
+  src: local("Graphik Medium"), local("Graphik-Medium"),
+    url("Graphik-Medium.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Medium.woff2") format("woff2"),
+    url("Graphik-Medium.woff") format("woff"),
+    url("Graphik-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Black.eot");
+  src: local("Graphik Black"), local("Graphik-Black"),
+    url("Graphik-Black.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Black.woff2") format("woff2"),
+    url("Graphik-Black.woff") format("woff"),
+    url("Graphik-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Semibold.eot");
+  src: local("Graphik Semibold"), local("Graphik-Semibold"),
+    url("Graphik-Semibold.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Semibold.woff2") format("woff2"),
+    url("Graphik-Semibold.woff") format("woff"),
+    url("Graphik-Semibold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik Super";
+  src: url("Graphik-Super.eot");
+  src: local("Graphik Super"), local("Graphik-Super"),
+    url("Graphik-Super.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Super.woff2") format("woff2"),
+    url("Graphik-Super.woff") format("woff"),
+    url("Graphik-Super.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-ExtralightItalic.eot");
+  src: local("Graphik Extralight Italic"), local("Graphik-ExtralightItalic"),
+    url("Graphik-ExtralightItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-ExtralightItalic.woff2") format("woff2"),
+    url("Graphik-ExtralightItalic.woff") format("woff"),
+    url("Graphik-ExtralightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-BlackItalic.eot");
+  src: local("Graphik Black Italic"), local("Graphik-BlackItalic"),
+    url("Graphik-BlackItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-BlackItalic.woff2") format("woff2"),
+    url("Graphik-BlackItalic.woff") format("woff"),
+    url("Graphik-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-RegularItalic.eot");
+  src: local("Graphik Regular Italic"), local("Graphik-RegularItalic"),
+    url("Graphik-RegularItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-RegularItalic.woff2") format("woff2"),
+    url("Graphik-RegularItalic.woff") format("woff"),
+    url("Graphik-RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Light.eot");
+  src: local("Graphik Light"), local("Graphik-Light"),
+    url("Graphik-Light.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Light.woff2") format("woff2"),
+    url("Graphik-Light.woff") format("woff"),
+    url("Graphik-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Bold.eot");
+  src: local("Graphik Bold"), local("Graphik-Bold"),
+    url("Graphik-Bold.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Bold.woff2") format("woff2"),
+    url("Graphik-Bold.woff") format("woff"),
+    url("Graphik-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Regular.eot");
+  src: local("Graphik Regular"), local("Graphik-Regular"),
+    url("Graphik-Regular.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Regular.woff2") format("woff2"),
+    url("Graphik-Regular.woff") format("woff"),
+    url("Graphik-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-BoldItalic.eot");
+  src: local("Graphik Bold Italic"), local("Graphik-BoldItalic"),
+    url("Graphik-BoldItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-BoldItalic.woff2") format("woff2"),
+    url("Graphik-BoldItalic.woff") format("woff"),
+    url("Graphik-BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-SemiboldItalic.eot");
+  src: local("Graphik Semibold Italic"), local("Graphik-SemiboldItalic"),
+    url("Graphik-SemiboldItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-SemiboldItalic.woff2") format("woff2"),
+    url("Graphik-SemiboldItalic.woff") format("woff"),
+    url("Graphik-SemiboldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-LightItalic.eot");
+  src: local("Graphik Light Italic"), local("Graphik-LightItalic"),
+    url("Graphik-LightItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-LightItalic.woff2") format("woff2"),
+    url("Graphik-LightItalic.woff") format("woff"),
+    url("Graphik-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-Extralight.eot");
+  src: local("Graphik Extralight"), local("Graphik-Extralight"),
+    url("Graphik-Extralight.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-Extralight.woff2") format("woff2"),
+    url("Graphik-Extralight.woff") format("woff"),
+    url("Graphik-Extralight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Graphik";
+  src: url("Graphik-MediumItalic.eot");
+  src: local("Graphik Medium Italic"), local("Graphik-MediumItalic"),
+    url("Graphik-MediumItalic.eot?#iefix") format("embedded-opentype"),
+    url("Graphik-MediumItalic.woff2") format("woff2"),
+    url("Graphik-MediumItalic.woff") format("woff"),
+    url("Graphik-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
