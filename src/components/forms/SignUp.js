@@ -167,6 +167,10 @@ const StyledSignUp = styled.div`
           margin-bottom: 27px;
           &-desktop {
             margin: auto;
+            iframe {
+              border: 1px solid #d6d6d6;
+              border-radius: 12px;
+            }
             @media only screen and (max-width: 400px) {
               display: none;
             }
