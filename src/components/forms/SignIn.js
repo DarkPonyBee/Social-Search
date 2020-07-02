@@ -132,14 +132,6 @@ const SignIn = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errorState = validate();
-    if (Object.keys(errorState).length > 0) {
-      return setError(errorState);
-    }
-  };
-
   const validate = () => {
     const errorState = {};
     // check validate
@@ -148,6 +140,15 @@ const SignIn = () => {
     if (form.password.length === 0)
       errorState.password = "Please enter a password";
     return errorState;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errorState = validate();
+    if (Object.keys(errorState).length > 0) {
+      return setError(errorState);
+    }
+    console.log("SignIn Success!");
   };
 
   return (

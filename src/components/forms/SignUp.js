@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
-import Recaptcha from "react-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import GMAILICON from "../../assets/images/gmail-icon.png";
 import ONEDRIVEICON from "../../assets/images/onedrive-icon.png";
@@ -162,7 +162,22 @@ const StyledSignUp = styled.div`
           }
         }
         .recaptcha-item {
+          display: flex;
+          flex-direction: column;
           margin-bottom: 27px;
+          &-desktop {
+            margin: auto;
+            @media only screen and (max-width: 400px) {
+              display: none;
+            }
+          }
+          &-mobile {
+            display: none;
+            margin: auto;
+            @media only screen and (max-width: 400px) {
+              display: block;
+            }
+          }
         }
         .submit-item {
           margin-bottom: 27px;
@@ -235,15 +250,15 @@ const StyledSignUp = styled.div`
 `;
 
 const SignUp = ({ handleSignIn }) => {
-  // const recaptchaLoaded = () => {
-  //   console.log("recaptcha loaded");
-  // };
+  const drecaptchaRef = createRef();
+  const mrecaptchaRef = createRef();
 
   const FORM_DATA_ITEMS = {
     email: "",
     password: "",
     confirmPassword: "",
     terms: false,
+    captcha: false,
   };
 
   const [error, setError] = React.useState({});
@@ -265,12 +280,8 @@ const SignUp = ({ handleSignIn }) => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const errorState = validate();
-    if (Object.keys(errorState).length > 0) {
-      return setError(errorState);
-    }
+  const handleCaptcha = (e) => {
+    setForm({ ...form, captcha: true });
   };
 
   const validate = () => {
@@ -286,7 +297,20 @@ const SignUp = ({ handleSignIn }) => {
     if (form.confirmPassword.length === 0)
       errorState.confirmPassword = "Password must be at least 6 Char long";
     if (!form.terms) errorState.terms = "You must read and confirm the T&A";
+    if (!form.captcha) errorState.captcha = "Are you Robot?";
     return errorState;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errorState = validate();
+    drecaptchaRef.current.reset();
+    mrecaptchaRef.current.reset();
+    setForm({ ...form, captcha: false });
+    if (Object.keys(errorState).length > 0) {
+      return setError(errorState);
+    }
+    console.log("SignUp Success!");
   };
 
   return (
@@ -427,13 +451,23 @@ const SignUp = ({ handleSignIn }) => {
                 <div className="check-item-error">{error.terms}</div>
               )}
             </div>
-            {/* <div className="recaptcha-item">
-              <Recaptcha
-              sitekey="6Ld8AKwZAAAAAF381dvDWlvfccFgrvcDNlXgx-Iu"
-              render="explicit"
-              onloadCallback={recaptchaLoaded}
-            />
-            </div> */}
+            <div className="recaptcha-item">
+              <div className="recaptcha-item-desktop">
+                <ReCAPTCHA
+                  ref={drecaptchaRef}
+                  onChange={handleCaptcha}
+                  sitekey="6LfEO6wZAAAAAC-lwR8vkparp3Nt_zkVnMIro3PP"
+                ></ReCAPTCHA>
+              </div>
+              <div className="recaptcha-item-mobile">
+                <ReCAPTCHA
+                  ref={mrecaptchaRef}
+                  onChange={handleCaptcha}
+                  sitekey="6LfEO6wZAAAAAC-lwR8vkparp3Nt_zkVnMIro3PP"
+                  size="compact"
+                ></ReCAPTCHA>
+              </div>
+            </div>
             <div className="submit-item">
               <input type="submit" value="Sign Up"></input>
             </div>

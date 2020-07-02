@@ -97,6 +97,11 @@ const AccountsContainer = styled.div`
       padding: 35px;
     }
   }
+  @media only screen and (max-width: 405px) {
+    .accounts-content {
+      padding: 35px 15px;
+    }
+  }
 `;
 
 const ConnnectedAccounts = () => {
