@@ -290,7 +290,6 @@ const SignUp = ({ handleSignIn }) => {
 
   const validate = () => {
     const errorState = {};
-    // check validate
     if (!isEmail(form.email))
       errorState.email = "Please enter a valid e-mail address";
     if (form.password.length < 6)
