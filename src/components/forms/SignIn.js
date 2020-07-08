@@ -154,7 +154,6 @@ const SignIn = () => {
       const user = await Auth.signIn(form.email, form.password);
       alert("SignIn Successgully!");
     } catch (error) {
-      console.log(error);
       alert("error signing in:" + error.message);
     }
   };
