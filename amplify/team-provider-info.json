@@ -10,11 +10,6 @@
             "StackName": "amplify-trevi1-dev-153600",
             "StackId": "arn:aws:cloudformation:us-east-1:209715472977:stack/amplify-trevi1-dev-153600/36ed8f30-c10f-11ea-9e60-12dc156c2e93",
             "AmplifyAppId": "d3mi2k8jh4gmh5"
-        },
-        "categories": {
-            "auth": {
-                "trevi165cbfd1165cbfd11": {}
-            }
         }
     }
 }

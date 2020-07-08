@@ -1,9 +1,3 @@
 {
-	"auth": {
-		"trevi165cbfd1165cbfd11": {
-			"service": "Cognito",
-			"providerPlugin": "awscloudformation",
-			"dependsOn": []
-		}
-	}
+	"auth": {}
 }
