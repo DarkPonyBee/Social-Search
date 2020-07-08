@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
+import { Auth } from "aws-amplify";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -142,13 +143,20 @@ const SignIn = () => {
     return errorState;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errorState = validate();
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
     }
-    console.log("SignIn Success!");
+
+    try {
+      const user = await Auth.signIn(form.email, form.password);
+      alert("SignIn Successgully!");
+    } catch (error) {
+      console.log(error);
+      alert("error signing in:" + error.message);
+    }
   };
 
   return (

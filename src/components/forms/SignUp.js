@@ -2,6 +2,7 @@ import React, { useState, createRef } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Auth } from "aws-amplify";
 
 import GMAILICON from "../../assets/images/gmail-icon.png";
 import ONEDRIVEICON from "../../assets/images/onedrive-icon.png";
@@ -304,7 +305,7 @@ const SignUp = ({ handleSignIn }) => {
     return errorState;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errorState = validate();
     drecaptchaRef.current.reset();
@@ -313,7 +314,18 @@ const SignUp = ({ handleSignIn }) => {
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
     }
-    console.log("SignUp Success!");
+    try {
+      const user = await Auth.signUp({
+        username: form.email,
+        password: form.password,
+      });
+
+      alert(
+        "SignUp Completed! Please confirm SignUp with your verification code!"
+      );
+    } catch (error) {
+      alert("error signing up:" + error.message);
+    }
   };
 
   return (
