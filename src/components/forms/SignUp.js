@@ -2,6 +2,8 @@ import React, { useState, createRef } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
+import BeatLoader from "react-spinners/BeatLoader";
+
 import { Auth } from "aws-amplify";
 
 import GMAILICON from "../../assets/images/gmail-icon.png";
@@ -184,27 +186,33 @@ const StyledSignUp = styled.div`
             }
           }
         }
+        .form-error {
+          text-align: center;
+          color: #f24040;
+          font-size: 11px;
+          padding: 3px 24px;
+        }
         .submit-item {
           margin-bottom: 27px;
-          input {
-            padding: 15px;
-            width: 100%;
-            border: none;
-            border-radius: 25px;
-            background: linear-gradient(225deg, #ea04d0 0%, #4f4fc4 100%);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-            color: #ffffff;
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 0;
-            line-height: 22px;
-            text-align: center;
-            outline: none;
-            &:hover {
-              cursor: pointer;
-              opacity: 0.8;
-            }
+          /* input { */
+          padding: 15px;
+          width: 100%;
+          border: none;
+          border-radius: 25px;
+          background: linear-gradient(225deg, #ea04d0 0%, #4f4fc4 100%);
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+          color: #ffffff;
+          font-size: 18px;
+          font-weight: bold;
+          letter-spacing: 0;
+          line-height: 22px;
+          text-align: center;
+          outline: none;
+          &:hover {
+            cursor: pointer;
+            opacity: 0.8;
           }
+          /* } */
         }
       }
       .login-item {
@@ -254,7 +262,7 @@ const StyledSignUp = styled.div`
   }
 `;
 
-const SignUp = ({ handleSignIn }) => {
+const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
   const drecaptchaRef = createRef();
   const mrecaptchaRef = createRef();
 
@@ -268,6 +276,7 @@ const SignUp = ({ handleSignIn }) => {
 
   const [error, setError] = React.useState({});
   const [form, setForm] = useState(FORM_DATA_ITEMS);
+  const [formerror, setFormError] = useState("");
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -283,6 +292,7 @@ const SignUp = ({ handleSignIn }) => {
       ...error,
       [e.target.name]: "",
     });
+    setFormError("");
   };
 
   const handleCaptcha = (e) => {
@@ -319,12 +329,9 @@ const SignUp = ({ handleSignIn }) => {
         username: form.email,
         password: form.password,
       });
-
-      alert(
-        "SignUp Completed! Please confirm SignUp with your verification code!"
-      );
+      handleOpenConfirm();
     } catch (error) {
-      alert("error signing up:" + error.message);
+      setFormError(error.message);
     }
   };
 
@@ -483,13 +490,14 @@ const SignUp = ({ handleSignIn }) => {
                 ></ReCAPTCHA>
               </div>
             </div>
-            <div className="submit-item">
-              <input type="submit" value="Sign Up"></input>
+            <div className="form-error">{formerror}</div>
+            <div className="submit-item" onClick={handleSubmit}>
+              Sign Up
             </div>
           </form>
           <div className="login-item">
             Already have an account?
-            <div className="login-item-button" onClick={handleSignIn}>
+            <div className="login-item-button" onClick={handleOpenSignIn}>
               Log in
             </div>
           </div>

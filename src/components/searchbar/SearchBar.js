@@ -31,7 +31,7 @@ const StyledSearchBar = styled.div`
     }
   }
   @media only screen and (max-width: 1240px) {
-    width: 90%;
+    width: 80%;
   }
   @media only screen and (max-width: 712px) {
     height: 50px;

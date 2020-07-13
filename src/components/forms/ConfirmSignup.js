@@ -134,10 +134,10 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
+const ConfirmSignup = ({ handleOpenSignIn }) => {
   const FORM_DATA_ITEMS = {
     email: "",
-    password: "",
+    code: "",
   };
 
   const [error, setError] = React.useState({});
@@ -161,8 +161,7 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
     // check validate
     if (!isEmail(form.email))
       errorState.email = "Please enter a valid e-mail address";
-    if (form.password.length === 0)
-      errorState.password = "Please enter a password";
+    if (form.code.length === 0) errorState.code = "Please enter a code";
     return errorState;
   };
 
@@ -174,8 +173,8 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
     }
 
     try {
-      const user = await Auth.signIn(form.email, form.password);
-      handleLoggedIn();
+      await Auth.confirmSignUp(form.email, form.code);
+      handleOpenSignIn();
     } catch (error) {
       setFormError(error.message);
     }
@@ -183,9 +182,11 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
 
   return (
     <StyledSignIn>
-      <div className="signin-title">Welcome Back!</div>
+      <div className="signin-title">
+        Please enter Confirm code that was emailed to you!
+      </div>
       <div className="signin-content">
-        <div className="signin-content-header">Sign In</div>
+        <div className="signin-content-header">Confirm</div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
             {form.email && <div className="input-item-header">Email</div>}
@@ -209,41 +210,39 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
             )}
           </div>
           <div className="input-item">
-            {form.password && <div className="input-item-header">Password</div>}
+            {form.code && <div className="input-item-header">Code</div>}
             <input
               className={
-                error.password
+                error.code
                   ? "input-item-error-border"
-                  : form.password
+                  : form.code
                   ? "input-item-active"
                   : ""
               }
-              name="password"
-              type="password"
-              placeholder="Password"
+              name="code"
+              type="text"
+              placeholder="Code"
               onChange={handleChange}
               onFocus={handleFocus}
-              vlaue={form.password}
+              vlaue={form.code}
             ></input>
-            {error.password && (
-              <div className="input-item-error">{error.password}</div>
-            )}
+            {error.code && <div className="input-item-error">{error.code}</div>}
           </div>
           <div className="form-error">{formerror}</div>
           <div className="submit-item">
-            <input type="submit" value="Sign In"></input>
+            <input type="submit" value="Confirm"></input>
           </div>
         </form>
-        <div className="forgot-item">Forgot your password?</div>
+        {/* <div className="forgot-item">Forgot your password?</div>
         <div className="signup-item">
           Don't have an account?
           <div className="signup-item-button" onClick={handleOpenSignUp}>
             Sign Up
           </div>
-        </div>
+        </div> */}
       </div>
     </StyledSignIn>
   );
 };
 
-export default SignIn;
+export default ConfirmSignup;
