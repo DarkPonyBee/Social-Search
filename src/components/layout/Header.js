@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { Auth } from "aws-amplify";
 
+import {
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import BUTTONIMG from "../../assets/images/button-img.svg";
 import USERIMG from "../../assets/images/user-avatar.png";
 import CONNECTIMG from "../../assets/images/connected-img.png";
@@ -53,7 +60,7 @@ const StyledHeader = styled.div`
     display: flex;
     width: 30px;
     height: 30px;
-    margin: auto 0px auto 25px;
+    margin: auto;
     img {
       margin: auto;
       border-radius: 50%;
@@ -68,7 +75,7 @@ const StyledHeader = styled.div`
     display: flex;
     width: 30px;
     height: 100%;
-    margin: auto 0px auto 25px;
+    margin: auto 25px auto 25px;
     img {
       margin: auto;
       width: 100%;
@@ -76,6 +83,21 @@ const StyledHeader = styled.div`
     &:hover {
       cursor: pointer;
       opacity: 0.8;
+    }
+  }
+  .dropdown {
+    display: flex;
+    > button {
+      margin: auto;
+      padding: 0px;
+      box-shadow: none;
+    }
+    &-menu {
+      box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
+        0 5px 20px 0 rgba(21, 27, 38, 0.08);
+    }
+    &-divider {
+      margin: 0px;
     }
   }
   @media only screen and (max-width: 712px) {
@@ -92,7 +114,16 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = () => {
+const Header = ({ handleSignOut }) => {
+  const handleLogOut = async () => {
+    try {
+      await Auth.signOut({ global: true });
+      handleSignOut();
+    } catch (error) {
+      console.log("errore signout");
+    }
+  };
+
   return (
     <StyledHeader>
       <div className="header-container">
@@ -104,9 +135,28 @@ const Header = () => {
         <div className="connect-accounts">
           <img src={CONNECTIMG} alt="CONNECTIMG"></img>
         </div>
-        <div className="user-avatar">
-          <img src={USERIMG} alt="UserAvatar"></img>
-        </div>
+        <UncontrolledDropdown>
+          <DropdownToggle color="">
+            <div className="user-avatar">
+              <img src={USERIMG} alt="UserAvatar"></img>
+            </div>
+          </DropdownToggle>
+          <DropdownMenu right>
+            <DropdownItem>Ran Rinat</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>User ID #4625556y6</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem>Email #4625556y6</DropdownItem>
+            <DropdownItem divider />
+            <DropdownItem
+              onClick={() => {
+                handleLogOut();
+              }}
+            >
+              Log out
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
       </div>
     </StyledHeader>
   );

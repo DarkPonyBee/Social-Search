@@ -2,16 +2,16 @@ import React, { useState, createRef } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
-import BeatLoader from "react-spinners/BeatLoader";
+// import BeatLoader from "react-spinners/BeatLoader";
 
 import { Auth } from "aws-amplify";
 
-import GMAILICON from "../../assets/images/gmail-icon.png";
-import ONEDRIVEICON from "../../assets/images/onedrive-icon.png";
-import DROPBOXICON from "../../assets/images/dropbox-icon.png";
-import SLACKICON from "../../assets/images/slack-icon.svg";
-import TRELLOICON from "../../assets/images/trello-icon.png";
-import GOOGLEDRIVEICON from "../../assets/images/googledrive-icon.png";
+import GMAILICON from "../../assets/images/gmail.png";
+import ONEDRIVEICON from "../../assets/images/onedrive.png";
+import DROPBOXICON from "../../assets/images/dropbox.png";
+import SLACKICON from "../../assets/images/slack.svg";
+import TRELLOICON from "../../assets/images/trello.png";
+import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
 
 const StyledSignUp = styled.div`
   width: 900px;

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import "react-responsive-modal/styles.css";
-import { Auth } from "aws-amplify";
+import { Modal } from "react-responsive-modal";
 
 import Header from "../components/layout/Header";
 import SearchBar from "../components/searchbar/SearchBar";
 import ConnectedAccounts from "../components/accounts/ConnectedAccounts";
+import AddAccounts from "../components/accounts/AddAccounts";
 
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
@@ -24,24 +24,31 @@ const StyledLogo = styled.div`
 `;
 
 const Mainpage = ({ handleSignOut }) => {
-  const handleLogout = async () => {
-    try {
-      await Auth.signOut({ global: true });
-      handleSignOut();
-    } catch (error) {
-      console.log("errore signout");
-    }
+  const [addAccount, setAddAccount] = useState(false);
+
+  const showAddAccount = () => {
+    setAddAccount(true);
   };
 
   return (
     <MainPageContainer>
-      <Header></Header>
-      <button onClick={() => handleLogout()}>Logout</button>
+      <Header handleSignOut={handleSignOut}></Header>
       <StyledLogo>
         <img src={LOGO} alt="Logo"></img>
       </StyledLogo>
       <SearchBar></SearchBar>
-      <ConnectedAccounts></ConnectedAccounts>
+      <ConnectedAccounts showAddAccount={showAddAccount}></ConnectedAccounts>
+
+      <Modal
+        open={addAccount}
+        // open={true}
+        onClose={() => setAddAccount(false)}
+        center
+        showCloseIcon={true}
+        classNames={{ modal: "addModal" }}
+      >
+        <AddAccounts></AddAccounts>
+      </Modal>
     </MainPageContainer>
   );
 };

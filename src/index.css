@@ -30,3 +30,9 @@ code {
   padding: 0px !important;
   max-width: 900px !important;
 }
+
+.addModal {
+  border-radius: 10px;
+  padding: 0px !important;
+  max-width: 1120px !important;
+}

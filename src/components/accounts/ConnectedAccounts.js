@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 import Icon from "../icon/Icon";
 
-import GMAILICON from "../../assets/images/gmail-icon.png";
-import FACEBOOKICON from "../../assets/images/facebook-icon.png";
-import DROPBOXICON from "../../assets/images/dropbox-icon.png";
-import SLACKICON from "../../assets/images/slack-icon.svg";
-import TRELLOICON from "../../assets/images/trello-icon.png";
-import GOOGLEDRIVEICON from "../../assets/images/googledrive-icon.png";
+import GMAILICON from "../../assets/images/gmail.png";
+import FACEBOOKICON from "../../assets/images/facebook.png";
+import DROPBOXICON from "../../assets/images/dropbox.png";
+import SLACKICON from "../../assets/images/slack.svg";
+import TRELLOICON from "../../assets/images/trello.png";
+import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
 import ADDICON from "../../assets/images/accouts-add-icon.svg";
 
 const accountsList = [
@@ -104,7 +104,7 @@ const AccountsContainer = styled.div`
   }
 `;
 
-const ConnnectedAccounts = () => {
+const ConnnectedAccounts = ({ showAddAccount }) => {
   return (
     <AccountsContainer>
       <div className="accounts-title">
@@ -122,7 +122,11 @@ const ConnnectedAccounts = () => {
         </div>
       </div>
       <div className="accounts-content-icon">
-        <img src={ADDICON} alt="Add Icon"></img>
+        <img
+          onClick={() => showAddAccount()}
+          src={ADDICON}
+          alt="Add Icon"
+        ></img>
       </div>
     </AccountsContainer>
   );

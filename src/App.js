@@ -65,7 +65,6 @@ function App() {
         <>
           <Modal
             open={showSignUp}
-            onClose={() => {}}
             center
             showCloseIcon={false}
             classNames={{ modal: "customModal" }}
@@ -78,7 +77,6 @@ function App() {
 
           <Modal
             open={showSignIn}
-            onClose={() => {}}
             center
             showCloseIcon={false}
             classNames={{ modal: "customModal" }}
@@ -91,7 +89,6 @@ function App() {
 
           <Modal
             open={showConfirm}
-            onClose={() => {}}
             center
             showCloseIcon={false}
             classNames={{ modal: "customModal" }}
