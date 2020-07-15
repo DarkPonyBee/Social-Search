@@ -28,6 +28,7 @@ const StyledContainer = styled.div`
     display: flex;
     width: 100%;
     img {
+      width: 90%;
       margin: auto;
     }
   }
@@ -63,7 +64,7 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Provider = ({ icon, uiname }) => {
+const Provider = ({ name, icon, uiname, handleAddAccount }) => {
   return (
     <StyledContainer>
       <div className="provider-container">
@@ -74,7 +75,14 @@ const Provider = ({ icon, uiname }) => {
           <p>{uiname}</p>
         </div>
       </div>
-      <div className="provider-addicon">+</div>
+      <div
+        onClick={() => {
+          handleAddAccount(name);
+        }}
+        className="provider-addicon"
+      >
+        +
+      </div>
     </StyledContainer>
   );
 };

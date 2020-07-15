@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import Iframe from "react-iframe";
+import { OauthPopup } from "react-oauth-popup";
 
 import Icon from "../icon/Icon";
 import Provider from "../provider/Provider";
@@ -18,6 +21,9 @@ import JIRAICON from "../../assets/images/jira.png";
 import TODOISTICON from "../../assets/images/todoist.png";
 import BOXICON from "../../assets/images/box.png";
 import OUTLOOKICON from "../../assets/images/outlook.png";
+
+import { availableAccounts } from "../../utils/constants";
+import { Auth } from "aws-amplify";
 
 const accountsList = [
   {
@@ -128,6 +134,7 @@ const AddAccountsContainer = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
+      overflow: auto;
       &-item {
         display: flex;
         padding: 25px;
@@ -147,6 +154,43 @@ const AddAccountsContainer = styled.div`
 `;
 
 const AddAccounts = () => {
+  const handleAddAccount = async (name) => {
+    let token = null;
+    await Auth.currentSession()
+      .then((data) => {
+        token = data.getIdToken().getJwtToken();
+      })
+      .catch((err) => {
+        console.log(err);
+        return;
+      });
+
+    axios
+      .get(
+        `https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/addAccount?source=${name}`,
+        {
+          headers: {
+            authorizer: token,
+          },
+        }
+      )
+      .then((response) => {
+        const url = response.data.oauth_url;
+        const width = 500;
+        const height = 600;
+        const top = window.innerHeight / 2 - height / 2;
+        const left = window.innerWidth / 2 - width / 2;
+        const params = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
+        // console.log(`toolbar=no, location=no, directories=no, status=no, menubar=no,
+        // scrollbars=no, resizable=no, copyhistory=no, width=${width},
+        // height=${height}, left=${left}, top=${top}`);
+        window.open(url, "", params);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <AddAccountsContainer>
       <p className="accounts-title">Connected Accounts</p>
@@ -160,10 +204,13 @@ const AddAccounts = () => {
           Select a provider to add an account
         </div>
         <div className="accounts-provider-content">
-          {providerList.map((item, index) => {
+          {availableAccounts.map((item, index) => {
             return (
               <div key={index} className="accounts-provider-content-item">
-                <Provider {...item}></Provider>
+                <Provider
+                  {...item}
+                  handleAddAccount={handleAddAccount}
+                ></Provider>
               </div>
             );
           })}

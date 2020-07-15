@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 
@@ -115,6 +115,22 @@ const StyledHeader = styled.div`
 `;
 
 const Header = ({ handleSignOut }) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser();
+        setName(userInfo.username);
+        setEmail(userInfo.attributes.email);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUserInfo();
+  }, []);
+
   const handleLogOut = async () => {
     try {
       await Auth.signOut({ global: true });
@@ -142,11 +158,11 @@ const Header = ({ handleSignOut }) => {
             </div>
           </DropdownToggle>
           <DropdownMenu right>
-            <DropdownItem>Ran Rinat</DropdownItem>
+            <DropdownItem>{name}</DropdownItem>
             <DropdownItem divider />
             <DropdownItem>User ID #4625556y6</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>Email #4625556y6</DropdownItem>
+            <DropdownItem>Email: {email}</DropdownItem>
             <DropdownItem divider />
             <DropdownItem
               onClick={() => {

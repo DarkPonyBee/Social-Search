@@ -174,8 +174,7 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
     }
 
     try {
-      const user = await Auth.signIn(form.email, form.password);
-      console.log(user);
+      await Auth.signIn(form.email, form.password);
       handleLoggedIn();
     } catch (error) {
       setFormError(error.message);

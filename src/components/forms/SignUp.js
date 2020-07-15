@@ -325,7 +325,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
       return setError(errorState);
     }
     try {
-      const user = await Auth.signUp({
+      await Auth.signUp({
         username: form.email,
         password: form.password,
       });

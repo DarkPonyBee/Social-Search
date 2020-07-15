@@ -14,15 +14,17 @@ function App() {
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
-    Auth.currentSession()
-      .then((data) => {
-        console.log(data);
-        setLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoggedIn(false);
-      });
+    const getCurrentSession = async () => {
+      await Auth.currentSession()
+        .then(() => {
+          setLoggedIn(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoggedIn(false);
+        });
+    };
+    getCurrentSession();
   }, []);
 
   const handleSignOut = () => {
