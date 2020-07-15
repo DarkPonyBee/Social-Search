@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "react-responsive-modal/styles.css";
 import "./index.css";
 import "./assets/fonts/fonts.css";
+import "react-notifications/lib/notifications.css";
 
 import Amplify from "aws-amplify";
 import awsconfig from "./aws-exports";

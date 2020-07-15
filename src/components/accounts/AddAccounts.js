@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import Iframe from "react-iframe";
-import { OauthPopup } from "react-oauth-popup";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 import Icon from "../icon/Icon";
 import Provider from "../provider/Provider";
@@ -154,6 +156,8 @@ const AddAccountsContainer = styled.div`
 `;
 
 const AddAccounts = () => {
+  const [addError, setAddError] = useState("");
+
   const handleAddAccount = async (name) => {
     let token = null;
     await Auth.currentSession()
@@ -188,6 +192,8 @@ const AddAccounts = () => {
       })
       .catch((err) => {
         console.log(err);
+        setAddError(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
       });
   };
 
@@ -216,6 +222,7 @@ const AddAccounts = () => {
           })}
         </div>
       </div>
+      <NotificationContainer />
     </AddAccountsContainer>
   );
 };
