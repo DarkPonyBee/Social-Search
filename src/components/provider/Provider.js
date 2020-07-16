@@ -16,6 +16,10 @@ const StyledContainer = styled.div`
   background-clip: padding-box, border-box;
   background-origin: padding-box, border-box;
   display: flex;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
   .provider-container {
     margin: auto;
     display: flex;
@@ -57,16 +61,16 @@ const StyledContainer = styled.div`
     width: 24px;
     border-radius: 12px;
     background: linear-gradient(180deg, #ea04d0 0%, #4f4fc4 100%);
-    &:hover {
-      cursor: pointer;
-      opacity: 0.8;
-    }
   }
 `;
 
 const Provider = ({ name, icon, uiname, handleAddAccount }) => {
   return (
-    <StyledContainer>
+    <StyledContainer
+      onClick={() => {
+        handleAddAccount(name);
+      }}
+    >
       <div className="provider-container">
         <div className="provider-icon">
           <img src={icon} alt={uiname}></img>
@@ -75,14 +79,7 @@ const Provider = ({ name, icon, uiname, handleAddAccount }) => {
           <p>{uiname}</p>
         </div>
       </div>
-      <div
-        onClick={() => {
-          handleAddAccount(name);
-        }}
-        className="provider-addicon"
-      >
-        +
-      </div>
+      <div className="provider-addicon">+</div>
     </StyledContainer>
   );
 };
