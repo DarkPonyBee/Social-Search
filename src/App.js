@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { Modal } from "react-responsive-modal";
+import { NotificationContainer } from "react-notifications";
 
 import Mainpage from "./pages/Mainpage";
 import SignUp from "./components/forms/SignUp";
@@ -21,7 +22,6 @@ function App() {
           handleLoggedIn();
         })
         .catch((err) => {
-          console.log(err);
           setLoggedIn(false);
         });
     };
@@ -99,6 +99,7 @@ function App() {
       >
         <ConfirmSignup handleOpenSignIn={handleOpenSignIn}></ConfirmSignup>
       </Modal>
+      <NotificationContainer />
     </>
   );
 }

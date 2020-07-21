@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
+import { NotificationManager } from "react-notifications";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -175,8 +176,9 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
     try {
       await Auth.confirmSignUp(form.email, form.code);
       handleOpenSignIn();
-    } catch (error) {
-      setFormError(error.message);
+    } catch (err) {
+      setFormError(err.message);
+      NotificationManager.error(err.message, "Error", 5000, () => {});
     }
   };
 

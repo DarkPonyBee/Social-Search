@@ -2,6 +2,7 @@ import React, { useState, createRef } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
+import { NotificationManager } from "react-notifications";
 // import BeatLoader from "react-spinners/BeatLoader";
 
 import { Auth } from "aws-amplify";
@@ -330,8 +331,9 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
         password: form.password,
       });
       handleOpenConfirm();
-    } catch (error) {
-      setFormError(error.message);
+    } catch (err) {
+      setFormError(err.message);
+      NotificationManager.error(err.message, "Error", 5000, () => {});
     }
   };
 

@@ -2,41 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import Icon from "../icon/Icon";
-
-import GMAILICON from "../../assets/images/gmail.png";
-import FACEBOOKICON from "../../assets/images/facebook.png";
-import DROPBOXICON from "../../assets/images/dropbox.png";
-import SLACKICON from "../../assets/images/slack.svg";
-import TRELLOICON from "../../assets/images/trello.png";
-import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
 import ADDICON from "../../assets/images/accouts-add-icon.svg";
-
-const accountsList = [
-  {
-    name: "Ranrinat@gmail.com",
-    img: GMAILICON,
-  },
-  {
-    name: "Ranrinat@gmail.com",
-    img: FACEBOOKICON,
-  },
-  {
-    name: "Ranrinat@gmail.com",
-    img: DROPBOXICON,
-  },
-  {
-    name: "Ranrinat@gmail.com",
-    img: SLACKICON,
-  },
-  {
-    name: "Ranrinat@gmail.com",
-    img: TRELLOICON,
-  },
-  {
-    name: "Ranrinat@gmail.com",
-    img: GOOGLEDRIVEICON,
-  },
-];
 
 const AccountsContainer = styled.div`
   position: relative;
@@ -104,7 +70,7 @@ const AccountsContainer = styled.div`
   }
 `;
 
-const ConnnectedAccounts = ({ showAddAccount }) => {
+const ConnnectedAccounts = ({ connectedAccounts, showAddAccount }) => {
   return (
     <AccountsContainer>
       <div className="accounts-title">
@@ -113,7 +79,7 @@ const ConnnectedAccounts = ({ showAddAccount }) => {
       <div className="accounts-title-border"></div>
       <div className="accounts-content">
         <div className="accounts-content-container">
-          {accountsList.map((item, index) => {
+          {connectedAccounts.map((item, index) => {
             return <Icon key={index} {...item}></Icon>;
           })}
         </div>

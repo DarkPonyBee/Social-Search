@@ -3,10 +3,7 @@ import styled from "styled-components";
 import { Modal } from "react-responsive-modal";
 import axios from "axios";
 import { Auth } from "aws-amplify";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 
 import Header from "../components/layout/Header";
 import SearchBar from "../components/searchbar/SearchBar";
@@ -33,6 +30,7 @@ const StyledLogo = styled.div`
 const Mainpage = ({ handleSignOut }) => {
   const [firstConnect, setFirstConnect] = useState(false);
   const [addAccount, setAddAccount] = useState(false);
+  const [connectedAccounts, setConnectedAccounts] = useState([]);
 
   useEffect(() => {
     const getConnectedAccounts = async () => {
@@ -42,7 +40,7 @@ const Mainpage = ({ handleSignOut }) => {
           token = data.getIdToken().getJwtToken();
         })
         .catch((err) => {
-          console.log(err);
+          NotificationManager.error(err.message, "Error", 5000, () => {});
           return;
         });
 
@@ -59,6 +57,7 @@ const Mainpage = ({ handleSignOut }) => {
         )
         .then((response) => {
           if (response.data.length === 0) setFirstConnect(true);
+          setConnectedAccounts(response.data);
         })
         .catch((err) => {
           console.log(err);
@@ -66,10 +65,12 @@ const Mainpage = ({ handleSignOut }) => {
         });
     };
     getConnectedAccounts();
-  });
+  }, []);
 
   const showAddAccount = () => {
-    setAddAccount(true);
+    connectedAccounts.length === 0
+      ? setFirstConnect(true)
+      : setAddAccount(false);
   };
 
   const handleAddAccount = async (name) => {
@@ -80,6 +81,7 @@ const Mainpage = ({ handleSignOut }) => {
       })
       .catch((err) => {
         console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
         return;
       });
 
@@ -111,12 +113,14 @@ const Mainpage = ({ handleSignOut }) => {
         <img src={LOGO} alt="Logo"></img>
       </StyledLogo>
       <SearchBar></SearchBar>
-      <ConnectedAccounts showAddAccount={showAddAccount}></ConnectedAccounts>
+      <ConnectedAccounts
+        connectedAccounts={connectedAccounts}
+        showAddAccount={showAddAccount}
+      ></ConnectedAccounts>
 
       <Modal
-        // open={firstConnect}
-        open={false}
-        onClose={() => {}}
+        open={firstConnect}
+        onClose={() => setFirstConnect(false)}
         center
         showCloseIcon={false}
         classNames={{ modal: "addModal" }}
@@ -133,9 +137,6 @@ const Mainpage = ({ handleSignOut }) => {
       >
         <AddAccounts handleAddAccount={handleAddAccount}></AddAccounts>
       </Modal>
-
-      <Modal></Modal>
-      <NotificationContainer />
     </MainPageContainer>
   );
 };
