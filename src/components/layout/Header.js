@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
+import { NotificationManager } from "react-notifications";
 
 import {
   UncontrolledDropdown,
@@ -126,6 +127,7 @@ const Header = ({ handleSignOut }) => {
         setEmail(userInfo.attributes.email);
       } catch (err) {
         console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
       }
     };
     getUserInfo();
@@ -135,8 +137,9 @@ const Header = ({ handleSignOut }) => {
     try {
       await Auth.signOut({ global: true });
       handleSignOut();
-    } catch (error) {
-      console.log("errore signout");
+    } catch (err) {
+      console.log(err);
+      NotificationManager.error(err.message, "Error", 5000, () => {});
     }
   };
 
