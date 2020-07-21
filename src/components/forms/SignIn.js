@@ -134,7 +134,7 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
+const SignIn = ({ handleLoggedIn, handleOpenSignUp, handleOpenConfirm }) => {
   const FORM_DATA_ITEMS = {
     email: "",
     password: "",
@@ -236,10 +236,16 @@ const SignIn = ({ handleLoggedIn, handleOpenSignUp }) => {
         </form>
         <div className="forgot-item">Forgot your password?</div>
         <div className="signup-item">
-          Don't have an account?
-          <div className="signup-item-button" onClick={handleOpenSignUp}>
-            Sign Up
-          </div>
+          {formerror ? "Do you want to confirm?" : "Don't have an account?"}
+          {formerror ? (
+            <div className="signup-item-button" onClick={handleOpenConfirm}>
+              Confirm Code
+            </div>
+          ) : (
+            <div className="signup-item-button" onClick={handleOpenSignUp}>
+              Sign Up
+            </div>
+          )}
         </div>
       </div>
     </StyledSignIn>

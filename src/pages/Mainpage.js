@@ -84,15 +84,11 @@ const Mainpage = ({ handleSignOut }) => {
       });
 
     await axios
-      .get(
-        // `https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/addAccount?source=${name}`,
-        `https://devapi.trevi.io/addAccount?source=${name}`,
-        {
-          headers: {
-            authorizer: token,
-          },
-        }
-      )
+      .get(`https://devapi.trevi.io/addAccount?source=${name}`, {
+        headers: {
+          authorizer: token,
+        },
+      })
       .then((response) => {
         const url = response.data.oauth_url;
         const width = 500;
@@ -118,7 +114,8 @@ const Mainpage = ({ handleSignOut }) => {
       <ConnectedAccounts showAddAccount={showAddAccount}></ConnectedAccounts>
 
       <Modal
-        open={firstConnect}
+        // open={firstConnect}
+        open={false}
         onClose={() => {}}
         center
         showCloseIcon={false}

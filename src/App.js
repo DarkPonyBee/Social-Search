@@ -18,6 +18,7 @@ function App() {
       await Auth.currentSession()
         .then(() => {
           setLoggedIn(true);
+          handleLoggedIn();
         })
         .catch((err) => {
           console.log(err);
@@ -61,44 +62,43 @@ function App() {
 
   return (
     <>
-      {loggedin ? (
-        <Mainpage handleSignOut={handleSignOut}></Mainpage>
-      ) : (
-        <>
-          <Modal
-            open={showSignUp}
-            center
-            showCloseIcon={false}
-            classNames={{ modal: "customModal" }}
-          >
-            <SignUp
-              handleOpenConfirm={handleOpenConfirm}
-              handleOpenSignIn={handleOpenSignIn}
-            ></SignUp>
-          </Modal>
+      {loggedin && <Mainpage handleSignOut={handleSignOut}></Mainpage>}
+      <Modal
+        open={showSignUp}
+        onClose={() => {}}
+        center
+        showCloseIcon={false}
+        classNames={{ modal: "customModal" }}
+      >
+        <SignUp
+          handleOpenConfirm={handleOpenConfirm}
+          handleOpenSignIn={handleOpenSignIn}
+        ></SignUp>
+      </Modal>
 
-          <Modal
-            open={showSignIn}
-            center
-            showCloseIcon={false}
-            classNames={{ modal: "customModal" }}
-          >
-            <SignIn
-              handleLoggedIn={handleLoggedIn}
-              handleOpenSignUp={handleOpenSignUp}
-            ></SignIn>
-          </Modal>
+      <Modal
+        open={showSignIn}
+        onClose={() => {}}
+        center
+        showCloseIcon={false}
+        classNames={{ modal: "customModal" }}
+      >
+        <SignIn
+          handleLoggedIn={handleLoggedIn}
+          handleOpenSignUp={handleOpenSignUp}
+          handleOpenConfirm={handleOpenConfirm}
+        ></SignIn>
+      </Modal>
 
-          <Modal
-            open={showConfirm}
-            center
-            showCloseIcon={false}
-            classNames={{ modal: "customModal" }}
-          >
-            <ConfirmSignup handleOpenSignIn={handleOpenSignIn}></ConfirmSignup>
-          </Modal>
-        </>
-      )}
+      <Modal
+        open={showConfirm}
+        onClose={() => {}}
+        center
+        showCloseIcon={false}
+        classNames={{ modal: "customModal" }}
+      >
+        <ConfirmSignup handleOpenSignIn={handleOpenSignIn}></ConfirmSignup>
+      </Modal>
     </>
   );
 }
