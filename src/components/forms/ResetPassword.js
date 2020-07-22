@@ -4,7 +4,7 @@ import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
-const StyledSignIn = styled.div`
+const StyledReset = styled.div`
   width: 500px;
   .signin-title {
     color: #2d2e2c;
@@ -24,6 +24,15 @@ const StyledSignIn = styled.div`
       line-height: 24px;
       margin-bottom: 27px;
       text-align: center;
+    }
+    &-description {
+      color: #2d2e2c;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 0px 5%;
     }
     form {
       .input-item {
@@ -135,10 +144,9 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const ConfirmSignup = ({ handleOpenSignIn }) => {
+const ResetPassword = ({ handleOpenSignIn }) => {
   const FORM_DATA_ITEMS = {
     email: "",
-    code: "",
   };
 
   const [error, setError] = React.useState({});
@@ -162,7 +170,6 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
     // check validate
     if (!isEmail(form.email))
       errorState.email = "Please enter a valid e-mail address";
-    if (form.code.length === 0) errorState.code = "Please enter a code";
     return errorState;
   };
 
@@ -173,22 +180,23 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
       return setError(errorState);
     }
 
-    try {
-      await Auth.confirmSignUp(form.email, form.code);
-      handleOpenSignIn();
-    } catch (err) {
-      setFormError(err.message);
-      NotificationManager.error(err.message, "Error", 5000, () => {});
-    }
+    // try {
+    //   await Auth.signIn(form.email, form.password);
+    // } catch (err) {
+    //   setFormError(err.message);
+    //   NotificationManager.error(err.message, "Error", 5000, () => {});
+    // }
   };
 
   return (
-    <StyledSignIn>
-      <div className="signin-title">
-        Please enter Confirm code that was emailed to you!
-      </div>
+    <StyledReset>
+      <div className="signin-title">Welcome Back!</div>
       <div className="signin-content">
-        <div className="signin-content-header">Confirm</div>
+        <div className="signin-content-header">Reset Password</div>
+        <div className="signin-content-description">
+          Please enter your registered Trevi Email to recieve reset password
+          instructions
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
             {form.email && <div className="input-item-header">Email</div>}
@@ -211,33 +219,20 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
               <div className="input-item-error">{error.email}</div>
             )}
           </div>
-          <div className="input-item">
-            {form.code && <div className="input-item-header">Code</div>}
-            <input
-              className={
-                error.code
-                  ? "input-item-error-border"
-                  : form.code
-                  ? "input-item-active"
-                  : ""
-              }
-              name="code"
-              type="text"
-              placeholder="Code"
-              onChange={handleChange}
-              onFocus={handleFocus}
-              vlaue={form.code}
-            ></input>
-            {error.code && <div className="input-item-error">{error.code}</div>}
-          </div>
           <div className="form-error">{formerror}</div>
           <div className="submit-item">
-            <input type="submit" value="Confirm"></input>
+            <input type="submit" value="Reset Password"></input>
           </div>
         </form>
+        <div className="signup-item">
+          Back to
+          <div className="signup-item-button" onClick={handleOpenSignIn}>
+            Sign in
+          </div>
+        </div>
       </div>
-    </StyledSignIn>
+    </StyledReset>
   );
 };
 
-export default ConfirmSignup;
+export default ResetPassword;

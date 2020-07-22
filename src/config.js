@@ -17,7 +17,7 @@ export const availableAccounts = [
   { name: "facebook", icon: FACEBOOKICON, uiname: "Facebook" },
   { name: "slack", icon: SLACKICON, uiname: "Slack" },
   { name: "trello", icon: TRELLOICON, uiname: "Trello" },
-  { name: "googledrive", icon: GOOGLEDRIVEICON, uiname: "Google Drive" },
+  { name: "gdrive", icon: GOOGLEDRIVEICON, uiname: "Google Drive" },
   {
     name: "dropbox",
     icon: DROPBOXICON,

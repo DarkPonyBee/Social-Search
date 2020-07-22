@@ -6,12 +6,14 @@ import { NotificationContainer } from "react-notifications";
 import Mainpage from "./pages/Mainpage";
 import SignUp from "./components/forms/SignUp";
 import SignIn from "./components/forms/SignIn";
+import ResetPassword from "./components/forms/ResetPassword";
 import ConfirmSignup from "./components/forms/ConfirmSignup";
 
 function App() {
   const [loggedin, setLoggedIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(true);
   const [showSignIn, setShowSignIn] = useState(false);
+  const [showReset, setShowReset] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
@@ -33,12 +35,14 @@ function App() {
     setShowSignIn(false);
     setShowSignUp(true);
     setShowConfirm(false);
+    setShowReset(false);
   };
 
   const handleLoggedIn = () => {
     setShowSignIn(false);
     setShowSignUp(false);
     setShowConfirm(false);
+    setShowReset(false);
     setLoggedIn(true);
   };
 
@@ -46,18 +50,28 @@ function App() {
     setShowSignIn(true);
     setShowSignUp(false);
     setShowConfirm(false);
+    setShowReset(false);
   };
 
   const handleOpenSignUp = () => {
     setShowSignIn(false);
     setShowSignUp(true);
     setShowConfirm(false);
+    setShowReset(false);
   };
 
   const handleOpenConfirm = () => {
     setShowSignIn(false);
     setShowSignUp(false);
     setShowConfirm(true);
+    setShowReset(false);
+  };
+
+  const handleOpenReset = () => {
+    setShowSignIn(false);
+    setShowSignUp(false);
+    setShowConfirm(false);
+    setShowReset(true);
   };
 
   return (
@@ -86,8 +100,19 @@ function App() {
         <SignIn
           handleLoggedIn={handleLoggedIn}
           handleOpenSignUp={handleOpenSignUp}
+          handleOpenReset={handleOpenReset}
           handleOpenConfirm={handleOpenConfirm}
         ></SignIn>
+      </Modal>
+
+      <Modal
+        open={showReset}
+        onClose={() => {}}
+        center
+        showCloseIcon={false}
+        classNames={{ modal: "customModal" }}
+      >
+        <ResetPassword handleOpenSignIn={handleOpenSignIn}></ResetPassword>
       </Modal>
 
       <Modal

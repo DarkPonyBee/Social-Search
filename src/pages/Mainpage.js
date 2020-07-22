@@ -48,7 +48,8 @@ const Mainpage = ({ handleSignOut }) => {
 
       await axios
         .get(
-          "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/accounts",
+          "https://devapi.trevi.io/accounts",
+          // "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/accounts",
           {
             headers: {
               authorizer: token,
@@ -57,6 +58,7 @@ const Mainpage = ({ handleSignOut }) => {
         )
         .then((response) => {
           if (response.data.length === 0) setFirstConnect(true);
+          console.log(response.data);
           setConnectedAccounts(response.data);
         })
         .catch((err) => {
@@ -70,7 +72,7 @@ const Mainpage = ({ handleSignOut }) => {
   const showAddAccount = () => {
     connectedAccounts.length === 0
       ? setFirstConnect(true)
-      : setAddAccount(false);
+      : setAddAccount(true);
   };
 
   const handleAddAccount = async (name) => {
@@ -86,11 +88,15 @@ const Mainpage = ({ handleSignOut }) => {
       });
 
     await axios
-      .get(`https://devapi.trevi.io/addAccount?source=${name}`, {
-        headers: {
-          authorizer: token,
-        },
-      })
+      .get(
+        `https://devapi.trevi.io/addAccount?source=${name}`,
+        // `https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/addAccount?source=${name}`,
+        {
+          headers: {
+            authorizer: token,
+          },
+        }
+      )
       .then((response) => {
         const url = response.data.oauth_url;
         const width = 500;
