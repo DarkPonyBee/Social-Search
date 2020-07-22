@@ -49,6 +49,7 @@ const AccountsContainer = styled.div`
       left: 50%;
       bottom: 0;
       transform: translate(-50%, 50%);
+      transition: all ease-out 0.3s;
       &:hover {
         cursor: pointer;
         opacity: 0.8;

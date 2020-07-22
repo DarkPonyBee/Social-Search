@@ -209,11 +209,11 @@ const StyledSignUp = styled.div`
           line-height: 22px;
           text-align: center;
           outline: none;
+          transition: all ease-out 0.3s;
           &:hover {
             cursor: pointer;
             opacity: 0.8;
           }
-          /* } */
         }
       }
       .login-item {

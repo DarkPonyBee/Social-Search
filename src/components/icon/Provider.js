@@ -19,9 +19,13 @@ const StyledContainer = styled.div`
     background-clip: padding-box, border-box;
     background-origin: padding-box, border-box;
     display: flex;
+    transition: all ease-out 0.3s;
     &:hover {
       cursor: pointer;
       opacity: 0.8;
+      -webkit-box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.29);
+      -moz-box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.29);
+      box-shadow: 0px 0px 15px 8px rgba(0, 0, 0, 0.29);
     }
   }
   .provider-container {
