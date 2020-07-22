@@ -5,8 +5,6 @@ import Icon from "../icon/Icon";
 import Provider from "../icon/Provider";
 import { availableAccounts } from "../../config";
 
-const accountsList = [];
-
 const AddAccountsContainer = styled.div`
   .accounts-title {
     color: #2d2e2c;
@@ -57,12 +55,12 @@ const AddAccountsContainer = styled.div`
   }
 `;
 
-const AddAccounts = ({ handleAddAccount }) => {
+const AddAccounts = ({ handleAddAccount, connectedAccounts }) => {
   return (
     <AddAccountsContainer>
       <p className="accounts-title">Connected Accounts</p>
       <div className="accounts-connected">
-        {accountsList.map((item, index) => {
+        {connectedAccounts.map((item, index) => {
           return <Icon key={index} {...item}></Icon>;
         })}
       </div>

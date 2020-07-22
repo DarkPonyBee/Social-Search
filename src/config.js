@@ -59,3 +59,19 @@ export const availableAccounts = [
     uiname: "Microsoft OneDrive",
   },
 ];
+
+export const availableIcons = {
+  gmail: GMAILICON,
+  facebook: FACEBOOKICON,
+  slack: SLACKICON,
+  trello: TRELLOICON,
+  gdrive: GOOGLEDRIVEICON,
+  dropbox: DROPBOXICON,
+  outlook: OUTLOOKICON,
+  box: BOXICON,
+  todoist: TODOISTICON,
+  jira: JIRAICON,
+  asana: ASANAICON,
+  github: GITHUBICON,
+  onedrive: ONEDRIVEICON,
+};

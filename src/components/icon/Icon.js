@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { availableIcons } from "../../config";
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,11 +42,11 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Icon = ({ name, img }) => {
+const Icon = ({ name, source }) => {
   return (
     <StyledContainer>
       <div className="icon-container">
-        <img src={img} alt={name}></img>
+        <img src={availableIcons[source]} alt={name}></img>
       </div>
       <div className="icon-name">
         <p>{name}</p>

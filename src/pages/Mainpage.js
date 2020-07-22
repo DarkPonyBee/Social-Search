@@ -141,7 +141,10 @@ const Mainpage = ({ handleSignOut }) => {
         showCloseIcon={true}
         classNames={{ modal: "addModal" }}
       >
-        <AddAccounts handleAddAccount={handleAddAccount}></AddAccounts>
+        <AddAccounts
+          handleAddAccount={handleAddAccount}
+          connectedAccounts={connectedAccounts}
+        ></AddAccounts>
       </Modal>
     </MainPageContainer>
   );
