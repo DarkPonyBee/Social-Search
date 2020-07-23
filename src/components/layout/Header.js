@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
@@ -12,6 +12,7 @@ import {
 import BUTTONIMG from "../../assets/images/button-img.svg";
 import USERIMG from "../../assets/images/user-avatar.png";
 import CONNECTIMG from "../../assets/images/connected-img.png";
+import { TreviContext } from "../../utils/context";
 
 const StyledHeader = styled.div`
   background: white;
@@ -118,6 +119,7 @@ const StyledHeader = styled.div`
 const Header = ({ handleSignOut }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const { setLoading } = useContext(TreviContext);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -134,6 +136,7 @@ const Header = ({ handleSignOut }) => {
   }, []);
 
   const handleLogOut = async () => {
+    setLoading(true);
     try {
       await Auth.signOut({ global: true });
       handleSignOut();
@@ -141,6 +144,7 @@ const Header = ({ handleSignOut }) => {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
+    setLoading(false);
   };
 
   return (

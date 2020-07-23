@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Modal } from "react-responsive-modal";
 import axios from "axios";
@@ -10,9 +10,9 @@ import SearchBar from "../components/searchbar/SearchBar";
 import ConnectedAccounts from "../components/accounts/ConnectedAccounts";
 import AddAccounts from "../components/accounts/AddAccounts";
 import FirstConnect from "../components/accounts/FirstConnect";
-
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
+import { TreviContext } from "../utils/context";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
@@ -27,10 +27,14 @@ const StyledLogo = styled.div`
   }
 `;
 
+let oauthPopup = null;
+let previousUrl = null;
+
 const Mainpage = ({ handleSignOut }) => {
   const [firstConnect, setFirstConnect] = useState(false);
   const [addAccount, setAddAccount] = useState(false);
   const [connectedAccounts, setConnectedAccounts] = useState([]);
+  const { setLoading } = useContext(TreviContext);
 
   useEffect(() => {
     const getConnectedAccounts = async () => {
@@ -45,7 +49,7 @@ const Mainpage = ({ handleSignOut }) => {
         });
 
       if (!token) return;
-
+      setLoading(true);
       await axios
         .get(
           "https://devapi.trevi.io/accounts",
@@ -65,14 +69,13 @@ const Mainpage = ({ handleSignOut }) => {
           console.log(err);
           NotificationManager.error(err.message, "Error", 5000, () => {});
         });
+      setLoading(false);
     };
     getConnectedAccounts();
-  }, []);
+  }, [setLoading]);
 
   const showAddAccount = () => {
-    connectedAccounts.length === 0
-      ? setFirstConnect(true)
-      : setAddAccount(true);
+    setAddAccount(true);
   };
 
   const handleAddAccount = async (name) => {
@@ -87,6 +90,7 @@ const Mainpage = ({ handleSignOut }) => {
         return;
       });
 
+    setLoading(true);
     await axios
       .get(
         `https://devapi.trevi.io/addAccount?source=${name}`,
@@ -104,12 +108,21 @@ const Mainpage = ({ handleSignOut }) => {
         const top = window.innerHeight / 2 - height / 2;
         const left = window.innerWidth / 2 - width / 2;
         const params = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
-        window.open(url, "", params);
+        if (oauthPopup === null || oauthPopup.closed) {
+          oauthPopup = window.open(url, name, params);
+        } else if (previousUrl !== url) {
+          oauthPopup = window.open(url, name, params);
+          oauthPopup.focus();
+        } else {
+          oauthPopup.focus();
+        }
+        previousUrl = url;
       })
       .catch((err) => {
         console.log(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
       });
+    setLoading(false);
   };
 
   return (

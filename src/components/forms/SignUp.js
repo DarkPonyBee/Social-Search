@@ -1,10 +1,8 @@
-import React, { useState, createRef } from "react";
+import React, { useState, createRef, useContext } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
 import { NotificationManager } from "react-notifications";
-// import BeatLoader from "react-spinners/BeatLoader";
-
 import { Auth } from "aws-amplify";
 
 import GMAILICON from "../../assets/images/gmail.png";
@@ -13,6 +11,7 @@ import DROPBOXICON from "../../assets/images/dropbox.png";
 import SLACKICON from "../../assets/images/slack.svg";
 import TRELLOICON from "../../assets/images/trello.png";
 import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
+import { TreviContext } from "../../utils/context";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -278,6 +277,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
   const [error, setError] = React.useState({});
   const [form, setForm] = useState(FORM_DATA_ITEMS);
   const [formerror, setFormError] = useState("");
+  const { setLoading } = useContext(TreviContext);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -325,6 +325,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
     }
+    setLoading(true);
     try {
       await Auth.signUp({
         username: form.email,
@@ -335,6 +336,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
+    setLoading(false);
   };
 
   return (

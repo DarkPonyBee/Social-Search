@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
+
+import { TreviContext } from "../../utils/context";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -150,6 +152,7 @@ const SignIn = ({
   const [error, setError] = React.useState({});
   const [form, setForm] = useState(FORM_DATA_ITEMS);
   const [formerror, setFormError] = useState("");
+  const { setLoading } = useContext(TreviContext);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -180,6 +183,7 @@ const SignIn = ({
       return setError(errorState);
     }
 
+    setLoading(true);
     try {
       await Auth.signIn(form.email, form.password);
       handleLoggedIn();
@@ -187,6 +191,7 @@ const SignIn = ({
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
+    setLoading(false);
   };
 
   return (

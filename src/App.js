@@ -2,14 +2,25 @@ import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 import { Modal } from "react-responsive-modal";
 import { NotificationContainer } from "react-notifications";
+import styled from "styled-components";
+import LoadingOverlay from "react-loading-overlay";
 
 import Mainpage from "./pages/Mainpage";
 import SignUp from "./components/forms/SignUp";
 import SignIn from "./components/forms/SignIn";
 import ResetPassword from "./components/forms/ResetPassword";
 import ConfirmSignup from "./components/forms/ConfirmSignup";
+import { TreviContext } from "./utils/context";
+
+const StyledLoader = styled(LoadingOverlay)`
+  position: absolute;
+  z-index: 1001;
+  height: 100vh;
+  width: 100vw;
+`;
 
 function App() {
+  const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(true);
   const [showSignIn, setShowSignIn] = useState(false);
@@ -75,8 +86,10 @@ function App() {
   };
 
   return (
-    <>
+    <TreviContext.Provider value={{ loading, setLoading }}>
+      {loading && <StyledLoader active={true} spinner></StyledLoader>}
       {loggedin && <Mainpage handleSignOut={handleSignOut}></Mainpage>}
+
       <Modal
         open={showSignUp}
         onClose={() => {}}
@@ -89,7 +102,6 @@ function App() {
           handleOpenSignIn={handleOpenSignIn}
         ></SignUp>
       </Modal>
-
       <Modal
         open={showSignIn}
         onClose={() => {}}
@@ -125,7 +137,7 @@ function App() {
         <ConfirmSignup handleOpenSignIn={handleOpenSignIn}></ConfirmSignup>
       </Modal>
       <NotificationContainer />
-    </>
+    </TreviContext.Provider>
   );
 }
 
