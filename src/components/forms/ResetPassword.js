@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
+
+import { TreviContext } from "../../utils/context";
 
 const StyledReset = styled.div`
   width: 500px;
@@ -148,11 +150,15 @@ const StyledReset = styled.div`
 const ResetPassword = ({ handleOpenSignIn }) => {
   const FORM_DATA_ITEMS = {
     email: "",
+    code: "",
+    password: "",
   };
 
   const [error, setError] = React.useState({});
   const [form, setForm] = useState(FORM_DATA_ITEMS);
   const [formerror, setFormError] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const { setLoading } = useContext(TreviContext);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -171,6 +177,11 @@ const ResetPassword = ({ handleOpenSignIn }) => {
     // check validate
     if (!isEmail(form.email))
       errorState.email = "Please enter a valid e-mail address";
+    if (emailSent) {
+      if (form.code.length === 0) errorState.code = "Please enter a code";
+      if (form.password.length < 6)
+        errorState.password = "Password must be at least 6 Char long";
+    }
     return errorState;
   };
 
@@ -181,12 +192,26 @@ const ResetPassword = ({ handleOpenSignIn }) => {
       return setError(errorState);
     }
 
-    // try {
-    //   await Auth.signIn(form.email, form.password);
-    // } catch (err) {
-    //   setFormError(err.message);
-    //   NotificationManager.error(err.message, "Error", 5000, () => {});
-    // }
+    setLoading(true);
+    if (emailSent) {
+      try {
+        await Auth.forgotPasswordSubmit(form.email, form.code, form.password);
+        setEmailSent(false);
+        handleOpenSignIn();
+      } catch (err) {
+        setFormError(err.message);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+      }
+    } else {
+      try {
+        // await Auth.forgotPassword(form.email);
+        setEmailSent(true);
+      } catch (err) {
+        setFormError(err.message);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+      }
+    }
+    setLoading(false);
   };
 
   return (
@@ -195,8 +220,15 @@ const ResetPassword = ({ handleOpenSignIn }) => {
       <div className="signin-content">
         <div className="signin-content-header">Reset Password</div>
         <div className="signin-content-description">
-          Please enter your registered Trevi Email to recieve reset password
-          instructions
+          {emailSent ? (
+            <>
+              <strong>Email Sent!</strong>
+              <br />
+              Check your inbox for verification code
+            </>
+          ) : (
+            "Please enter your registered Trevi Email to recieve reset password instructions"
+          )}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
@@ -220,6 +252,54 @@ const ResetPassword = ({ handleOpenSignIn }) => {
               <div className="input-item-error">{error.email}</div>
             )}
           </div>
+          {emailSent && (
+            <>
+              <div className="input-item">
+                {form.code && <div className="input-item-header">Code</div>}
+                <input
+                  className={
+                    error.code
+                      ? "input-item-error-border"
+                      : form.code
+                      ? "input-item-active"
+                      : ""
+                  }
+                  name="code"
+                  type="text"
+                  placeholder="Code"
+                  onChange={handleChange}
+                  onFocus={handleFocus}
+                  vlaue={form.code}
+                ></input>
+                {error.code && (
+                  <div className="input-item-error">{error.code}</div>
+                )}
+              </div>
+              <div className="input-item">
+                {form.password && (
+                  <div className="input-item-header">Password</div>
+                )}
+                <input
+                  className={
+                    error.password
+                      ? "input-item-error-border"
+                      : form.password
+                      ? "input-item-active"
+                      : ""
+                  }
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onFocus={handleFocus}
+                  vlaue={form.password}
+                ></input>
+                {error.password && (
+                  <div className="input-item-error">{error.password}</div>
+                )}
+              </div>
+            </>
+          )}
           <div className="form-error">{formerror}</div>
           <div className="submit-item">
             <input type="submit" value="Reset Password"></input>

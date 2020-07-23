@@ -36,6 +36,19 @@ const Mainpage = ({ handleSignOut }) => {
   const [connectedAccounts, setConnectedAccounts] = useState([]);
   const { setLoading } = useContext(TreviContext);
 
+  const storageListener = () => {
+    try {
+      if (localStorage.getItem("code")) {
+        alert(localStorage.getItem("code"));
+        window.localStorage.removeItem("code"); //remove code from localStorage
+        oauthPopup.close();
+        window.removeEventListener("storage", storageListener);
+      }
+    } catch (e) {
+      window.removeEventListener("storage", storageListener);
+    }
+  };
+
   useEffect(() => {
     const getConnectedAccounts = async () => {
       let token = null;
@@ -103,6 +116,7 @@ const Mainpage = ({ handleSignOut }) => {
       )
       .then((response) => {
         const url = response.data.oauth_url;
+        console.log(url);
         const width = 500;
         const height = 600;
         const top = window.innerHeight / 2 - height / 2;
@@ -117,6 +131,7 @@ const Mainpage = ({ handleSignOut }) => {
           oauthPopup.focus();
         }
         previousUrl = url;
+        window.addEventListener("storage", storageListener);
       })
       .catch((err) => {
         console.log(err);
