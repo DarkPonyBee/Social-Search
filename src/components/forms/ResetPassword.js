@@ -204,7 +204,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
       }
     } else {
       try {
-        // await Auth.forgotPassword(form.email);
+        await Auth.forgotPassword(form.email);
         setEmailSent(true);
       } catch (err) {
         setFormError(err.message);
