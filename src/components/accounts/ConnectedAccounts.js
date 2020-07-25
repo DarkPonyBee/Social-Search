@@ -21,7 +21,7 @@ const AccountsContainer = styled.div`
       margin: auto;
     }
     &-border {
-      height: 0.49px;
+      height: 1px;
       background: linear-gradient(90.27deg, #4f4fc4 0%, #ea04d0 100%);
     }
   }

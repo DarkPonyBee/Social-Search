@@ -188,9 +188,7 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
 
   return (
     <StyledSignIn>
-      <div className="signin-title">
-        Please enter Confirm code that was emailed to you!
-      </div>
+      <div className="signin-title">Confirm Signup!</div>
       <div className="signin-content">
         <div className="signin-content-header">Confirm</div>
         <form onSubmit={handleSubmit}>

@@ -106,9 +106,12 @@ const Mainpage = ({ handleSignOut }) => {
     setLoading(true);
     await axios
       .get(
-        `https://devapi.trevi.io/addAccount?source=${name}`,
+        "https://devapi.trevi.io/addAccount",
         // `https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/addAccount?source=${name}`,
         {
+          params: {
+            source: name,
+          },
           headers: {
             authorizer: token,
           },
@@ -116,7 +119,6 @@ const Mainpage = ({ handleSignOut }) => {
       )
       .then((response) => {
         const url = response.data.oauth_url;
-        console.log(url);
         const width = 500;
         const height = 600;
         const top = window.innerHeight / 2 - height / 2;
