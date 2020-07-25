@@ -57,6 +57,7 @@ const StyledSearchBarContainer = styled.div`
     }
   }
   .searchbar-list {
+    z-index: 1;
     position: absolute;
     width: 100%;
     background-color: #ffffff;
@@ -66,6 +67,7 @@ const StyledSearchBarContainer = styled.div`
     border-top: none;
     border-radius: 0px 0px 15px 15px;
     padding: 20px 45px;
+    font-size: 20px;
   }
   @media only screen and (max-width: 1240px) {
     width: 90%;
@@ -92,6 +94,7 @@ const StyledSearchBarContainer = styled.div`
     }
     .searchbar-list {
       padding: 20px 25px;
+      font-size: 14px;
     }
   }
 `;
@@ -131,22 +134,22 @@ const SearchBar = () => {
   };
 
   const onInputChange = (e) => {
-    const searchQuery = e.target.value;
-    if (!searchQuery) {
+    const query = e.target.value;
+    if (!query) {
       setSearchList(false);
       return;
     }
-    setSearchList(true);
     clearTimeout(debounce);
+    setSearchList(true);
     debounce = setTimeout(() => {
-      onSearch(searchQuery);
+      onSearch(query);
     }, 500);
   };
 
   return (
     <StyledSearchBarContainer searchList={searchList}>
       <div className="searchbar">
-        <div class="searchbar-container">
+        <div className="searchbar-container">
           <input
             type="text"
             name="searchQuery"
@@ -168,7 +171,15 @@ const SearchBar = () => {
           ></ion-icon>
         </div>
       </div>
-      {searchList && <div className="searchbar-list">dfghfgh</div>}
+      {searchList && (
+        <div className="searchbar-list">
+          <div>asdf</div>
+          <div>asdf</div>
+          <div>asdf</div>
+          <div>asdf</div>
+          <div>asdf</div>
+        </div>
+      )}
     </StyledSearchBarContainer>
   );
 };
