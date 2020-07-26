@@ -68,6 +68,17 @@ const StyledSearchBarContainer = styled.div`
     border-radius: 0px 0px 15px 15px;
     padding: 20px 45px;
     font-size: 20px;
+    &-item {
+      line-height: 36px;
+      letter-spacing: 0;
+      &-highlight {
+        font-weight: bold;
+      }
+      &:hover {
+        cursor: pointer;
+        background-color: rgba(34, 32, 27, 0.1);
+      }
+    }
   }
   @media only screen and (max-width: 1240px) {
     width: 90%;
@@ -94,14 +105,43 @@ const StyledSearchBarContainer = styled.div`
     }
     .searchbar-list {
       padding: 20px 25px;
-      font-size: 14px;
+      font-size: 18px;
     }
   }
 `;
 
 const SearchBar = () => {
+  const [searchResult, setSearchResult] = useState([]);
   const [searchList, setSearchList] = useState(false);
   let debounce = null;
+
+  const highlightSearchResult = (query, responseResult) => {
+    let highlightedSearchResult = [];
+    responseResult.forEach((item) => {
+      let index = item.toLowerCase().indexOf(query.toLowerCase());
+      if (index >= 0) {
+        highlightedSearchResult.push(
+          <div
+            onClick={() => {
+              alert("Clicked Search Result!");
+            }}
+          >
+            {item.substring(0, index)}
+            <span
+              className="searchbar-list-item-highlight"
+              onClick={() => {
+                alert("sd");
+              }}
+            >
+              {item.substring(index, index + query.length)}
+            </span>
+            {item.substring(index + query.length)}
+          </div>
+        );
+      }
+    });
+    setSearchResult(highlightedSearchResult);
+  };
 
   const onSearch = async (query) => {
     let token = null;
@@ -114,18 +154,29 @@ const SearchBar = () => {
         NotificationManager.error(err.message, "Error", 5000, () => {});
         return;
       });
-
+    const params = { q: query };
     await axios
-      .post("https://devapi.trevi.io/search", {
-        params: {
-          q: query,
-        },
-        headers: {
-          authorizer: token,
-        },
-      })
+      .post(
+        "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/search",
+        null,
+        {
+          params,
+          headers: {
+            authorizer: token,
+          },
+        }
+      )
       .then((response) => {
         console.log(response.data);
+        setSearchList(true);
+        let responseResult = [
+          "deprecated",
+          "Deprication",
+          "Academic studies",
+          "Decisions & Als Q2 2018",
+          "Depeche Mode Live Concert , Tel Aviv 2018",
+        ];
+        highlightSearchResult(query, responseResult);
       })
       .catch((err) => {
         console.log(err);
@@ -134,13 +185,13 @@ const SearchBar = () => {
   };
 
   const onInputChange = (e) => {
+    clearTimeout(debounce);
     const query = e.target.value;
-    if (!query) {
+    if (query.trim().length === 0) {
       setSearchList(false);
+      setSearchResult([]);
       return;
     }
-    clearTimeout(debounce);
-    setSearchList(true);
     debounce = setTimeout(() => {
       onSearch(query);
     }, 500);
@@ -162,6 +213,7 @@ const SearchBar = () => {
               class="searchbar-container-closeicon"
               onClick={() => {
                 setSearchList(false);
+                setSearchResult([]);
               }}
             ></ion-icon>
           )}
@@ -173,11 +225,13 @@ const SearchBar = () => {
       </div>
       {searchList && (
         <div className="searchbar-list">
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
-          <div>asdf</div>
+          {searchResult.map((item, index) => {
+            return (
+              <div key={index} className="searchbar-list-item">
+                {item}
+              </div>
+            );
+          })}
         </div>
       )}
     </StyledSearchBarContainer>
