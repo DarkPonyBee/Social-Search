@@ -75,7 +75,7 @@ const Mainpage = ({ handleSignOut }) => {
         )
         .then((response) => {
           if (response.data.length === 0) setFirstConnect(true);
-          console.log(response.data);
+          console.log("Connected Accounts", response.data);
           setConnectedAccounts(response.data);
         })
         .catch((err) => {

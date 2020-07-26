@@ -157,7 +157,8 @@ const SearchBar = () => {
     const params = { q: query };
     await axios
       .post(
-        "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/search",
+        "https://devapi.trevi.io/search",
+        // "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/search",
         null,
         {
           params,
@@ -167,7 +168,7 @@ const SearchBar = () => {
         }
       )
       .then((response) => {
-        console.log(response.data);
+        console.log("Search Result", response.data);
         setSearchList(true);
         let responseResult = [
           "deprecated",
