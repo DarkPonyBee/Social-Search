@@ -12,6 +12,7 @@ import SLACKICON from "../../assets/images/slack.svg";
 import TRELLOICON from "../../assets/images/trello.png";
 import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
 import { TreviContext } from "../../utils/context";
+import { recaptchaKey } from "../../config";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -482,14 +483,14 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 <ReCAPTCHA
                   ref={drecaptchaRef}
                   onChange={handleCaptcha}
-                  sitekey="6LfEO6wZAAAAAC-lwR8vkparp3Nt_zkVnMIro3PP"
+                  sitekey={recaptchaKey}
                 ></ReCAPTCHA>
               </div>
               <div className="recaptcha-item-mobile">
                 <ReCAPTCHA
                   ref={mrecaptchaRef}
                   onChange={handleCaptcha}
-                  sitekey="6LfEO6wZAAAAAC-lwR8vkparp3Nt_zkVnMIro3PP"
+                  sitekey={recaptchaKey}
                   size="compact"
                 ></ReCAPTCHA>
               </div>

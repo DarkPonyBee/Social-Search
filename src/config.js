@@ -75,3 +75,5 @@ export const availableIcons = {
   github: GITHUBICON,
   onedrive: ONEDRIVEICON,
 };
+
+export const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
