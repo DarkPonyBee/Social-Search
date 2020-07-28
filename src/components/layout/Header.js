@@ -13,6 +13,8 @@ import BUTTONIMG from "../../assets/images/button-img.svg";
 import USERIMG from "../../assets/images/user-avatar.png";
 import CONNECTIMG from "../../assets/images/connected-img.png";
 import { TreviContext } from "../../utils/context";
+import LOGO from "../../assets/images/logo.png";
+import SearchBar from "../searchbar/SearchBar";
 
 const StyledHeader = styled.div`
   background: white;
@@ -21,6 +23,13 @@ const StyledHeader = styled.div`
   .header-container {
     display: flex;
     justify-content: flex-end;
+  }
+  .header-logo {
+    max-width: 120px;
+    cursor: pointer;
+  }
+  .header-searchbar {
+    margin: auto;
   }
   .help-icon {
     width: 35px;
@@ -116,7 +125,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ handleSignOut }) => {
+const Header = ({ resultPage, setResultPage, handleSignOut }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const { setLoading } = useContext(TreviContext);
@@ -150,6 +159,21 @@ const Header = ({ handleSignOut }) => {
   return (
     <StyledHeader>
       <div className="header-container">
+        {resultPage && (
+          <>
+            <img
+              className="header-logo"
+              src={LOGO}
+              alt="Logo"
+              onClick={() => {
+                setResultPage(false);
+              }}
+            ></img>
+            <div className="header-searchbar">
+              <SearchBar resultPage={resultPage}></SearchBar>
+            </div>
+          </>
+        )}
         <ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
         <div className="contact-button">
           <img src={BUTTONIMG} alt="ButtonImg"></img>

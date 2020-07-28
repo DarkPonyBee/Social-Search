@@ -1,52 +1,57 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import { Auth } from "aws-amplify";
-import { NotificationManager } from "react-notifications";
+import { useSelector } from "react-redux";
+
+import { setSearchQuery } from "../../redux/actions/search";
+import { getSearchResult } from "../../redux/actions/search";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
-  margin: 35px auto auto;
+  margin: ${(props) => (props.resultPage ? "auto" : "35px auto auto")};
   max-width: 1196px;
+  ${(props) => (props.resultPage ? "width: 645px" : "")};
   .searchbar {
     box-shadow: ${(props) =>
-      props.searchList ? "0 0px 8px 0 #e0e2e4" : "0 8px 16px 0 #e0e2e4"};
+      props.showSuggestionList
+        ? "0 0px 8px 0 #e0e2e4"
+        : "0 8px 16px 0 #e0e2e4"};
     background-color: #ffffff;
-    padding: 0px 45px;
-    height: 80px;
+    padding: ${(props) => (props.resultPage ? "0px 25px" : "0px 45px")};
+    height: ${(props) => (props.resultPage ? "50px" : "80px")};
     border: 1px solid #979797;
     border-radius: ${(props) =>
-      props.searchList ? "15px 15px 0px 0px" : "40px"};
-    ${(props) => (props.searchList ? "border-bottom: none" : "")};
+      props.showSuggestionList ? "15px 15px 0px 0px" : "40px"};
+    ${(props) => (props.showSuggestionList ? "border-bottom: none" : "")};
     &-container {
       display: flex;
       height: 100%;
       ${(props) =>
-        props.searchList ? "border-bottom: 1px solid #DADCE3" : ""};
+        props.showSuggestionList ? "border-bottom: 1px solid #DADCE3" : ""};
       input {
         height: 100%;
         width: 100%;
         outline: none;
         border: none;
         color: rgba(0, 0, 0, 0.65);
-        font-size: 24px;
+        font-size: ${(props) => (props.resultPage ? "18px" : "24px")};
         letter-spacing: 0;
         line-height: 26px;
       }
       &-icon {
-        width: 35px;
-        height: 35px;
+        width: ${(props) => (props.resultPage ? "25px" : "35px")};
+        height: ${(props) => (props.resultPage ? "25px" : "35px")};
         margin: auto 0px auto 20px;
+        ${(props) => (props.resultPage ? "margin-left:10px" : "")};
         &:hover {
           cursor: pointer;
           opacity: 0.8;
         }
       }
       &-closeicon {
-        width: 35px;
-        height: 35px;
+        width: ${(props) => (props.resultPage ? "25px" : "35px")};
+        height: ${(props) => (props.resultPage ? "25px" : "35px")};
         margin: auto 0px;
-        padding-right: 20px;
+        padding-right: ${(props) => (props.resultPage ? "10px" : "20px")};
         border-right: 1px solid #cccccb;
         opacity: 0.8;
         &:hover {
@@ -62,7 +67,9 @@ const StyledSearchBarContainer = styled.div`
     width: 100%;
     background-color: #ffffff;
     box-shadow: ${(props) =>
-      props.searchList ? "0 8px 8px 0 #e0e2e4" : "0 8px 16px 0 #e0e2e4"};
+      props.showSuggestionList
+        ? "0 8px 8px 0 #e0e2e4"
+        : "0 8px 16px 0 #e0e2e4"};
     border: 1px solid #979797;
     border-top: none;
     border-radius: 0px 0px 15px 15px;
@@ -110,96 +117,63 @@ const StyledSearchBarContainer = styled.div`
   }
 `;
 
-const SearchBar = () => {
-  const [searchResult, setSearchResult] = useState([]);
-  const [searchList, setSearchList] = useState(false);
-  let debounce = null;
-
-  const highlightSearchResult = (query, responseResult) => {
-    let highlightedSearchResult = [];
-    responseResult.forEach((item) => {
-      let index = item.toLowerCase().indexOf(query.toLowerCase());
-      if (index >= 0) {
-        highlightedSearchResult.push(
-          <div
-            onClick={() => {
-              alert("Clicked Search Result!");
-            }}
-          >
-            {item.substring(0, index)}
-            <span
-              className="searchbar-list-item-highlight"
-              onClick={() => {
-                alert("sd");
-              }}
-            >
-              {item.substring(index, index + query.length)}
-            </span>
-            {item.substring(index + query.length)}
-          </div>
-        );
-      }
-    });
-    setSearchResult(highlightedSearchResult);
-  };
-
-  const onSearch = async (query) => {
-    let token = null;
-    await Auth.currentSession()
-      .then((data) => {
-        token = data.getIdToken().getJwtToken();
-      })
-      .catch((err) => {
-        console.log(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
-        return;
-      });
-    const params = { q: query };
-    await axios
-      .post(
-        "https://devapi.trevi.io/search",
-        // "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/search",
-        null,
-        {
-          params,
-          headers: {
-            authorizer: token,
-          },
-        }
-      )
-      .then((response) => {
-        console.log("Search Result", response.data);
-        setSearchList(true);
-        let responseResult = [
-          "deprecated",
-          "Deprication",
-          "Academic studies",
-          "Decisions & Als Q2 2018",
-          "Depeche Mode Live Concert , Tel Aviv 2018",
-        ];
-        highlightSearchResult(query, responseResult);
-      })
-      .catch((err) => {
-        console.log(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
-      });
-  };
+const SearchBar = ({ setResultPage, resultPage }) => {
+  const [showSuggestionList, setShowSuggestionList] = useState(false);
+  const searchQuery = useSelector((store) => store.search.searchQuery);
+  // const highlightSearchResult = (query, responseResult) => {
+  //   let highlightedSearchResult = [];
+  //   responseResult.forEach((item) => {
+  //     let index = item.toLowerCase().indexOf(query.toLowerCase());
+  //     if (index >= 0) {
+  //       highlightedSearchResult.push(
+  //         <div
+  //           onClick={() => {
+  //             alert("Clicked Search Result!");
+  //           }}
+  //         >
+  //           {item.substring(0, index)}
+  //           <span
+  //             className="searchbar-list-item-highlight"
+  //             onClick={() => {
+  //               alert("sd");
+  //             }}
+  //           >
+  //             {item.substring(index, index + query.length)}
+  //           </span>
+  //           {item.substring(index + query.length)}
+  //         </div>
+  //       );
+  //     }
+  //   });
+  //   setSearchResult(highlightedSearchResult);
+  // };
 
   const onInputChange = (e) => {
-    clearTimeout(debounce);
     const query = e.target.value;
+    setSearchQuery(query);
     if (query.trim().length === 0) {
-      setSearchList(false);
-      setSearchResult([]);
+      setShowSuggestionList(false);
       return;
     }
-    debounce = setTimeout(() => {
-      onSearch(query);
-    }, 500);
+    setShowSuggestionList(true);
+  };
+
+  const handleSearchIcon = () => {
+    setShowSuggestionList(false);
+    if (!resultPage) setResultPage(true);
+    getSearchResult(searchQuery);
+  };
+
+  const handleCloseIcon = () => {
+    setShowSuggestionList(false);
+    setSearchQuery("");
   };
 
   return (
-    <StyledSearchBarContainer searchList={searchList}>
+    <StyledSearchBarContainer
+      showSuggestionList={showSuggestionList}
+      resultPage={resultPage}
+    >
       <div className="searchbar">
         <div className="searchbar-container">
           <input
@@ -207,32 +181,32 @@ const SearchBar = () => {
             name="searchQuery"
             placeholder="Search for files, emails, tasks and much more"
             onChange={onInputChange}
+            value={searchQuery}
           ></input>
-          {searchList && (
+          {showSuggestionList && (
             <ion-icon
               name="close-outline"
               class="searchbar-container-closeicon"
-              onClick={() => {
-                setSearchList(false);
-                setSearchResult([]);
-              }}
+              onClick={handleCloseIcon}
             ></ion-icon>
           )}
           <ion-icon
+            type="submit"
             name="search-outline"
             class="searchbar-container-icon"
+            onClick={handleSearchIcon}
           ></ion-icon>
         </div>
       </div>
-      {searchList && (
+      {showSuggestionList && (
         <div className="searchbar-list">
-          {searchResult.map((item, index) => {
+          {/* {searchResult.map((item, index) => {
             return (
               <div key={index} className="searchbar-list-item">
                 {item}
               </div>
             );
-          })}
+          })} */}
         </div>
       )}
     </StyledSearchBarContainer>

@@ -13,10 +13,11 @@ import FirstConnect from "../components/accounts/FirstConnect";
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
+import ResultPage from "./ResultPage";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
-  padding-bottom: 130px;
+  min-height: 100vh;
 `;
 
 const StyledLogo = styled.div`
@@ -31,6 +32,7 @@ let oauthPopup = null;
 let previousUrl = null;
 
 const Mainpage = ({ handleSignOut }) => {
+  const [resultPage, setResultPage] = useState(false);
   const [firstConnect, setFirstConnect] = useState(false);
   const [addAccount, setAddAccount] = useState(false);
   const [connectedAccounts, setConnectedAccounts] = useState([]);
@@ -144,15 +146,28 @@ const Mainpage = ({ handleSignOut }) => {
 
   return (
     <MainPageContainer>
-      <Header handleSignOut={handleSignOut}></Header>
-      <StyledLogo>
-        <img src={LOGO} alt="Logo"></img>
-      </StyledLogo>
-      <SearchBar></SearchBar>
-      <ConnectedAccounts
-        connectedAccounts={connectedAccounts}
-        showAddAccount={showAddAccount}
-      ></ConnectedAccounts>
+      <Header
+        resultPage={resultPage}
+        setResultPage={setResultPage}
+        handleSignOut={handleSignOut}
+      ></Header>
+      {resultPage ? (
+        <ResultPage></ResultPage>
+      ) : (
+        <>
+          <StyledLogo>
+            <img src={LOGO} alt="Logo"></img>
+          </StyledLogo>
+          <SearchBar
+            setResultPage={setResultPage}
+            resultPage={resultPage}
+          ></SearchBar>
+          <ConnectedAccounts
+            connectedAccounts={connectedAccounts}
+            showAddAccount={showAddAccount}
+          ></ConnectedAccounts>
+        </>
+      )}
 
       <Modal
         open={firstConnect}

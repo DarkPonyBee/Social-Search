@@ -12,7 +12,17 @@ import TODOISTICON from "./assets/images/todoist.png";
 import BOXICON from "./assets/images/box.png";
 import OUTLOOKICON from "./assets/images/outlook.png";
 
-export const availableAccounts = [
+let API_URL = "https://devapi.trevi.io";
+
+if (process.env.REACT_APP_RUN_ENV === "local") {
+  API_URL = "https://devapi.trevi.io";
+}
+
+if (process.env.NODE_ENV === "production") {
+  API_URL = "/api/v1";
+}
+
+const availableAccounts = [
   { name: "gmail", icon: GMAILICON, uiname: "Gmail" },
   { name: "facebook", icon: FACEBOOKICON, uiname: "Facebook" },
   { name: "slack", icon: SLACKICON, uiname: "Slack" },
@@ -60,7 +70,7 @@ export const availableAccounts = [
   },
 ];
 
-export const availableIcons = {
+const availableIcons = {
   gmail: GMAILICON,
   facebook: FACEBOOKICON,
   slack: SLACKICON,
@@ -76,4 +86,8 @@ export const availableIcons = {
   onedrive: ONEDRIVEICON,
 };
 
-export const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
+const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
+
+const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
+
+export { API_URL, availableAccounts, availableIcons, recaptchaKey, userPoolID };
