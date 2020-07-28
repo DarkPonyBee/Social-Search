@@ -158,6 +158,14 @@ const SearchBar = ({ setResultPage, resultPage }) => {
     setShowSuggestionList(true);
   };
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      setShowSuggestionList(false);
+      if (!resultPage) setResultPage(true);
+      getSearchResult(searchQuery);
+    }
+  };
+
   const handleSearchIcon = () => {
     setShowSuggestionList(false);
     if (!resultPage) setResultPage(true);
@@ -181,6 +189,7 @@ const SearchBar = ({ setResultPage, resultPage }) => {
             name="searchQuery"
             placeholder="Search for files, emails, tasks and much more"
             onChange={onInputChange}
+            onKeyDown={onKeyDown}
             value={searchQuery}
           ></input>
           {showSuggestionList && (

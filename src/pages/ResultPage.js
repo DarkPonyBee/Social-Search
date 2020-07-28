@@ -22,7 +22,7 @@ const StyledResultPage = styled.div`
     background-repeat: repeat-x;
   }
   .resultpage-list {
-    max-width: 800px;
+    max-width: 1000px;
     &-loader {
       display: flex;
       justify-content: center;
@@ -39,16 +39,7 @@ const ResultPage = () => {
     <StyledResultPage>
       <div className="resultpage-filter"></div>
       <div className="resultpage-list">
-        {result &&
-          result.map((item, index) => {
-            return (
-              <ResultItemContainer
-                key={index}
-                data={item}
-              ></ResultItemContainer>
-            );
-          })}
-        {isLoading && (
+        {isLoading ? (
           <div className="resultpage-list-loader">
             <ClipLoader
               size={45}
@@ -56,6 +47,16 @@ const ResultPage = () => {
               loading={isLoading}
             ></ClipLoader>
           </div>
+        ) : (
+          result &&
+          result.map((item, index) => {
+            return (
+              <ResultItemContainer
+                key={index}
+                data={item}
+              ></ResultItemContainer>
+            );
+          })
         )}
       </div>
     </StyledResultPage>
