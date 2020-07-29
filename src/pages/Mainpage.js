@@ -82,7 +82,12 @@ const Mainpage = ({ handleSignOut }) => {
         })
         .catch((err) => {
           console.log(err);
-          NotificationManager.error(err.message, "Error", 5000, () => {});
+          NotificationManager.error(
+            err.message,
+            "Get Connected Accounts",
+            5000,
+            () => {}
+          );
         });
       setLoading(false);
     };
