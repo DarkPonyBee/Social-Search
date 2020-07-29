@@ -192,10 +192,19 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return highLightedText;
   };
 
+  const getDateObject = (text) => {
+    return new Date(Date.parse(text));
+  };
+
   return (
     <StyledResultItem subitem={subitem}>
       <div className="resultitem-header">
-        <div className="resultitem-header-date">8/2019</div>
+        <div className="resultitem-header-date">
+          {data.date &&
+            getDateObject(data.date).getMonth() +
+              "/" +
+              getDateObject(data.date).getFullYear()}
+        </div>
         <div className="resultitem-header-icon">
           <img src={RESULT} alt="Result Icon"></img>
         </div>

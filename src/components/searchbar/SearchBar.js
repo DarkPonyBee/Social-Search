@@ -120,6 +120,7 @@ const StyledSearchBarContainer = styled.div`
 const SearchBar = ({ setResultPage, resultPage }) => {
   const [showSuggestionList, setShowSuggestionList] = useState(false);
   const searchQuery = useSelector((store) => store.search.searchQuery);
+
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
   //   responseResult.forEach((item) => {

@@ -14,7 +14,7 @@ import OUTLOOKICON from "./assets/images/outlook.png";
 
 let API_URL = "https://devapi.trevi.io";
 
-if (process.env.REACT_APP_RUN_ENV === "local") {
+if (process.env.NODE_ENV === "development") {
   API_URL = "https://devapi.trevi.io";
 }
 
@@ -90,4 +90,19 @@ const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
 
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
 
-export { API_URL, availableAccounts, availableIcons, recaptchaKey, userPoolID };
+const redirectMSG = {
+  200: "Account Connected!",
+  409: "Account already exists!",
+  400: "Request is not valid!",
+  401: "No valid credential!",
+  500: "Server error!",
+};
+
+export {
+  API_URL,
+  availableAccounts,
+  availableIcons,
+  recaptchaKey,
+  userPoolID,
+  redirectMSG,
+};

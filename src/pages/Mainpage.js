@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Modal } from "react-responsive-modal";
-import axios from "axios";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
+import { useSelector } from "react-redux";
 
 import Header from "../components/layout/Header";
 import SearchBar from "../components/searchbar/SearchBar";
@@ -14,6 +14,9 @@ import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
 import ResultPage from "./ResultPage";
+import { getConnectedAccount } from "../redux/actions/account";
+import { redirectMSG } from "../config";
+import request from "../utils/request";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
@@ -35,15 +38,36 @@ const Mainpage = ({ handleSignOut }) => {
   const [resultPage, setResultPage] = useState(false);
   const [firstConnect, setFirstConnect] = useState(false);
   const [addAccount, setAddAccount] = useState(false);
-  const [connectedAccounts, setConnectedAccounts] = useState([]);
   const { setLoading } = useContext(TreviContext);
+
+  const connectedAccounts = useSelector(
+    (store) => store.account.connectedAccount.result
+  );
+  const isLoading = useSelector(
+    (store) => store.account.connectedAccount.loading
+  );
 
   const storageListener = () => {
     try {
       if (localStorage.getItem("code")) {
-        alert(localStorage.getItem("code"));
-        window.localStorage.removeItem("code"); //remove code from localStorage
+        let code = localStorage.getItem("code");
+        if (code === "200") {
+          NotificationManager.success(
+            redirectMSG[code],
+            "Add Accounts",
+            5000,
+            () => {}
+          );
+          getConnectedAccount();
+        } else
+          NotificationManager.error(
+            redirectMSG[code],
+            "Add Accounts",
+            5000,
+            () => {}
+          );
         oauthPopup.close();
+        window.localStorage.removeItem("code");
         window.removeEventListener("storage", storageListener);
       }
     } catch (e) {
@@ -52,47 +76,12 @@ const Mainpage = ({ handleSignOut }) => {
   };
 
   useEffect(() => {
-    const getConnectedAccounts = async () => {
-      let token = null;
-      await Auth.currentSession()
-        .then((data) => {
-          token = data.getIdToken().getJwtToken();
-        })
-        .catch((err) => {
-          NotificationManager.error(err.message, "Error", 5000, () => {});
-          return;
-        });
+    getConnectedAccount();
+  }, []);
 
-      if (!token) return;
-      setLoading(true);
-      await axios
-        .get(
-          "https://devapi.trevi.io/accounts",
-          // "https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/accounts",
-          {
-            headers: {
-              authorizer: token,
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data.length === 0) setFirstConnect(true);
-          console.log("Connected Accounts", response.data);
-          setConnectedAccounts(response.data);
-        })
-        .catch((err) => {
-          console.log(err);
-          NotificationManager.error(
-            err.message,
-            "Get Connected Accounts",
-            5000,
-            () => {}
-          );
-        });
-      setLoading(false);
-    };
-    getConnectedAccounts();
-  }, [setLoading]);
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading, setLoading]);
 
   const showAddAccount = () => {
     setAddAccount(true);
@@ -111,19 +100,15 @@ const Mainpage = ({ handleSignOut }) => {
       });
 
     setLoading(true);
-    await axios
-      .get(
-        "https://devapi.trevi.io/addAccount",
-        // `https://cors-anywhere.herokuapp.com/https://devapi.trevi.io/addAccount?source=${name}`,
-        {
-          params: {
-            source: name,
-          },
-          headers: {
-            authorizer: token,
-          },
-        }
-      )
+    await request()
+      .get("https://devapi.trevi.io/addAccount", {
+        params: {
+          source: name,
+        },
+        headers: {
+          authorizer: token,
+        },
+      })
       .then((response) => {
         const url = response.data.oauth_url;
         const width = 500;
