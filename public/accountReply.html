@@ -17,9 +17,6 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const code = urlParams.get("code");
-      const reqid = urlParams.get("reqid");
-      console.log(code);
-      console.log(reqid);
       localStorage.setItem("code", code);
     </script>
   </body>

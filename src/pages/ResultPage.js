@@ -4,11 +4,14 @@ import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import ResultItemContainer from "../components/search/ResultItemContainer";
+import FilterDropdown from "../components/filter/FilterDropdown";
+import FilterDate from "../components/filter/FilterDate";
 
 const StyledResultPage = styled.div`
   width: 70%;
   margin: auto;
   .resultpage-filter {
+    display: flex;
     width: 100%;
     padding: 20px 0px;
     background-image: linear-gradient(
@@ -37,7 +40,12 @@ const ResultPage = () => {
   const result = searchResult.result.results;
   return (
     <StyledResultPage>
-      <div className="resultpage-filter"></div>
+      <div className="resultpage-filter">
+        <FilterDropdown></FilterDropdown>
+        <FilterDropdown></FilterDropdown>
+        <FilterDropdown></FilterDropdown>
+        <FilterDate></FilterDate>
+      </div>
       <div className="resultpage-list">
         {isLoading ? (
           <div className="resultpage-list-loader">

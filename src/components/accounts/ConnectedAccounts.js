@@ -81,7 +81,7 @@ const ConnnectedAccounts = ({ connectedAccounts, showAddAccount }) => {
       <div className="accounts-content">
         <div className="accounts-content-container">
           {connectedAccounts.map((item, index) => {
-            return <Icon key={index} {...item}></Icon>;
+            return <Icon key={index} data={item}></Icon>;
           })}
         </div>
         <div className="accounts-content-title">
