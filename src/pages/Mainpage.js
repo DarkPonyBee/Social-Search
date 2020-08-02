@@ -101,7 +101,7 @@ const Mainpage = ({ handleSignOut }) => {
 
     setLoading(true);
     await request()
-      .get("https://devapi.trevi.io/addAccount", {
+      .get("https://api-dev.trevi.io/addAccount", {
         params: {
           source: name,
         },

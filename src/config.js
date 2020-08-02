@@ -11,16 +11,16 @@ import JIRAICON from "./assets/images/jira.png";
 import TODOISTICON from "./assets/images/todoist.png";
 import BOXICON from "./assets/images/box.png";
 import OUTLOOKICON from "./assets/images/outlook.png";
-
-let API_URL = "https://devapi.trevi.io";
+ 
+let API_URL = "https://api-dev.trevi.io";
 
 if (process.env.NODE_ENV === "development") {
-  API_URL = "https://devapi.trevi.io";
+  API_URL = "https://api-dev.trevi.io";
 }
 
-if (process.env.NODE_ENV === "production") {
-  API_URL = "/api/v1";
-}
+// if (process.env.NODE_ENV === "production") {
+//   API_URL = "/api/v1";
+// }
 
 const availableAccounts = [
   { name: "gmail", icon: GMAILICON, uiname: "Gmail" },
