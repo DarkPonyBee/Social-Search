@@ -26,7 +26,11 @@ const MainPageContainer = styled.section`
 const StyledLogo = styled.div`
   margin: 80px auto auto;
   display: flex;
+  max-width: 180px;
+  max-height: 80px;
   img {
+    width: 100%;
+    height: 100%;
     margin: auto;
   }
 `;

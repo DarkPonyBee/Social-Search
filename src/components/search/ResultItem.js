@@ -222,10 +222,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         </div>
         <div className="resultitem-content-title">
           <div className="resultitem-content-title-filename">
-            {highLightText(data.title, searchQuery)}
+            {data.title && highLightText(data.title, searchQuery)}
           </div>
           <div className="resultitem-content-title-users">
-            {highLightText(data.users.join(", "), data.primary_user)}
+            {data.users &&
+              highLightText(data.users.join(", "), data.primary_user)}
           </div>
           {data.sub_results && (
             <div

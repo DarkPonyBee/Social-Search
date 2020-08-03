@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { availableIcons } from "../../config";
+import ConfirmAction from "../accounts/ConfirmAction";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -30,7 +31,6 @@ const StyledContainer = styled.div`
     border-radius: 7px;
   }
   .icon-container {
-    ${(props) => (props.state === "pause" ? "opacity: 0.36;" : "")};
     position: relative;
     display: flex;
     border-radius: 100%;
@@ -43,6 +43,7 @@ const StyledContainer = styled.div`
     img {
       margin: auto;
       max-width: 42px;
+      ${(props) => (props.state === "pause" ? "opacity: 0.36;" : "")};
     }
     &-delete {
       display: none;
@@ -77,10 +78,6 @@ const StyledContainer = styled.div`
       border-radius: 50%;
       color: #ffffff;
     }
-    i {
-      margin: auto;
-      font-size: 10px;
-    }
   }
   .icon-name {
     margin-top: 13px;
@@ -99,7 +96,6 @@ const StyledContainer = styled.div`
     }
   }
   &:hover {
-    cursor: pointer;
     .icon-indexed {
       display: block;
     }
@@ -145,15 +141,15 @@ const Icon = ({ data }) => {
       <div className="icon-container">
         <img src={availableIcons[data.source]} alt={data.name}></img>
         <div className="icon-container-delete">
-          <i className="fa fa-trash"></i>
+          <ConfirmAction icon="trash"></ConfirmAction>
         </div>
         {accountState.state === "active" ? (
           <div className="icon-container-pause">
-            <i className="fa fa-pause"></i>
+            <ConfirmAction icon="pause"></ConfirmAction>
           </div>
         ) : accountState.state === "pause" ? (
           <div className="icon-container-active">
-            <i className="fa fa-pause"></i>
+            <ConfirmAction icon="active"></ConfirmAction>
           </div>
         ) : (
           ""

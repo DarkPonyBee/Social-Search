@@ -13,7 +13,7 @@ const StyledResultPage = styled.div`
   .resultpage-filter {
     display: flex;
     width: 100%;
-    padding: 20px 0px;
+    padding: 35px 0px;
     background-image: linear-gradient(
       to right,
       red 3%,
