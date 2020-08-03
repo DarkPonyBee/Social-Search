@@ -61,7 +61,7 @@ const AddAccounts = ({ handleAddAccount, connectedAccounts }) => {
       <p className="accounts-title">Connected Accounts</p>
       <div className="accounts-connected">
         {connectedAccounts.map((item, index) => {
-          return <Icon key={index} {...item}></Icon>;
+          return <Icon key={index} data={item}></Icon>;
         })}
       </div>
       <div className="accounts-provider">

@@ -33,6 +33,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         connectedAccount: {
           ...state.connectedAccount,
+          result: [],
           error: actions.payload,
           loading: false,
         },
