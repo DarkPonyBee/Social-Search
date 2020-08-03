@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 import { availableIcons } from "../../config";
-import RESULT from "../../assets/images/result.png";
+import { resultIcons } from "../../config";
 import FILE from "../../assets/images/result1.png";
 
 const StyledResultItem = styled.div`
@@ -192,21 +192,24 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return highLightedText;
   };
 
-  const getDateObject = (text) => {
-    return new Date(Date.parse(text));
+  const getDateString = (text) => {
+    const date = new Date(Date.parse(text));
+    return date.getMonth() + "/" + date.getFullYear();
   };
 
   return (
     <StyledResultItem subitem={subitem}>
       <div className="resultitem-header">
-        <div className="resultitem-header-date">
-          {data.date &&
-            getDateObject(data.date).getMonth() +
-              "/" +
-              getDateObject(data.date).getFullYear()}
-        </div>
+        {data.date && (
+          <div className="resultitem-header-date">
+            {getDateString(data.date)}
+          </div>
+        )}
         <div className="resultitem-header-icon">
-          <img src={RESULT} alt="Result Icon"></img>
+          <img
+            src={resultIcons[data.content_kind + (!subitem && "s")]}
+            alt="Result Icon"
+          ></img>
         </div>
       </div>
       <div className="resultitem-content">

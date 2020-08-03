@@ -11,7 +11,13 @@ import JIRAICON from "./assets/images/jira.png";
 import TODOISTICON from "./assets/images/todoist.png";
 import BOXICON from "./assets/images/box.png";
 import OUTLOOKICON from "./assets/images/outlook.png";
- 
+
+import RESULTFOLDER from "./assets/images/result-folder.svg";
+import RESULTGMAILS from "./assets/images/result-gmails.svg";
+import RESULTMESSAGE from "./assets/images/result-message.svg";
+import RESULTTASK from "./assets/images/result-task.svg";
+import RESULTWORD from "./assets/images/result-word.svg";
+
 let API_URL = "https://api-dev.trevi.io";
 
 if (process.env.NODE_ENV === "development") {
@@ -86,6 +92,14 @@ const availableIcons = {
   onedrive: ONEDRIVEICON,
 };
 
+const resultIcons = {
+  folder: RESULTFOLDER,
+  emails: RESULTGMAILS,
+  message: RESULTMESSAGE,
+  task: RESULTTASK,
+  word: RESULTWORD,
+};
+
 const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
 
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
@@ -102,6 +116,7 @@ export {
   API_URL,
   availableAccounts,
   availableIcons,
+  resultIcons,
   recaptchaKey,
   userPoolID,
   redirectMSG,

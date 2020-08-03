@@ -8,7 +8,7 @@ import { getSearchResult } from "../../redux/actions/search";
 const StyledSearchBarContainer = styled.div`
   position: relative;
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto auto")};
-  max-width: 1196px;
+  max-width: 900px;
   ${(props) => (props.resultPage ? "width: 645px" : "")};
   .searchbar {
     box-shadow: ${(props) =>
