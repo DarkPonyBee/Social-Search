@@ -13,7 +13,6 @@ const StyledResultItem = styled.div`
     props.subitem ? "border-top: 0.5px solid rgba(117, 119, 115, 0.4);" : ""};
   .resultitem {
     &-header {
-      width: 80px;
       padding: 0px 10px;
       &-date {
         padding-bottom: 5px;
@@ -24,8 +23,11 @@ const StyledResultItem = styled.div`
         text-align: center;
       }
       &-icon {
+        display: flex;
+        width: 60px;
         img {
-          width: 100%;
+          margin: auto;
+          max-width: 60px;
         }
       }
     }
@@ -197,6 +199,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return date.getMonth() + "/" + date.getFullYear();
   };
 
+  const getResultIcon = (kind) => {
+    if (kind === "email") return kind + (subitem ? "" : "s");
+    else return kind;
+  };
+
   return (
     <StyledResultItem subitem={subitem}>
       <div className="resultitem-header">
@@ -207,7 +214,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         )}
         <div className="resultitem-header-icon">
           <img
-            src={resultIcons[data.content_kind + (!subitem && "s")]}
+            src={resultIcons[getResultIcon(data.content_kind)]}
             alt="Result Icon"
           ></img>
         </div>

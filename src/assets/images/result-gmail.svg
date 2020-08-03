@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="53px" height="33px" viewBox="0 0 53 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="Search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.695638021">
+        <g id="Search-Results-with-filter" transform="translate(-407.000000, -872.000000)" fill="#2D2E2C" fill-rule="nonzero">
+            <g id="Result-Item" transform="translate(406.000000, 840.000000)">
+                <g id="noun_envelope_660465" transform="translate(1.000000, 0.000000)">
+                    <path d="M1.23255814,32 C0.560375163,32 0,32.5556831 0,33.2222218 L0,63.7777782 C0,64.4443169 0.560375163,65 1.23255814,65 L51.7674419,65 C52.4396236,65 53,64.4443169 53,63.7777782 L53,33.2222218 C53,32.5556831 52.4396236,32 51.7674419,32 L1.23255814,32 L1.23255814,32 Z M2,33 L51,33 L26.5,54 L2,33 Z M1,34 L26.0918445,55.8356901 C26.3258916,56.037322 26.6741084,56.037322 26.9081555,55.8356901 L52,34 L52,64 L1,64 L1,34 L1,34 Z" id="Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

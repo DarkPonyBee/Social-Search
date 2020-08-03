@@ -40,10 +40,14 @@ const StyledContainer = styled.div`
     background-color: #ffffff;
     box-shadow: 0 0 13px -5px rgba(0, 0, 0, 0.1);
     margin: auto;
+    transition: all linear 0.1s;
     img {
       margin: auto;
       max-width: 42px;
       ${(props) => (props.state === "pause" ? "opacity: 0.36;" : "")};
+      &:hover {
+        cursor: pointer;
+      }
     }
     &-delete {
       display: none;
