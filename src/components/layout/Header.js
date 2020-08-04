@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
@@ -15,7 +15,6 @@ import CONNECTIMG from "../../assets/images/connected-img.png";
 import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
-import ConnectedAccounts from "../accounts/ConnectedAccounts";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
 
 const StyledHeader = styled.div`
@@ -85,6 +84,7 @@ const StyledHeader = styled.div`
       }
     }
     &-menu {
+      display: none;
       z-index: 1;
       position: absolute;
       top: calc(100% + 10px);
@@ -92,6 +92,9 @@ const StyledHeader = styled.div`
       border-radius: 15px;
       box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
         0 5px 20px 0 rgba(21, 27, 38, 0.08);
+      &-active {
+        display: block;
+      }
     }
   }
   .user-avatar {
@@ -192,6 +195,9 @@ const Header = ({
 }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [showConnectedAccount, setShowConnectedAccount] = useState(false);
+  const dropbarRef = useRef(null);
+  const droplistRef = useRef(null);
   const { setLoading } = useContext(TreviContext);
 
   useEffect(() => {
@@ -207,6 +213,22 @@ const Header = ({
     };
     getUserInfo();
   }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        droplistRef.current &&
+        !droplistRef.current.contains(event.target) &&
+        !dropbarRef.current.contains(event.target)
+      ) {
+        setShowConnectedAccount(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [droplistRef, dropbarRef]);
 
   const handleLogOut = async () => {
     setLoading(true);
@@ -245,8 +267,18 @@ const Header = ({
             <p>Contact Us</p>
           </div>
           <div className="connect-accounts">
-            <img src={CONNECTIMG} alt="CONNECTIMG"></img>
-            <div className="connect-accounts-menu">
+            <img
+              ref={dropbarRef}
+              src={CONNECTIMG}
+              alt="CONNECTIMG"
+              onClick={() => setShowConnectedAccount(!showConnectedAccount)}
+            ></img>
+            <div
+              ref={droplistRef}
+              className={`connect-accounts-menu ${
+                showConnectedAccount ? "connect-accounts-menu-active" : ""
+              }`}
+            >
               <HeaderConnnectedAccounts
                 showAddAccount={showAddAccount}
               ></HeaderConnnectedAccounts>
