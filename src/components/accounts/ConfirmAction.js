@@ -121,9 +121,9 @@ const ConfirmAction = ({ icon }) => {
             {icon === "trash"
               ? "delete"
               : icon === "pause"
-              ? "active"
-              : icon === "active"
               ? "pause"
+              : icon === "active"
+              ? "active"
               : ""}{" "}
             this account?
           </p>
@@ -143,9 +143,9 @@ const ConfirmAction = ({ icon }) => {
               {icon === "trash"
                 ? "Delete"
                 : icon === "pause"
-                ? "Active"
-                : icon === "active"
                 ? "Pause"
+                : icon === "active"
+                ? "Active"
                 : ""}
             </div>
           </div>

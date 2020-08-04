@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 import Icon from "../icon/Icon";
 import Provider from "../icon/Provider";
@@ -55,7 +56,11 @@ const AddAccountsContainer = styled.div`
   }
 `;
 
-const AddAccounts = ({ handleAddAccount, connectedAccounts }) => {
+const AddAccounts = ({ handleAddAccount }) => {
+  const connectedAccounts = useSelector(
+    (store) => store.account.connectedAccount.result
+  );
+
   return (
     <AddAccountsContainer>
       <p className="accounts-title">Connected Accounts</p>

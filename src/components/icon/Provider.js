@@ -41,6 +41,7 @@ const StyledContainer = styled.div`
     width: 100%;
     img {
       width: 90%;
+      height: 90%;
       margin: auto;
     }
   }

@@ -8,7 +8,7 @@ const StyledContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 5px;
+  padding: 5px 5px 30px;
   .icon-indexed {
     display: ${(props) =>
       props.state === "active"
