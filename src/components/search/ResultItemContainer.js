@@ -19,7 +19,8 @@ const SubResultItemContainer = styled.div`
 const ResultItemContainer = ({ data }) => {
   const [openSubResult, setOpenSubResult] = useState(false);
 
-  const handleOpenSubResult = () => {
+  const handleOpenSubResult = (e) => {
+    e.stopPropagation();
     setOpenSubResult(!openSubResult);
   };
 

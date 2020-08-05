@@ -56,6 +56,14 @@ const Mainpage = ({ handleSignOut }) => {
     (store) => store.account.connectedAccount.loading
   );
 
+  useEffect(() => {
+    getConnectedAccount();
+  }, []);
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading, setLoading]);
+
   const storageListener = () => {
     try {
       if (localStorage.getItem("code")) {
@@ -83,14 +91,6 @@ const Mainpage = ({ handleSignOut }) => {
       window.removeEventListener("storage", storageListener);
     }
   };
-
-  useEffect(() => {
-    getConnectedAccount();
-  }, []);
-
-  useEffect(() => {
-    setLoading(isLoading);
-  }, [isLoading, setLoading]);
 
   const showAddAccount = () => {
     setAddAccount(true);

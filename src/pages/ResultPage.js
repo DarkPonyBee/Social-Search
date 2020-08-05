@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 
 import ResultItemContainer from "../components/search/ResultItemContainer";
-import FilterDropdown from "../components/filter/FilterDropdown";
-import FilterDate from "../components/filter/FilterDate";
+// import FilterDropdown from "../components/filter/FilterDropdown";
+// import FilterDate from "../components/filter/FilterDate";
 
 const StyledResultPage = styled.div`
   width: 70%;

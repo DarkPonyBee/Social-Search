@@ -8,7 +8,6 @@ import FILE from "../../assets/images/result1.png";
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
-  display: flex;
   ${(props) =>
     props.subitem ? "border-top: 0.5px solid rgba(117, 119, 115, 0.4);" : ""};
   .resultitem {
@@ -171,6 +170,19 @@ const StyledResultItem = styled.div`
       }
     }
   }
+  &:hover {
+    .resultitem-content {
+      &-title-filename,
+      &-snippet {
+        text-decoration: underline;
+        text-decoration-color: #4f4fc4;
+      }
+    }
+  }
+`;
+const StyledResultItemContainer = styled.div`
+  display: flex;
+  cursor: pointer;
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
@@ -205,66 +217,72 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     else return kind;
   };
 
+  const openNewTab = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <StyledResultItem subitem={subitem}>
-      <div className="resultitem-header">
-        {data.date && (
-          <div className="resultitem-header-date">
-            {getDateString(data.date)}
+      <StyledResultItemContainer onClick={() => openNewTab(data.link)}>
+        <div className="resultitem-header">
+          {data.date && (
+            <div className="resultitem-header-date">
+              {getDateString(data.date)}
+            </div>
+          )}
+          <div className="resultitem-header-icon">
+            <img
+              src={resultIcons[getResultIcon(data.content_kind)]}
+              alt="Result Icon"
+            ></img>
           </div>
-        )}
-        <div className="resultitem-header-icon">
-          <img
-            src={resultIcons[getResultIcon(data.content_kind)]}
-            alt="Result Icon"
-          ></img>
         </div>
-      </div>
-      <div className="resultitem-content">
-        <div className="resultitem-content-container">
-          <div className="resultitem-content-container-icon">
-            <img src={availableIcons[data.source]} alt={data.source}></img>
+        <div className="resultitem-content">
+          <div className="resultitem-content-container">
+            <div className="resultitem-content-container-icon">
+              <img src={availableIcons[data.source]} alt={data.source}></img>
+            </div>
+            <ul>
+              {data.containers.map((item, index) => {
+                return <li key={index}>{item.name}</li>;
+              })}
+            </ul>
           </div>
-          <ul>
-            {data.containers.map((item, index) => {
-              return <li key={index}>{item.name}</li>;
-            })}
-          </ul>
-        </div>
-        <div className="resultitem-content-title">
-          <div className="resultitem-content-title-filename">
-            {data.title && highLightText(data.title, searchQuery)}
-          </div>
-          <div className="resultitem-content-title-users">
-            {data.users &&
-              highLightText(data.users.join(", "), data.primary_user)}
-          </div>
-          {data.sub_results && (
-            <div
-              className={`resultitem-content-title-thread ${
-                openSubResult ? "resultitem-content-title-thread-active" : ""
-              }`}
-              onClick={handleOpenSubResult}
-            >
-              <div className="resultitem-content-title-thread-count">
-                +{data.sub_results.length}
+          <div className="resultitem-content-title">
+            <div className="resultitem-content-title-filename">
+              {data.title && highLightText(data.title, searchQuery)}
+            </div>
+            <div className="resultitem-content-title-users">
+              {data.users &&
+                highLightText(data.users.join(", "), data.primary_user)}
+            </div>
+            {data.sub_results && (
+              <div
+                className={`resultitem-content-title-thread ${
+                  openSubResult ? "resultitem-content-title-thread-active" : ""
+                }`}
+                onClick={(e) => handleOpenSubResult(e)}
+              >
+                <div className="resultitem-content-title-thread-count">
+                  +{data.sub_results.length}
+                </div>
+                {openSubResult ? "Hide thread" : "Show thread"}
               </div>
-              {openSubResult ? "Hide thread" : "Show thread"}
+            )}
+          </div>
+          <div className="resultitem-content-snippet">
+            {highLightText(data.snippet, searchQuery)}
+          </div>
+          {data.content_kind === "file" && (
+            <div className="resultitem-content-link">
+              <div className="resultitem-content-link-icon">
+                <img src={FILE} alt="file"></img>
+              </div>
+              {data.title}
             </div>
           )}
         </div>
-        <div className="resultitem-content-snippet">
-          {highLightText(data.snippet, searchQuery)}
-        </div>
-        {data.content_kind === "file" && (
-          <div className="resultitem-content-link">
-            <div className="resultitem-content-link-icon">
-              <img src={FILE} alt="file"></img>
-            </div>
-            {data.title}
-          </div>
-        )}
-      </div>
+      </StyledResultItemContainer>
     </StyledResultItem>
   );
 };
