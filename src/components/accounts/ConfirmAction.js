@@ -3,10 +3,16 @@ import styled from "styled-components";
 
 const Container = styled.div`
   position: relative;
+  display: flex;
   margin: auto;
-  font-size: 10px;
-  line-height: 10px;
   .confirm-icon-container {
+    display: flex;
+    margin: auto;
+    i {
+      margin: auto;
+      font-size: 10px;
+      line-height: 10px;
+    }
     &:hover {
       cursor: pointer;
     }
