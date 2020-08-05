@@ -35,6 +35,14 @@ const StyledLogo = styled.div`
   }
 `;
 
+const MainpageConnecteAccounts = styled.div`
+  margin: 95px auto auto auto;
+  max-width: 1101px;
+  @media only screen and (max-width: 1240px) {
+    width: 85%;
+  }
+`;
+
 let oauthPopup = null;
 let previousUrl = null;
 
@@ -44,9 +52,6 @@ const Mainpage = ({ handleSignOut }) => {
   const [addAccount, setAddAccount] = useState(false);
   const { setLoading } = useContext(TreviContext);
 
-  const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
-  );
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
   );
@@ -144,6 +149,7 @@ const Mainpage = ({ handleSignOut }) => {
         resultPage={resultPage}
         setResultPage={setResultPage}
         handleSignOut={handleSignOut}
+        showAddAccount={showAddAccount}
       ></Header>
       {resultPage ? (
         <ResultPage></ResultPage>
@@ -156,10 +162,11 @@ const Mainpage = ({ handleSignOut }) => {
             setResultPage={setResultPage}
             resultPage={resultPage}
           ></SearchBar>
-          <ConnectedAccounts
-            connectedAccounts={connectedAccounts}
-            showAddAccount={showAddAccount}
-          ></ConnectedAccounts>
+          <MainpageConnecteAccounts>
+            <ConnectedAccounts
+              showAddAccount={showAddAccount}
+            ></ConnectedAccounts>
+          </MainpageConnecteAccounts>
         </>
       )}
 
@@ -180,10 +187,7 @@ const Mainpage = ({ handleSignOut }) => {
         showCloseIcon={true}
         classNames={{ modal: "addModal" }}
       >
-        <AddAccounts
-          handleAddAccount={handleAddAccount}
-          connectedAccounts={connectedAccounts}
-        ></AddAccounts>
+        <AddAccounts handleAddAccount={handleAddAccount}></AddAccounts>
       </Modal>
     </MainPageContainer>
   );

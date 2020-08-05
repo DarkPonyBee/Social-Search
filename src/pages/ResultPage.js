@@ -40,12 +40,12 @@ const ResultPage = () => {
   const result = searchResult.result.results;
   return (
     <StyledResultPage>
-      <div className="resultpage-filter">
+      {/* <div className="resultpage-filter">
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
         <FilterDate></FilterDate>
-      </div>
+      </div> */}
       <div className="resultpage-list">
         {isLoading ? (
           <div className="resultpage-list-loader">

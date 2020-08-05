@@ -7,22 +7,28 @@ import ADDICON from "../../assets/images/accouts-add-icon.svg";
 
 const AccountsContainer = styled.div`
   position: relative;
+  width: 430px;
   background: white;
-  border-radius: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
+    0 5px 20px 0 rgba(21, 27, 38, 0.08);
   .accounts-title {
-    padding: 23px 0px;
+    padding: 20px 0px;
     color: #2d2e2c;
-    font-size: 25px;
+    font-size: 18px;
     letter-spacing: 0;
-    line-height: 30px;
+    font-weight: bold;
+    letter-spacing: -0.33px;
+    line-height: 22px;
     text-align: center;
     &-border {
       height: 1px;
-      background: linear-gradient(90.27deg, #4f4fc4 0%, #ea04d0 100%);
+      background: #000000;
+      opacity: 0.1;
     }
   }
   .accounts-content {
-    padding: 35px 100px;
+    padding: 35px 20px;
     &-container {
       display: flex;
       justify-content: center;
@@ -33,12 +39,14 @@ const AccountsContainer = styled.div`
       margin: auto;
       margin-bottom: 50px;
       color: #2d2e2c;
-      font-size: 18px;
+      font-size: 15px;
       letter-spacing: 0;
-      line-height: 22px;
+      line-height: 18px;
     }
     &-icon {
       position: absolute;
+      width: 100px;
+      height: 100px;
       left: 50%;
       bottom: 0;
       transform: translate(-50%, 50%);
@@ -61,7 +69,7 @@ const AccountsContainer = styled.div`
   }
 `;
 
-const ConnnectedAccounts = ({ showAddAccount }) => {
+const HeaderConnnectedAccounts = ({ showAddAccount }) => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result
   );
@@ -91,4 +99,4 @@ const ConnnectedAccounts = ({ showAddAccount }) => {
   );
 };
 
-export default ConnnectedAccounts;
+export default HeaderConnnectedAccounts;

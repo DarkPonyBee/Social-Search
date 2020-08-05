@@ -15,6 +15,8 @@ import CONNECTIMG from "../../assets/images/connected-img.png";
 import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
+import ConnectedAccounts from "../accounts/ConnectedAccounts";
+import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
 
 const StyledHeader = styled.div`
   background: white;
@@ -22,19 +24,20 @@ const StyledHeader = styled.div`
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.15);
   .header-container {
     display: flex;
-    justify-content: flex-end;
-  }
-  .header-logo {
-    max-width: 120px;
-    cursor: pointer;
-  }
-  .header-searchbar {
-    margin: auto;
+    &-search {
+      display: flex;
+      margin: auto auto auto 0px;
+      width: calc(100% - 300px);
+    }
+    &-buttons {
+      display: flex;
+      margin: auto 0px auto auto;
+    }
   }
   .help-icon {
     width: 35px;
     height: 35px;
-    margin: auto 0px;
+    margin: auto 20px auto 0px;
     color: #4f4fc4;
     &:hover {
       cursor: pointer;
@@ -43,7 +46,7 @@ const StyledHeader = styled.div`
   }
   .contact-button {
     display: flex;
-    margin: auto 0px auto 25px;
+    margin: auto 20px auto 0px;
     padding: 0px 15px;
     color: #ffffff;
     font-size: 15px;
@@ -67,28 +70,38 @@ const StyledHeader = styled.div`
       opacity: 0.8;
     }
   }
+  .connect-accounts {
+    position: relative;
+    display: flex;
+    width: 30px;
+    height: 100%;
+    margin: auto 20px auto 0px;
+    img {
+      margin: auto;
+      width: 100%;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+      }
+    }
+    &-menu {
+      z-index: 1;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: -100px;
+      border-radius: 15px;
+      box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
+        0 5px 20px 0 rgba(21, 27, 38, 0.08);
+    }
+  }
   .user-avatar {
     display: flex;
     width: 30px;
     height: 30px;
-    margin: auto;
+    margin: auto 0px auto auto;
     img {
       margin: auto;
       border-radius: 50%;
-      width: 100%;
-    }
-    &:hover {
-      cursor: pointer;
-      opacity: 0.8;
-    }
-  }
-  .connect-accounts {
-    display: flex;
-    width: 30px;
-    height: 100%;
-    margin: auto 25px auto 25px;
-    img {
-      margin: auto;
       width: 100%;
     }
     &:hover {
@@ -111,21 +124,72 @@ const StyledHeader = styled.div`
       margin: 0px;
     }
   }
-  @media only screen and (max-width: 712px) {
-    padding: 20px;
+  .header-logo {
+    max-width: 120px;
+    max-height: 50px;
+    cursor: pointer;
   }
-  @media only screen and (max-width: 614px) {
-    padding: 20px 10px;
-    .help-icon {
-      margin-left: auto;
+  .header-searchbar {
+    width: 100%;
+    margin: auto;
+  }
+  .header-mobile-button {
+    display: none;
+    margin: auto 0px auto auto;
+    position: relative;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    padding: 0;
+    transition: 0.25s ease;
+    &:hover {
+      span {
+        background: #6254e8;
+      }
     }
-    .user-avatar {
-      margin-right: auto;
+    span {
+      width: 100%;
+      height: 3px;
+      display: block;
+      background: #082487;
+      position: absolute;
+      left: 0;
+      transition: 0.25s ease;
+      border-radius: 8px;
+      transform-origin: 0;
+      &:nth-child(1) {
+        top: 0;
+      }
+      &:nth-child(2) {
+        top: 50%;
+      }
+      &:nth-child(3) {
+        top: 100%;
+      }
+    }
+  }
+  @media only screen and (max-width: 890px) {
+    padding: 20px;
+    .header-container {
+      &-buttons {
+        display: none;
+      }
+      &-search {
+        width: calc(100% - 30px);
+      }
+    }
+    .header-mobile-button {
+      display: block;
     }
   }
 `;
 
-const Header = ({ resultPage, setResultPage, handleSignOut }) => {
+const Header = ({
+  resultPage,
+  setResultPage,
+  handleSignOut,
+  showAddAccount,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const { setLoading } = useContext(TreviContext);
@@ -160,7 +224,7 @@ const Header = ({ resultPage, setResultPage, handleSignOut }) => {
     <StyledHeader>
       <div className="header-container">
         {resultPage && (
-          <>
+          <div className="header-container-search">
             <img
               className="header-logo"
               src={LOGO}
@@ -172,38 +236,50 @@ const Header = ({ resultPage, setResultPage, handleSignOut }) => {
             <div className="header-searchbar">
               <SearchBar resultPage={resultPage}></SearchBar>
             </div>
-          </>
+          </div>
         )}
-        <ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
-        <div className="contact-button">
-          <img src={BUTTONIMG} alt="ButtonImg"></img>
-          <p>Contact Us</p>
-        </div>
-        <div className="connect-accounts">
-          <img src={CONNECTIMG} alt="CONNECTIMG"></img>
-        </div>
-        <UncontrolledDropdown>
-          <DropdownToggle color="">
-            <div className="user-avatar">
-              <img src={USERIMG} alt="UserAvatar"></img>
+        <div className="header-container-buttons">
+          <ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
+          <div className="contact-button">
+            <img src={BUTTONIMG} alt="ButtonImg"></img>
+            <p>Contact Us</p>
+          </div>
+          <div className="connect-accounts">
+            <img src={CONNECTIMG} alt="CONNECTIMG"></img>
+            <div className="connect-accounts-menu">
+              <HeaderConnnectedAccounts
+                showAddAccount={showAddAccount}
+              ></HeaderConnnectedAccounts>
             </div>
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>{name}</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>User ID #4625556y6</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Email: {email}</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem
-              onClick={() => {
-                handleLogOut();
-              }}
-            >
-              Log out
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+          </div>
+          <UncontrolledDropdown>
+            <DropdownToggle color="">
+              <div className="user-avatar">
+                <img src={USERIMG} alt="UserAvatar"></img>
+              </div>
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>{name}</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>User ID #4625556y6</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>Email: {email}</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem
+                onClick={() => {
+                  handleLogOut();
+                }}
+              >
+                Log out
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
+        <div className="header-mobile-button">
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
     </StyledHeader>
   );

@@ -159,6 +159,7 @@ const StyledResultItem = styled.div`
           padding-right: 5px;
           display: flex;
           width: 17px;
+          height: 17px;
           img {
             margin: auto;
             width: 100%;

@@ -9,7 +9,7 @@ const StyledSearchBarContainer = styled.div`
   position: relative;
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto auto")};
   max-width: 900px;
-  ${(props) => (props.resultPage ? "width: 645px" : "")};
+  width: 90%;
   .searchbar {
     box-shadow: ${(props) =>
       props.showSuggestionList
@@ -86,9 +86,6 @@ const StyledSearchBarContainer = styled.div`
         background-color: rgba(34, 32, 27, 0.1);
       }
     }
-  }
-  @media only screen and (max-width: 1240px) {
-    width: 90%;
   }
   @media only screen and (max-width: 712px) {
     .searchbar {
