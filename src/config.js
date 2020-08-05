@@ -14,6 +14,7 @@ import OUTLOOKICON from "./assets/images/outlook.png";
 
 import RESULTFOLDER from "./assets/images/result-folder.svg";
 import RESULTGMAILS from "./assets/images/result-gmails.svg";
+import RESULTGMAIL from "./assets/images/result-gmail.svg";
 import RESULTMESSAGE from "./assets/images/result-message.svg";
 import RESULTTASK from "./assets/images/result-task.svg";
 import RESULTWORD from "./assets/images/result-word.svg";
@@ -94,10 +95,11 @@ const availableIcons = {
 
 const resultIcons = {
   folder: RESULTFOLDER,
+  email: RESULTGMAIL,
   emails: RESULTGMAILS,
   message: RESULTMESSAGE,
   task: RESULTTASK,
-  word: RESULTWORD,
+  file: RESULTWORD,
 };
 
 const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
