@@ -18,6 +18,7 @@ export async function getSearchResult(query = "") {
     console.log(err);
     NotificationManager.error(err.message, "Error", 5000, () => {});
   }
+
   const headers = { authorizer: token };
   const params = { q: query };
   store.dispatch({ type: types.GET_SEARCH_RESULT });

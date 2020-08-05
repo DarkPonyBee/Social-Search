@@ -22,7 +22,7 @@ const StyledLoader = styled(LoadingOverlay)`
 function App() {
   const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(true);
+  const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -34,8 +34,9 @@ function App() {
           setLoggedIn(true);
           handleLoggedIn();
         })
-        .catch((err) => {
+        .catch(() => {
           setLoggedIn(false);
+          setShowSignUp(true);
         });
     };
     getCurrentSession();

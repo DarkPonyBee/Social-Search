@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const mockdata = [
-  { File: ["PDF", "PPT", "DOC", "Excel", "Image"] },
-  "Email",
-  "Message",
-];
-
 const Container = styled.div`
   display: flex;
   padding: 10px 20px;
