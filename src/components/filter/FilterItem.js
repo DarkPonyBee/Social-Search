@@ -9,9 +9,15 @@ const mockdata = [
 
 const Container = styled.div`
   display: flex;
-  padding: 10px 0px;
+  padding: 10px 20px;
   &:hover {
     background-color: rgba(34, 32, 27, 0.1);
+  }
+  &:first-child {
+    margin-top: 30px;
+  }
+  &:last-child {
+    margin-bottom: 30px;
   }
 `;
 

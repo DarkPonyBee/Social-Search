@@ -30,6 +30,17 @@ const StyledFilterDropdown = styled.div`
     }
     &:hover {
       cursor: pointer;
+      border: 1px solid transparent !important;
+      background: linear-gradient(
+          45deg,
+          #ffffff 0%,
+          #ffffff 28.97%,
+          #ffffff 100%,
+          #ffffff 100%
+        ),
+        linear-gradient(15deg, red, blue);
+      background-clip: padding-box, border-box;
+      background-origin: padding-box, border-box;
     }
     &-active {
       border: 1px solid transparent !important;
@@ -46,16 +57,22 @@ const StyledFilterDropdown = styled.div`
     }
   }
   .dropdown-list {
+    z-index: 1;
     position: absolute;
     top: calc(100% + 10px);
+    overflow: hidden;
     min-width: 300px;
-    padding: 30px 20px;
+    max-height: 0px;
     border-radius: 5px;
-    box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
-      0 5px 20px 0 rgba(21, 27, 38, 0.08);
     background-color: #ffffff;
+    transition: all ease-in 0.3s;
     &:hover {
       cursor: pointer;
+    }
+    &-active {
+      max-height: 500px;
+      box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.12),
+        0 5px 20px 0 rgba(21, 27, 38, 0.08);
     }
   }
   &:last-child {
@@ -96,15 +113,18 @@ const FilterDropdown = () => {
         <div className="dropdown-text">Types</div>
         <i className="dropdown-icon"></i>
       </div>
-      {showDropList && (
-        <div ref={droplistRef} className="dropdown-list">
-          <FilterItem></FilterItem>
-          <FilterItem></FilterItem>
-          <FilterItem></FilterItem>
-          <FilterItem></FilterItem>
-          <FilterItem></FilterItem>
-        </div>
-      )}
+      <div
+        ref={droplistRef}
+        className={`dropdown-list ${
+          showDropList ? "dropdown-list-active" : ""
+        }`}
+      >
+        <FilterItem></FilterItem>
+        <FilterItem></FilterItem>
+        <FilterItem></FilterItem>
+        <FilterItem></FilterItem>
+        <FilterItem></FilterItem>
+      </div>
     </StyledFilterDropdown>
   );
 };
