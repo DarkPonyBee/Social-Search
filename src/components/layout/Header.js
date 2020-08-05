@@ -76,7 +76,7 @@ const StyledHeader = styled.div`
     width: 30px;
     height: 100%;
     margin: auto 20px auto 0px;
-    img {
+    > img {
       margin: auto;
       width: 100%;
       &:hover {

@@ -51,6 +51,10 @@ const AccountsContainer = styled.div`
       bottom: 0;
       transform: translate(-50%, 50%);
       transition: all ease-out 0.3s;
+      img {
+        width: 100%;
+        height: 100%;
+      }
       &:hover {
         cursor: pointer;
         opacity: 0.8;
