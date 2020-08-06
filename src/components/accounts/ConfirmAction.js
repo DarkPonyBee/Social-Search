@@ -1,5 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
+import { Auth } from "aws-amplify";
+import { NotificationManager } from "react-notifications";
+
+import request from "../../utils/request";
+import { getConnectedAccount } from "../../redux/actions/account";
+import { TreviContext } from "../../utils/context";
 
 const Container = styled.div`
   position: relative;
@@ -71,10 +77,11 @@ const Container = styled.div`
   }
 `;
 
-const ConfirmAction = ({ icon }) => {
+const ConfirmAction = ({ icon, accountId }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const confirmButton = useRef(null);
   const confirmModal = useRef(null);
+  const { setLoading } = useContext(TreviContext);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -92,8 +99,39 @@ const ConfirmAction = ({ icon }) => {
     };
   }, [confirmButton, confirmModal]);
 
-  const handleConfirmButton = () => {
-    console.log(icon);
+  const handleConfirmButton = async () => {
+    let token = null;
+    await Auth.currentSession()
+      .then((data) => {
+        token = data.getIdToken().getJwtToken();
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+        return;
+      });
+
+    setLoading(true);
+    if (icon === "trash") {
+      await request()
+        .delete("/account", {
+          params: {
+            accountId,
+          },
+          headers: {
+            authorizer: token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          getConnectedAccount();
+        })
+        .catch((err) => {
+          console.log(err);
+          NotificationManager.error(err.message, "Error", 5000, () => {});
+        });
+    }
+    setLoading(false);
   };
 
   return (
@@ -111,9 +149,6 @@ const ConfirmAction = ({ icon }) => {
       <div
         ref={confirmModal}
         className={`confirm ${showConfirm ? "confirm-active" : ""}`}
-        // onMouseLeave={() => {
-        //   setShowConfirm(false);
-        // }}
       >
         <div className="confirm-container">
           <p>

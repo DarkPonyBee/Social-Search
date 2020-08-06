@@ -133,6 +133,7 @@ const StyledContainer = styled.div`
 
 const Icon = ({ data }) => {
   const accountState = data.account_state;
+  const accountId = data.id;
   return (
     <StyledContainer state={accountState.state}>
       <div className="icon-indexed">
@@ -145,15 +146,15 @@ const Icon = ({ data }) => {
       <div className="icon-container">
         <img src={availableIcons[data.source]} alt={data.name}></img>
         <div className="icon-container-delete">
-          <ConfirmAction icon="trash"></ConfirmAction>
+          <ConfirmAction icon="trash" accountId={accountId}></ConfirmAction>
         </div>
         {accountState.state === "active" ? (
           <div className="icon-container-pause">
-            <ConfirmAction icon="pause"></ConfirmAction>
+            <ConfirmAction icon="pause" accountId={accountId}></ConfirmAction>
           </div>
         ) : accountState.state === "pause" ? (
           <div className="icon-container-active">
-            <ConfirmAction icon="active"></ConfirmAction>
+            <ConfirmAction icon="active" accountId={accountId}></ConfirmAction>
           </div>
         ) : (
           ""
