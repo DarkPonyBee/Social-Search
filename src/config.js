@@ -1,16 +1,17 @@
 import GMAILICON from "./assets/images/gmail.png";
-import FACEBOOKICON from "./assets/images/facebook.png";
-import SLACKICON from "./assets/images/slack.svg";
-import TRELLOICON from "./assets/images/trello.png";
 import GOOGLEDRIVEICON from "./assets/images/googledrive.png";
-import DROPBOXICON from "./assets/images/dropbox.png";
-import ONEDRIVEICON from "./assets/images/onedrive.png";
-import GITHUBICON from "./assets/images/github.png";
-import ASANAICON from "./assets/images/asana.png";
-import JIRAICON from "./assets/images/jira.png";
-import TODOISTICON from "./assets/images/todoist.png";
-import BOXICON from "./assets/images/box.png";
 import OUTLOOKICON from "./assets/images/outlook.png";
+import TEAMSICON from "./assets/images/teams.png";
+import SLACKICON from "./assets/images/slack.svg";
+import DROPBOXICON from "./assets/images/dropbox.png";
+// import FACEBOOKICON from "./assets/images/facebook.png";
+// import TRELLOICON from "./assets/images/trello.png";
+// import ONEDRIVEICON from "./assets/images/onedrive.png";
+// import GITHUBICON from "./assets/images/github.png";
+// import ASANAICON from "./assets/images/asana.png";
+// import JIRAICON from "./assets/images/jira.png";
+// import TODOISTICON from "./assets/images/todoist.png";
+// import BOXICON from "./assets/images/box.png";
 
 import RESULTFOLDER from "./assets/images/result-folder.svg";
 import RESULTGMAILS from "./assets/images/result-gmails.svg";
@@ -31,66 +32,72 @@ if (process.env.NODE_ENV === "development") {
 
 const availableAccounts = [
   { name: "gmail", icon: GMAILICON, uiname: "Gmail" },
-  { name: "facebook", icon: FACEBOOKICON, uiname: "Facebook" },
-  { name: "slack", icon: SLACKICON, uiname: "Slack" },
-  { name: "trello", icon: TRELLOICON, uiname: "Trello" },
   { name: "gdrive", icon: GOOGLEDRIVEICON, uiname: "Google Drive" },
-  {
-    name: "dropbox",
-    icon: DROPBOXICON,
-    uiname: "Dropbox",
-  },
   {
     name: "outlook",
     icon: OUTLOOKICON,
     uiname: "Outlook",
   },
   {
-    name: "box",
-    icon: BOXICON,
-    uiname: "Box",
+    name: "teams",
+    icon: TEAMSICON,
+    uiname: "Teams",
   },
+  { name: "slack", icon: SLACKICON, uiname: "Slack" },
   {
-    name: "todoist",
-    icon: TODOISTICON,
-    uiname: "Todoist",
+    name: "dropbox",
+    icon: DROPBOXICON,
+    uiname: "Dropbox",
   },
-  {
-    name: "jira",
-    icon: JIRAICON,
-    uiname: "Jira",
-  },
-  {
-    name: "asana",
-    icon: ASANAICON,
-    uiname: "Asana",
-  },
-  {
-    name: "github",
-    icon: GITHUBICON,
-    uiname: "Github",
-  },
-  {
-    name: "onedrive",
-    icon: ONEDRIVEICON,
-    uiname: "Microsoft OneDrive",
-  },
+  // { name: "facebook", icon: FACEBOOKICON, uiname: "Facebook" },
+  // { name: "trello", icon: TRELLOICON, uiname: "Trello" },
+  // {
+  //   name: "box",
+  //   icon: BOXICON,
+  //   uiname: "Box",
+  // },
+  // {
+  //   name: "todoist",
+  //   icon: TODOISTICON,
+  //   uiname: "Todoist",
+  // },
+  // {
+  //   name: "jira",
+  //   icon: JIRAICON,
+  //   uiname: "Jira",
+  // },
+  // {
+  //   name: "asana",
+  //   icon: ASANAICON,
+  //   uiname: "Asana",
+  // },
+  // {
+  //   name: "github",
+  //   icon: GITHUBICON,
+  //   uiname: "Github",
+  // },
+  // {
+  //   name: "onedrive",
+  //   icon: ONEDRIVEICON,
+  //   uiname: "Microsoft OneDrive",
+  // },
 ];
 
 const availableIcons = {
   gmail: GMAILICON,
-  facebook: FACEBOOKICON,
-  slack: SLACKICON,
-  trello: TRELLOICON,
   gdrive: GOOGLEDRIVEICON,
-  dropbox: DROPBOXICON,
   outlook: OUTLOOKICON,
-  box: BOXICON,
-  todoist: TODOISTICON,
-  jira: JIRAICON,
-  asana: ASANAICON,
-  github: GITHUBICON,
-  onedrive: ONEDRIVEICON,
+  teams: TEAMSICON,
+  slack: SLACKICON,
+  dropbox: DROPBOXICON,
+  // facebook: FACEBOOKICON,
+  // trello: TRELLOICON,
+  // box: BOXICON,
+  // todoist: TODOISTICON,
+  // jira: JIRAICON,
+  // asana: ASANAICON,
+  // github: GITHUBICON,
+  // onedrive: ONEDRIVEICON,
 };
 
 const resultIcons = {

@@ -138,7 +138,7 @@ const Icon = ({ data }) => {
     <StyledContainer state={accountState.state}>
       <div className="icon-indexed">
         {accountState.state === "active"
-          ? accountState.number_of_documents + " files indexed"
+          ? accountState.number_of_documents + " items indexed"
           : accountState.state === "pause"
           ? "Paused"
           : ""}
