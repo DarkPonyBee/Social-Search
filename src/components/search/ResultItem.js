@@ -199,13 +199,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     let highLightedText = text;
     let index = text.toLowerCase().indexOf(query.toLowerCase());
     if (index >= 0) {
-      // highLightedText = (
-      //   <>
-      //     {text.substring(0, index)}
-      //     <b>{text.substring(index, index + query.length)}</b>
-      //     {text.substring(index + query.length)}
-      //   </>
-      // );
       highLightedText =
         text.substring(0, index) +
         "<b>" +
