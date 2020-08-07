@@ -31,10 +31,19 @@ const StyledResultPage = styled.div`
       justify-content: center;
       padding: 100px 0px;
     }
+    &-empty {
+      color: rgba(0, 0, 0, 0.65);
+      font-size: 24px;
+      letter-spacing: 0;
+      line-height: 26px;
+      text-align: center;
+      padding: 50px 0px;
+    }
   }
 `;
 
 const ResultPage = () => {
+  const searchQuery = useSelector((store) => store.search.searchQuery);
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
   const result = searchResult.result.results;
@@ -57,14 +66,20 @@ const ResultPage = () => {
           </div>
         ) : (
           result &&
-          result.map((item, index) => {
-            return (
-              <ResultItemContainer
-                key={index}
-                data={item}
-              ></ResultItemContainer>
-            );
-          })
+          (result.length !== 0 ? (
+            result.map((item, index) => {
+              return (
+                <ResultItemContainer
+                  key={index}
+                  data={item}
+                ></ResultItemContainer>
+              );
+            })
+          ) : (
+            <div className="resultpage-list-empty">
+              Your search - <b>{searchQuery}</b> - did not match any documents.
+            </div>
+          ))
         )}
       </div>
     </StyledResultPage>
