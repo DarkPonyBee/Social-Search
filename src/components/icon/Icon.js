@@ -134,6 +134,7 @@ const StyledContainer = styled.div`
 const Icon = ({ data }) => {
   const accountState = data.account_state;
   const accountId = data.id;
+  console.log(accountState.is_syncing);
   return (
     <StyledContainer state={accountState.state}>
       <div className="icon-indexed">

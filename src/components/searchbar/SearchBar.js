@@ -149,11 +149,11 @@ const SearchBar = ({ setResultPage, resultPage }) => {
   const onInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    if (query.trim().length === 0) {
-      setShowSuggestionList(false);
-      return;
-    }
-    setShowSuggestionList(true);
+    // if (query.trim().length === 0) {
+    //   setShowSuggestionList(false);
+    //   return;
+    // }
+    // setShowSuggestionList(true);
   };
 
   const onKeyDown = (e) => {
@@ -205,17 +205,17 @@ const SearchBar = ({ setResultPage, resultPage }) => {
           ></ion-icon>
         </div>
       </div>
-      {showSuggestionList && (
+      {/* {showSuggestionList && (
         <div className="searchbar-list">
-          {/* {searchResult.map((item, index) => {
+          {searchResult.map((item, index) => {
             return (
               <div key={index} className="searchbar-list-item">
                 {item}
               </div>
             );
-          })} */}
+          })}
         </div>
-      )}
+      )} */}
     </StyledSearchBarContainer>
   );
 };
