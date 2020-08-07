@@ -109,7 +109,7 @@ const resultIcons = {
   file: RESULTWORD,
 };
 
-const recaptchaKey = "6Lf5068ZAAAAAFZSoYxadNmXWViMSQjUzTRhsZjY";
+const recaptchaKey = "6LeTB7gZAAAAADFSIat8lXRfOSuZ7KlSaSbzIRW9";
 
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
 
