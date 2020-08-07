@@ -57,7 +57,7 @@ const Mainpage = ({ handleSignOut }) => {
   );
 
   useEffect(() => {
-    getConnectedAccount();
+    getConnectedAccount(false);
   }, []);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Mainpage = ({ handleSignOut }) => {
             5000,
             () => {}
           );
-          getConnectedAccount();
+          getConnectedAccount(true);
         } else
           NotificationManager.error(
             redirectMSG[code],

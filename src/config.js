@@ -121,6 +121,8 @@ const redirectMSG = {
   500: "Server error!",
 };
 
+const intervalTime = 1000;
+
 export {
   API_URL,
   availableAccounts,
@@ -129,4 +131,5 @@ export {
   recaptchaKey,
   userPoolID,
   redirectMSG,
+  intervalTime,
 };

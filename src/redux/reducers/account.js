@@ -15,7 +15,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         connectedAccount: {
           ...state.connectedAccount,
-          loading: true,
+          loading: !actions.payload,
           error: {},
         },
       };

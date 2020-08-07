@@ -5,7 +5,7 @@ import * as types from "../constants";
 import request from "../../utils/request";
 import store from "../store";
 
-export async function getConnectedAccount() {
+export async function getConnectedAccount(isSyncing = false) {
   let token = null;
   try {
     let res = await Auth.currentSession();
@@ -15,7 +15,7 @@ export async function getConnectedAccount() {
     NotificationManager.error(err.message, "Error", 5000, () => {});
   }
   const headers = { authorizer: token };
-  store.dispatch({ type: types.GET_CONNECTED_ACCOUNT });
+  store.dispatch({ type: types.GET_CONNECTED_ACCOUNT, payload: isSyncing });
   return request()
     .get("/accounts", { headers })
     .then((response) => {

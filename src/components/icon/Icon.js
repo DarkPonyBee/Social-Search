@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { availableIcons } from "../../config";
+import { availableIcons, intervalTime } from "../../config";
 import ConfirmAction from "../accounts/ConfirmAction";
+import { getConnectedAccount } from "../../redux/actions/account";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -134,7 +135,18 @@ const StyledContainer = styled.div`
 const Icon = ({ data }) => {
   const accountState = data.account_state;
   const accountId = data.id;
-  console.log(accountState.is_syncing);
+
+  useEffect(() => {
+    let timerID = null;
+    if (accountState.is_syncing) {
+      console.log("setinterval");
+      timerID = setInterval(() => getConnectedAccount(true), intervalTime);
+    } else {
+      console.log("clearinterval");
+      clearInterval(timerID);
+    }
+  }, [accountState.is_syncing]);
+
   return (
     <StyledContainer state={accountState.state}>
       <div className="icon-indexed">
