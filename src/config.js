@@ -121,7 +121,7 @@ const redirectMSG = {
   500: "Server error!",
 };
 
-const intervalTime = 1000;
+const intervalTime = 7000;
 
 export {
   API_URL,
