@@ -18,7 +18,7 @@ const AddAccountsContainer = styled.div`
   .accounts-connected {
     padding: 20px 0px 30px;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap;
   }
   .accounts-provider {

@@ -67,6 +67,10 @@ const StyledContainer = styled.div`
             100% 100% no-repeat;
         background-clip: padding-box, border-box;
         background-origin: padding-box, border-box;
+        animation-name: Rotate;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
         -webkit-animation-name: Rotate;
         -webkit-animation-duration: 2s;
         -webkit-animation-iteration-count: infinite;

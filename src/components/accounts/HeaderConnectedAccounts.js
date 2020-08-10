@@ -31,7 +31,7 @@ const AccountsContainer = styled.div`
     padding: 35px 20px;
     &-container {
       display: flex;
-      justify-content: center;
+      justify-content: left;
       flex-wrap: wrap;
     }
     &-title {
