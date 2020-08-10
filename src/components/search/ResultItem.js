@@ -190,8 +190,12 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const searchQuery = useSelector((store) => store.search.searchQuery);
 
   const highLightText = (text, query) => {
-    if (text == null) text = "";
-    if (query == null) query = "";
+    if (text == null) {
+      text = "";
+    }
+    if (query == null) {
+      query = "";
+    }
     if (typeof text === "object") {
       let temp = text.join("");
       text = temp;
