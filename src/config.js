@@ -123,6 +123,8 @@ const redirectMSG = {
 
 const intervalTime = 7000;
 
+const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
+
 export {
   API_URL,
   availableAccounts,
@@ -132,4 +134,5 @@ export {
   userPoolID,
   redirectMSG,
   intervalTime,
+  bugsnagKEY,
 };
