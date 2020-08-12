@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { availableIcons, intervalTime } from "../../config";
@@ -205,15 +205,18 @@ const StyledContainer = styled.div`
 const Icon = ({ data }) => {
   const accountState = data.account_state;
   const accountId = data.id;
+  const timerID = useRef(null);
 
   useEffect(() => {
-    let timerID = null;
     if (accountState.is_syncing) {
       console.log("setinterval");
-      timerID = setInterval(() => getConnectedAccount(true), intervalTime);
+      timerID.current = setInterval(
+        () => getConnectedAccount(true),
+        intervalTime
+      );
     } else {
       console.log("clearinterval");
-      clearInterval(timerID);
+      clearInterval(timerID.current);
     }
   }, [accountState.is_syncing]);
 
