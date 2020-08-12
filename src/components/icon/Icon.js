@@ -223,7 +223,7 @@ const Icon = ({ data }) => {
   return (
     <StyledContainer
       state={accountState.state}
-      isSyncing={!accountState.is_syncing}
+      isSyncing={accountState.is_syncing}
     >
       <div className="icon-indexed">
         {accountState.state === "active"
@@ -235,7 +235,7 @@ const Icon = ({ data }) => {
       <div className="icon-container">
         <div
           className={`icon-container-border ${
-            !accountState.is_syncing ? "icon-container-border-syncing" : ""
+            accountState.is_syncing ? "icon-container-border-syncing" : ""
           }`}
         ></div>
         <img src={availableIcons[data.source]} alt={data.name}></img>
