@@ -46,9 +46,9 @@ const MainpageConnecteAccounts = styled.div`
 let oauthPopup = null;
 let previousUrl = null;
 
-const Mainpage = ({ handleSignOut }) => {
+const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   const [resultPage, setResultPage] = useState(false);
-  const [firstConnect, setFirstConnect] = useState(false);
+  const [firstConnect, setFirstConnect] = useState(isfirstConnect);
   const [addAccount, setAddAccount] = useState(false);
   const { setLoading } = useContext(TreviContext);
 

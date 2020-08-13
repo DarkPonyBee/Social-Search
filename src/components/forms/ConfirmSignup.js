@@ -137,7 +137,7 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const ConfirmSignup = ({ handleOpenSignIn }) => {
+const ConfirmSignup = ({ handleOpenSignIn, setFirstConnect }) => {
   const FORM_DATA_ITEMS = {
     email: "",
     code: "",
@@ -178,6 +178,7 @@ const ConfirmSignup = ({ handleOpenSignIn }) => {
     setLoading(true);
     try {
       await Auth.confirmSignUp(form.email, form.code);
+      setFirstConnect(true);
       handleOpenSignIn();
     } catch (err) {
       setFormError(err.message);

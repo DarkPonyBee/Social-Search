@@ -29,6 +29,7 @@ function App() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [showReset, setShowReset] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [firstConnect, setFirstConnect] = useState(false);
 
   useEffect(() => {
     const getCurrentSession = async () => {
@@ -46,6 +47,7 @@ function App() {
   }, []);
 
   const handleSignOut = () => {
+    setFirstConnect(false);
     setLoggedIn(false);
     setShowSignIn(false);
     setShowSignUp(true);
@@ -98,7 +100,12 @@ function App() {
           spinner
         ></StyledLoader>
       )}
-      {loggedin && <Mainpage handleSignOut={handleSignOut}></Mainpage>}
+      {loggedin && (
+        <Mainpage
+          handleSignOut={handleSignOut}
+          isfirstConnect={firstConnect}
+        ></Mainpage>
+      )}
       <Modal
         open={showSignUp}
         onClose={() => {}}
@@ -141,7 +148,10 @@ function App() {
         showCloseIcon={false}
         classNames={{ modal: "customModal" }}
       >
-        <ConfirmSignup handleOpenSignIn={handleOpenSignIn}></ConfirmSignup>
+        <ConfirmSignup
+          setFirstConnect={setFirstConnect}
+          handleOpenSignIn={handleOpenSignIn}
+        ></ConfirmSignup>
       </Modal>
       <NotificationContainer />
     </TreviContext.Provider>
