@@ -17,6 +17,9 @@ const StyledLoader = styled(LoadingOverlay)`
   z-index: 1001;
   height: 100vh;
   width: 100vw;
+  .MyLoader_overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
 `;
 
 function App() {
@@ -88,9 +91,14 @@ function App() {
 
   return (
     <TreviContext.Provider value={{ loading, setLoading }}>
-      {loading && <StyledLoader active={true} spinner></StyledLoader>}
+      {loading && (
+        <StyledLoader
+          active={true}
+          classNamePrefix="MyLoader_"
+          spinner
+        ></StyledLoader>
+      )}
       {loggedin && <Mainpage handleSignOut={handleSignOut}></Mainpage>}
-
       <Modal
         open={showSignUp}
         onClose={() => {}}
@@ -117,7 +125,6 @@ function App() {
           handleOpenConfirm={handleOpenConfirm}
         ></SignIn>
       </Modal>
-
       <Modal
         open={showReset}
         onClose={() => {}}
@@ -127,7 +134,6 @@ function App() {
       >
         <ResetPassword handleOpenSignIn={handleOpenSignIn}></ResetPassword>
       </Modal>
-
       <Modal
         open={showConfirm}
         onClose={() => {}}

@@ -36,6 +36,11 @@ code {
   max-width: 1120px !important;
   padding: 35px 55px 35px !important;
 }
+
+.react-responsive-modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
 @media only screen and (max-width: 600px) {
   .addModal {
     padding-left: 25px !important;
