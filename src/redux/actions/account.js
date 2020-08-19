@@ -25,17 +25,29 @@ export async function getConnectedAccount(isSyncing = false) {
         type: types.GET_CONNECTED_ACCOUNT_SUCCEED,
       });
     })
-    .catch((err) => {
-      store.dispatch({
-        payload: err.data,
-        type: types.GET_CONNECTED_ACCOUNT_FAIL,
-      });
-      console.log(err);
-      NotificationManager.error(
-        err.message,
-        "Get Connected Accounts",
-        5000,
-        () => {}
-      );
+    .catch(() => {
+      return request()
+        .get("/accounts", { headers })
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch({
+            payload: response.data,
+            type: types.GET_CONNECTED_ACCOUNT_SUCCEED,
+          });
+        })
+        .catch((err) => {
+          console.log("error2");
+          store.dispatch({
+            payload: err.data,
+            type: types.GET_CONNECTED_ACCOUNT_FAIL,
+          });
+          console.log(err);
+          NotificationManager.error(
+            err.message,
+            "Get Connected Accounts",
+            5000,
+            () => {}
+          );
+        });
     });
 }

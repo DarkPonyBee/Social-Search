@@ -31,12 +31,23 @@ export async function getSearchResult(query = "") {
         type: types.GET_SEARCH_RESULT_SUCCEED,
       });
     })
-    .catch((err) => {
-      store.dispatch({
-        payload: err.data,
-        type: types.GET_SEARCH_RESULT_FAIL,
-      });
-      console.log(err);
-      NotificationManager.error(err.message, "Error", 5000, () => {});
+    .catch(() => {
+      return request()
+        .post("/search", null, { params, headers })
+        .then((response) => {
+          console.log(response.data);
+          store.dispatch({
+            payload: response.data,
+            type: types.GET_SEARCH_RESULT_SUCCEED,
+          });
+        })
+        .catch((err) => {
+          store.dispatch({
+            payload: err.data,
+            type: types.GET_SEARCH_RESULT_FAIL,
+          });
+          console.log(err);
+          NotificationManager.error(err.message, "Error", 5000, () => {});
+        });
     });
 }
