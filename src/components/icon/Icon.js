@@ -143,7 +143,7 @@ const StyledContainer = styled.div`
     .icon-container {
       &-border {
         ${(props) =>
-          props.state === "active"
+          props.state === "active" && props.isSyncing
             ? "border: 5px solid transparent !important;"
             : props.state === "pause"
             ? "border: 5px solid #f0f0f0 !important;"
@@ -159,7 +159,10 @@ const StyledContainer = styled.div`
             100% 100% no-repeat;
         background-clip: padding-box, border-box;
         background-origin: padding-box, border-box;
-        ${(props) => (props.state === "pause" ? "background: none;" : "")};
+        ${(props) =>
+          props.state === "pause" || !props.isSyncing
+            ? "background: none;"
+            : ""};
       }
       &-delete,
       &-pause,

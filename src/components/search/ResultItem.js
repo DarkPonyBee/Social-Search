@@ -144,6 +144,9 @@ const StyledResultItem = styled.div`
         font-size: 14px;
         letter-spacing: -0.32px;
         line-height: 17px;
+        em {
+          font-weight: bold;
+        }
       }
       &-link {
         display: inline-flex;
@@ -213,10 +216,116 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return highLightedText;
   };
 
-  const getDateString = (text) => {
-    const date = new Date(Date.parse(text));
-    return date.getMonth() + "/" + date.getFullYear();
-  };
+  function isYesterday(dateObj) {
+    let currentDateObj = new Date();
+    if (
+      (dateObj.getDay() === currentDateObj.getDay() - 1 ||
+        (dateObj.getDay() === 6 && currentDateObj.getDay() === 0)) &&
+      Math.abs(currentDateObj.getTime() - dateObj.getTime()) <
+        1000 * 3600 * 24 * 2
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function isTomorrow(dateObj) {
+    let currentDateObj = new Date();
+    if (
+      (dateObj.getDay() === currentDateObj.getDay() + 1 ||
+        (dateObj.getDay() === 0 && currentDateObj.getDay() === 6)) &&
+      Math.abs(currentDateObj.getTime() - dateObj.getTime()) <
+        1000 * 3600 * 24 * 2
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function getFormattedDate(isoDate) {
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
+    let currentDateObj = new Date();
+    let isoDateObj = new Date(isoDate + "Z");
+    let t, spl, hm, am_pm, formattedDate;
+    if (
+      isoDateObj.getFullYear() === currentDateObj.getFullYear() &&
+      isoDateObj.getMonth() === currentDateObj.getMonth() &&
+      isoDateObj.getDate() === currentDateObj.getDate()
+    ) {
+      //today
+
+      t = isoDateObj.toLocaleTimeString();
+      spl = t.split(" ");
+      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
+      am_pm = spl[1];
+      formattedDate = "Today " + hm + " " + am_pm;
+    } else if (isYesterday(isoDateObj)) {
+      //yesterday
+      t = isoDateObj.toLocaleTimeString();
+      spl = t.split(" ");
+      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
+      am_pm = spl[1];
+      formattedDate = "Yesterday " + hm + " " + am_pm;
+    } else if (isTomorrow(isoDateObj)) {
+      //tomorrow
+      t = isoDateObj.toLocaleTimeString();
+      spl = t.split(" ");
+      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
+      am_pm = spl[1];
+      formattedDate = "Tomorrow " + hm + " " + am_pm;
+    } else if (
+      Math.abs(currentDateObj.getTime() - isoDateObj.getTime()) <
+      1000 * 3600 * 24 * (currentDateObj.getDay() + 1)
+    ) {
+      //this week
+      t = isoDateObj.toLocaleTimeString();
+      spl = t.split(" ");
+      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
+      am_pm = spl[1];
+      formattedDate = days[isoDateObj.getDay()] + " " + hm + " " + am_pm;
+    } else if (
+      isoDateObj.getFullYear() === currentDateObj.getFullYear() &&
+      isoDateObj.getMonth() === currentDateObj.getMonth()
+    ) {
+      //this month
+
+      formattedDate =
+        months[isoDateObj.getMonth()] + " " + isoDateObj.getDate();
+    } else if (isoDateObj.getFullYear() === currentDateObj.getFullYear()) {
+      //this year
+      formattedDate =
+        months[isoDateObj.getMonth()] + " " + isoDateObj.getDate();
+    } else {
+      formattedDate = isoDateObj.toLocaleDateString();
+    }
+
+    return formattedDate;
+  }
 
   const getResultIcon = (kind) => {
     if (kind === "email") return kind + (subitem ? "" : "s");
@@ -233,7 +342,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         <div className="resultitem-header">
           {data.date && (
             <div className="resultitem-header-date">
-              {getDateString(data.date)}
+              {getFormattedDate(data.date)}
             </div>
           )}
           <div className="resultitem-header-icon">
