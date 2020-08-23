@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import renderHTML from "react-render-html";
 
 import { availableIcons } from "../../config";
@@ -82,6 +82,10 @@ const StyledResultItem = styled.div`
           font-size: 20px;
           letter-spacing: -0.45px;
           line-height: 24px;
+          em {
+            font-weight: bold;
+            color: #4f4fc4;
+          }
         }
         &-users {
           margin: auto 0px;
@@ -146,6 +150,7 @@ const StyledResultItem = styled.div`
         line-height: 17px;
         em {
           font-weight: bold;
+          color: #4f4fc4;
         }
       }
       &-link {
@@ -190,7 +195,18 @@ const StyledResultItemContainer = styled.div`
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
-  const searchQuery = useSelector((store) => store.search.searchQuery);
+  // const searchQuery = useSelector((store) => store.search.searchQuery);
+
+  const checkObject = (text) => {
+    if (text == null) {
+      text = "";
+    }
+    if (typeof text === "object") {
+      let temp = text.join("");
+      text = temp;
+    }
+    return text;
+  };
 
   const highLightText = (text, query) => {
     if (text == null) {
@@ -199,10 +215,10 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     if (query == null) {
       query = "";
     }
-    if (typeof text === "object") {
-      let temp = text.join("");
-      text = temp;
-    }
+    // if (typeof text === "object") {
+    //   let temp = text.join("");
+    //   text = temp;
+    // }
     let highLightedText = text;
     let index = text.toLowerCase().indexOf(query.toLowerCase());
     if (index >= 0) {
@@ -365,11 +381,17 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
           </div>
           <div className="resultitem-content-title">
             <div className="resultitem-content-title-filename">
-              {renderHTML(
+              {/* {renderHTML(
                 data.title ? highLightText(data.title, searchQuery) : ""
-              )}
+              )} */}
+              {renderHTML(data.title ? checkObject(data.title) : "")}
             </div>
             <div className="resultitem-content-title-users">
+              {/* {renderHTML(
+                data.users
+                  ? highLightText(data.users.join(", "), data.primary_user)
+                  : ""
+              )} */}
               {renderHTML(
                 data.users
                   ? highLightText(data.users.join(", "), data.primary_user)
@@ -391,7 +413,8 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
             )}
           </div>
           <div className="resultitem-content-snippet">
-            {renderHTML(highLightText(data.snippet, searchQuery))}
+            {/* {renderHTML(highLightText(data.snippet, searchQuery))} */}
+            {renderHTML(data.snippet ? checkObject(data.snippet) : "")}
           </div>
           {data.content_kind === "file" && (
             <div className="resultitem-content-link">

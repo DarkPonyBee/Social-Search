@@ -213,10 +213,9 @@ const Icon = ({ data }) => {
   useEffect(() => {
     if (accountState.is_syncing) {
       console.log("setinterval");
-      timerID.current = setInterval(
-        () => getConnectedAccount(true),
-        intervalTime
-      );
+      timerID.current = setInterval(() => {
+        getConnectedAccount(true);
+      }, intervalTime);
     } else {
       console.log("clearinterval");
       clearInterval(timerID.current);
