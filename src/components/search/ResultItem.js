@@ -179,10 +179,17 @@ const StyledResultItem = styled.div`
       }
     }
   }
-  &:hover {
-    .resultitem-content {
-      &-title-filename,
-      &-snippet {
+  .resultitem-content-main {
+    &:hover {
+      .resultitem-content-title-filename {
+        text-decoration: underline;
+        text-decoration-color: #4f4fc4;
+      }
+    }
+  }
+  .resultitem-content {
+    &-container {
+      &:hover {
         text-decoration: underline;
         text-decoration-color: #4f4fc4;
       }
@@ -196,6 +203,30 @@ const StyledResultItemContainer = styled.div`
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   // const searchQuery = useSelector((store) => store.search.searchQuery);
+
+  const replaceText = (text, startindex, endindex) => {
+    return (
+      text.substring(0, startindex) +
+      "{{" +
+      text.substring(startindex + 1, endindex - 1) +
+      "}}" +
+      text.substring(endindex)
+    );
+  };
+
+  const strapingHTML = (text) => {
+    let temp = text;
+    let patt = /<[^>][em]+>/g;
+    let match = null;
+    while ((match = patt.exec(temp))) {
+      temp = replaceText(temp, match.index, patt.lastIndex);
+    }
+    temp = temp.replace(/</g, "&lt;");
+    temp = temp.replace(/>/g, "&gt;");
+    temp = temp.replace(/{{/g, "<");
+    temp = temp.replace(/}}/g, ">");
+    return temp;
+  };
 
   const checkObject = (text) => {
     if (text == null) {
@@ -354,14 +385,17 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
 
   return (
     <StyledResultItem subitem={subitem}>
-      <StyledResultItemContainer onClick={() => openNewTab(data.link)}>
+      <StyledResultItemContainer>
         <div className="resultitem-header">
           {data.date && (
             <div className="resultitem-header-date">
               {getFormattedDate(data.date)}
             </div>
           )}
-          <div className="resultitem-header-icon">
+          <div
+            className="resultitem-header-icon"
+            onClick={() => openNewTab(data.link)}
+          >
             <img
               src={resultIcons[getResultIcon(data.content_kind)]}
               alt="Result Icon"
@@ -369,7 +403,10 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
           </div>
         </div>
         <div className="resultitem-content">
-          <div className="resultitem-content-container">
+          <div
+            className="resultitem-content-container"
+            onClick={() => openNewTab(data.container.link)}
+          >
             <div className="resultitem-content-container-icon">
               <img src={availableIcons[data.source]} alt={data.source}></img>
             </div>
@@ -379,51 +416,67 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               })}
             </ul>
           </div>
-          <div className="resultitem-content-title">
-            <div className="resultitem-content-title-filename">
-              {/* {renderHTML(
+          <div className="resultitem-content-main">
+            <div
+              className="resultitem-content-title"
+              onClick={() => openNewTab(data.link)}
+            >
+              <div className="resultitem-content-title-filename">
+                {/* {renderHTML(
                 data.title ? highLightText(data.title, searchQuery) : ""
               )} */}
-              {renderHTML(data.title ? checkObject(data.title) : "")}
-            </div>
-            <div className="resultitem-content-title-users">
-              {/* {renderHTML(
+                {renderHTML(data.title ? checkObject(data.title) : "")}
+              </div>
+              <div className="resultitem-content-title-users">
+                {/* {renderHTML(
                 data.users
                   ? highLightText(data.users.join(", "), data.primary_user)
                   : ""
               )} */}
-              {renderHTML(
-                data.users
-                  ? highLightText(data.users.join(", "), data.primary_user)
-                  : ""
+                {renderHTML(
+                  data.users
+                    ? highLightText(data.users.join(", "), data.primary_user)
+                    : ""
+                )}
+              </div>
+              {data.sub_results && data.sub_results.length !== 0 && (
+                <div
+                  className={`resultitem-content-title-thread ${
+                    openSubResult
+                      ? "resultitem-content-title-thread-active"
+                      : ""
+                  }`}
+                  onClick={(e) => handleOpenSubResult(e)}
+                >
+                  <div className="resultitem-content-title-thread-count">
+                    +{data.sub_results.length}
+                  </div>
+                  {openSubResult ? "Hide thread" : "Show thread"}
+                </div>
               )}
             </div>
-            {data.sub_results && data.sub_results.length !== 0 && (
+            <div
+              className="resultitem-content-snippet"
+              onClick={() => openNewTab(data.link)}
+            >
+              {/* {renderHTML(highLightText(data.snippet, searchQuery))} */}
+              {/* {renderHTML(data.snippet ? checkObject(data.snippet) : "")} */}
+              {renderHTML(
+                strapingHTML(data.snippet ? checkObject(data.snippet) : "")
+              )}
+            </div>
+            {data.content_kind === "file" && (
               <div
-                className={`resultitem-content-title-thread ${
-                  openSubResult ? "resultitem-content-title-thread-active" : ""
-                }`}
-                onClick={(e) => handleOpenSubResult(e)}
+                className="resultitem-content-link"
+                onClick={() => openNewTab(data.link)}
               >
-                <div className="resultitem-content-title-thread-count">
-                  +{data.sub_results.length}
+                <div className="resultitem-content-link-icon">
+                  <img src={FILE} alt="file"></img>
                 </div>
-                {openSubResult ? "Hide thread" : "Show thread"}
+                {data.title}
               </div>
             )}
           </div>
-          <div className="resultitem-content-snippet">
-            {/* {renderHTML(highLightText(data.snippet, searchQuery))} */}
-            {renderHTML(data.snippet ? checkObject(data.snippet) : "")}
-          </div>
-          {data.content_kind === "file" && (
-            <div className="resultitem-content-link">
-              <div className="resultitem-content-link-icon">
-                <img src={FILE} alt="file"></img>
-              </div>
-              {data.title}
-            </div>
-          )}
         </div>
       </StyledResultItemContainer>
     </StyledResultItem>

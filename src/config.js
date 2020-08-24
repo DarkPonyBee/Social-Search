@@ -121,7 +121,7 @@ const redirectMSG = {
   500: "Server error!",
 };
 
-const intervalTime = 7000;
+const accountSyncIntervalTime = 7000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
@@ -133,6 +133,6 @@ export {
   recaptchaKey,
   userPoolID,
   redirectMSG,
-  intervalTime,
+  accountSyncIntervalTime,
   bugsnagKEY,
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import { availableIcons, intervalTime } from "../../config";
+import { availableIcons, accountSyncIntervalTime } from "../../config";
 import ConfirmAction from "../accounts/ConfirmAction";
 import { getConnectedAccount } from "../../redux/actions/account";
 
@@ -215,7 +215,7 @@ const Icon = ({ data }) => {
       console.log("setinterval");
       timerID.current = setInterval(() => {
         getConnectedAccount(true);
-      }, intervalTime);
+      }, accountSyncIntervalTime);
     } else {
       console.log("clearinterval");
       clearInterval(timerID.current);
