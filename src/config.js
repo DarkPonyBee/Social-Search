@@ -109,7 +109,9 @@ const resultIcons = {
   file: RESULTWORD,
 };
 
-const recaptchaKey = "6LeTB7gZAAAAADFSIat8lXRfOSuZ7KlSaSbzIRW9";
+//const recaptchaKey = "6LeTB7gZAAAAADFSIat8lXRfOSuZ7KlSaSbzIRW9";
+const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
+
 
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
 
@@ -121,7 +123,7 @@ const redirectMSG = {
   500: "Server error!",
 };
 
-const accountSyncIntervalTime = 7000;
+const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
