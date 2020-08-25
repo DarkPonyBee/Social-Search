@@ -135,6 +135,8 @@ const StyledResultItem = styled.div`
             }
             &:after {
               border-color: white;
+              transform: rotate(-135deg);
+              -webkit-transform: rotate(-135deg);
             }
           }
         }
@@ -374,6 +376,15 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return formattedDate;
   }
 
+  function getDateWithoutTime(formattedDate) {
+    let spl = formattedDate.split(":");
+    if (spl.length > 1) {
+      return spl[0].slice(0, spl[0].length - 2);
+    } else {
+      return formattedDate;
+    }
+  }
+
   const getResultIcon = (kind) => {
     if (kind === "email") return kind + (subitem ? "" : "s");
     else return kind;
@@ -389,7 +400,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         <div className="resultitem-header">
           {data.date && (
             <div className="resultitem-header-date">
-              {getFormattedDate(data.date)}
+              {getDateWithoutTime(getFormattedDate(data.date))}
             </div>
           )}
           <div
@@ -451,7 +462,13 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                   <div className="resultitem-content-title-thread-count">
                     +{data.sub_results.length}
                   </div>
-                  {openSubResult ? "Hide thread" : "Show thread"}
+                  {openSubResult
+                    ? `Hide ${
+                        data.content_kind === "file" ? "copies" : "thread"
+                      }`
+                    : `Show ${
+                        data.content_kind === "file" ? "copies" : "thread"
+                      }`}
                 </div>
               )}
             </div>
