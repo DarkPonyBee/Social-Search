@@ -1,24 +1,31 @@
-import GMAILICON from "./assets/images/gmail.png";
-import GOOGLEDRIVEICON from "./assets/images/googledrive.png";
-import OUTLOOKICON from "./assets/images/outlook.png";
-import TEAMSICON from "./assets/images/teams.png";
+import GMAILICON from "./assets/images/gmail.svg";
+import GOOGLEDRIVEICON from "./assets/images/googledrive.svg";
+import OUTLOOKICON from "./assets/images/outlook.svg";
+import TEAMSICON from "./assets/images/teams.svg";
 import SLACKICON from "./assets/images/slack.svg";
-import DROPBOXICON from "./assets/images/dropbox.png";
-// import FACEBOOKICON from "./assets/images/facebook.png";
-// import TRELLOICON from "./assets/images/trello.png";
-// import ONEDRIVEICON from "./assets/images/onedrive.png";
-// import GITHUBICON from "./assets/images/github.png";
-// import ASANAICON from "./assets/images/asana.png";
-// import JIRAICON from "./assets/images/jira.png";
-// import TODOISTICON from "./assets/images/todoist.png";
-// import BOXICON from "./assets/images/box.png";
+import DROPBOXICON from "./assets/images/dropbox.svg";
 
-import RESULTFOLDER from "./assets/images/result-folder.svg";
-import RESULTGMAILS from "./assets/images/result-gmails.svg";
-import RESULTGMAIL from "./assets/images/result-gmail.svg";
-import RESULTMESSAGE from "./assets/images/result-message.svg";
-import RESULTTASK from "./assets/images/result-task.svg";
-import RESULTWORD from "./assets/images/result-word.svg";
+import ICONCODEFILE from "./assets/images/icon-code-file.svg";
+import ICONHTML from "./assets/images/icon-html.svg";
+import ICONTEXTFILE from "./assets/images/icon-text-file.svg";
+import ICONZIP from "./assets/images/icon-zip.svg";
+import ICONPDF from "./assets/images/icon-pdf.svg";
+import ICONWORD from "./assets/images/icon-word.svg";
+import ICONPPT from "./assets/images/icon-ppt.svg";
+import ICONEXEL from "./assets/images/icon-exel.svg";
+import ICONAUDIO from "./assets/images/icon-audio.svg";
+import ICONGDOC from "./assets/images/icon-gdoc.svg";
+import ICONGSHEET from "./assets/images/icon-gsheet.svg";
+import ICONGSLIDES from "./assets/images/icon-gslides.svg";
+import ICONFILE from "./assets/images/icon-file.svg";
+import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
+import ICONVIDEO from "./assets/images/icon-video.svg";
+import ICONIMAGE from "./assets/images/icon-image.svg";
+import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
+import ICONFOLDER from "./assets/images/icon-folder.svg";
+import ICONEMAIL from "./assets/images/icon-email.svg";
+import ICONTASK from "./assets/images/icon-task.svg";
+import ICONMESSAGE from "./assets/images/icon-message.svg";
 
 let API_URL = "https://api-dev.trevi.io";
 
@@ -49,38 +56,6 @@ const availableAccounts = [
     icon: DROPBOXICON,
     uiname: "Dropbox",
   },
-  // { name: "facebook", icon: FACEBOOKICON, uiname: "Facebook" },
-  // { name: "trello", icon: TRELLOICON, uiname: "Trello" },
-  // {
-  //   name: "box",
-  //   icon: BOXICON,
-  //   uiname: "Box",
-  // },
-  // {
-  //   name: "todoist",
-  //   icon: TODOISTICON,
-  //   uiname: "Todoist",
-  // },
-  // {
-  //   name: "jira",
-  //   icon: JIRAICON,
-  //   uiname: "Jira",
-  // },
-  // {
-  //   name: "asana",
-  //   icon: ASANAICON,
-  //   uiname: "Asana",
-  // },
-  // {
-  //   name: "github",
-  //   icon: GITHUBICON,
-  //   uiname: "Github",
-  // },
-  // {
-  //   name: "onedrive",
-  //   icon: ONEDRIVEICON,
-  //   uiname: "Microsoft OneDrive",
-  // },
 ];
 
 const availableIcons = {
@@ -90,28 +65,25 @@ const availableIcons = {
   teams: TEAMSICON,
   slack: SLACKICON,
   dropbox: DROPBOXICON,
-  // facebook: FACEBOOKICON,
-  // trello: TRELLOICON,
-  // box: BOXICON,
-  // todoist: TODOISTICON,
-  // jira: JIRAICON,
-  // asana: ASANAICON,
-  // github: GITHUBICON,
-  // onedrive: ONEDRIVEICON,
 };
 
 const resultIcons = {
-  folder: RESULTFOLDER,
-  email: RESULTGMAIL,
-  emails: RESULTGMAILS,
-  message: RESULTMESSAGE,
-  task: RESULTTASK,
-  file: RESULTWORD,
+  folder: ICONFOLDER,
+  email: ICONEMAIL,
+  emails: ICONEMAILMULTIPLE,
+  files: ICONFILEMULTIPLE,
+  file: ICONFILE,
+  message: ICONMESSAGE,
+  task: ICONTASK,
 };
 
-//const recaptchaKey = "6LeTB7gZAAAAADFSIat8lXRfOSuZ7KlSaSbzIRW9";
-const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
+const contentType = [
+  { value: "email", icon: ICONEMAIL },
+  { value: "task", icon: ICONTASK },
+  { value: "message", icon: ICONMESSAGE },
+];
 
+const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
 
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
 

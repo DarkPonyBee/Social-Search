@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import BUTTONIMG from "../../assets/images/button-img.svg";
 import USERIMG from "../../assets/images/user-avatar.png";
-import CONNECTIMG from "../../assets/images/connected-img.png";
+import CONNECTIMG from "../../assets/images/icon-settings.svg";
 import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";

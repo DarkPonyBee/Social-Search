@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="52px" viewBox="0 0 40 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon-word (1)</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4F4FC4" offset="0%"></stop>
+            <stop stop-color="#2D2E2C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#4F4FC4" offset="0%"></stop>
+            <stop stop-color="#2D2E2C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#4F4FC4" offset="0%"></stop>
+            <stop stop-color="#2D2E2C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Search-Results-with-filter" transform="translate(-133.000000, -293.000000)" fill-rule="nonzero">
+            <g id="Group-12" transform="translate(121.000000, 294.000000)">
+                <g id="icon-word-(1)" transform="translate(13.000000, 0.000000)">
+                    <g id="icon-word" transform="translate(19.000000, 25.000000) scale(-1, 1) translate(-19.000000, -25.000000) ">
+                        <g id="path-1-link" fill="#FFFFFF" stroke="url(#linearGradient-1)">
+                            <path d="M37.9437037,14.118665 L23.8857143,0 L2.98370371,0 C1.35111111,0 0,1.33481646 0,2.94771969 C0,6.1206162 0,8.50028859 0,10.0867368 C0,18.3013021 0,30.6231499 0,47.0522803 C0,48.6651835 1.35111111,50 2.98370371,50 L35.0162963,50 C36.6488889,50 38,48.6651835 38,47.0522803 C37.9768196,33.4916311 37.9594343,23.3211442 37.9478441,16.5408196 C37.946924,16.002563 37.9455439,15.1951782 37.9437037,14.118665 Z" id="path-1"></path>
+                        </g>
+                        <g id="path-3-link" transform="translate(23.500000, 0.000000)" fill="url(#linearGradient-2)">
+                            <path d="M0.403208428,0.670616908 L0.403208428,12.3082535 C0.403208428,13.2097985 1.4902608,14.2797127 2.64358398,14.2797127 L14,14.3037845 L0.403208428,0.670616908 Z" id="path-3"></path>
+                        </g>
+                        <path d="M26.047619,38 C26.5238095,38 27,38.4375 27,39 C27,39.5625 26.5833333,40 26.047619,40 L26.047619,40 L7.95238095,40 C7.41666667,40 7,39.5625 7,39 C7,38.4375 7.41666667,38 7.95238095,38 L7.95238095,38 Z M26.047619,30 C26.5238095,30 26.9404762,30.4375 27,31 C27,31.5625 26.5833333,32 26.047619,32 L26.047619,32 L7.95238095,32 C7.41666667,32 7,31.5625 7,31 C7,30.4375 7.41666667,30 7.95238095,30 L7.95238095,30 Z M26.0679612,22 C26.592233,22 27,22.4375 27,23 C27,23.5625 26.592233,24 26.0679612,24 L26.0679612,24 L15.9320388,24 C15.407767,24 15,23.5625 15,23 C15,22.4375 15.407767,22 15.9320388,22 L15.9320388,22 Z" id="Combined-Shape" fill="url(#linearGradient-3)"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="114px" height="100px" viewBox="0 0 114 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>google_drive</title>
+    <defs>
+        <linearGradient x1="25.2862267%" y1="50.154757%" x2="93.9340029%" y2="91.885404%" id="linearGradient-1">
+            <stop stop-color="#1A237E" stop-opacity="0.2" offset="0%"></stop>
+            <stop stop-color="#1A237E" stop-opacity="0.02" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="29.4938098%" cy="1.00581481%" fx="29.4938098%" fy="1.00581481%" r="109.736592%" gradientTransform="translate(0.294938,0.010058),scale(0.907575,1.000000),translate(-0.294938,-0.010058)" id="radialGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <radialGradient cx="29.4938098%" cy="1.00581481%" fx="29.4938098%" fy="1.00581481%" r="114.838237%" gradientTransform="translate(0.294938,0.010058),scale(0.867257,1.000000),translate(-0.294938,-0.010058)" id="radialGradient-3">
+            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="google_drive" transform="translate(-5.000000, -5.000000)">
+            <g id="Group" transform="translate(23.000000, 72.000000)" fill-rule="nonzero">
+                <polygon id="Path" fill="#4285F4" points="0.266666667 0.472131148 0.266666667 32 77.6 32 95.68 0.472131148"></polygon>
+                <polygon id="Path" fill="url(#linearGradient-1)" points="18.8266667 0.472131148 37.44 32 0.266666667 32"></polygon>
+                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="18.5066667 1.04918033 94.6666667 1.04918033 95.7333333 0.419672131 18.8266667 0.419672131"></polygon>
+                <polygon id="Path" fill-opacity="0.2" fill="#1A237E" points="94.6133333 1.04918033 77.2266667 31.3704918 0.64 31.3704918 0.266666667 32 77.6 32 95.68 0.472131148"></polygon>
+                <polygon id="Path" fill-opacity="0.05" fill="#1A237E" points="19.2 1.04918033 18.8266667 0.419672131 0.266666667 32 0.96 32"></polygon>
+            </g>
+            <g id="Group" transform="translate(5.000000, 5.000000)" fill-rule="nonzero">
+                <polygon id="Path" fill="#0F9D58" points="38.3128205 0.0535135135 0.317948718 66.8383784 18.2820513 99 61.6290598 23.5459459"></polygon>
+                <polygon id="Path" fill-opacity="0.1" fill="#263238" points="38.3128205 0.0535135135 38.6307692 1.87297297 55.9589744 32.0545946 18.2290598 97.7156757 0.953846154 66.7848649 0.264957265 66.7848649 18.2290598 98.9464865 56.6478632 32.0545946"></polygon>
+                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="1.00683761 66.8383784 38.6307692 0.695675676 38.2598291 0.0535135135 0.264957265 66.8383784"></polygon>
+            </g>
+            <g id="Group" transform="translate(43.000000, 5.000000)" fill-rule="nonzero">
+                <polygon id="Path" fill="#FFCD40" points="36.8133803 0.0536 0.158450704 0.0536 38.3978873 66.9464 74.6830986 66.9464"></polygon>
+                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="36.8133803 0.0536 0.158450704 0.0536 1.21478873 0.6968 36.443662 0.6968 73.943662 66.9464 74.6302817 66.9464"></polygon>
+                <polygon id="Path" fill-opacity="0.1" fill="#BF360C" points="38.7147887 66.3032 1.21478873 0.6432 0.158450704 -7.61701813e-15 38.3978873 66.8928"></polygon>
+            </g>
+            <g id="Group">
+                <rect id="Rectangle" x="0.160416667" y="0.426168224" width="76.7326389" height="113.307477"></rect>
+                <polygon id="Path" fill="#0F9D58" fill-rule="nonzero" points="43.4729167 5.38037383 5.13333333 71.8626168 23.2604167 103.878505 67.0006944 28.7663551"></polygon>
+            </g>
+            <g id="Group" transform="translate(36.000000, 0.000000)" fill-rule="nonzero">
+                <rect id="Rectangle" fill="url(#radialGradient-2)" x="0.211764706" y="0.425974026" width="89.4705882" height="81.2012987"></rect>
+                <polygon id="Path" fill="#FFCD40" points="44.3117647 5.37792208 7.57058824 5.37792208 45.9 71.8298701 82.2705882 71.8298701"></polygon>
+            </g>
+            <path d="M79.9262218,6 L43.0737782,6 L5,72.1460249 L23.0014098,104 L99.9985902,104 L118,72.1460249 L79.9262218,6 Z M41.4807331,72.1460249 L61.5,37.7479719 L81.5192669,72.1460249 L41.4807331,72.1460249 Z" id="Shape" fill="url(#radialGradient-3)" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>

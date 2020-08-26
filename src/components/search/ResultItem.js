@@ -157,6 +157,7 @@ const StyledResultItem = styled.div`
       }
       &-link {
         display: inline-flex;
+        margin-right: 5px;
         padding: 1px 7px;
         border: 0.5px solid rgba(87, 88, 86, 0.48);
         border-radius: 11px;
@@ -175,12 +176,17 @@ const StyledResultItem = styled.div`
             width: 100%;
           }
         }
+        transition: all ease 0.3s;
         &:hover {
           cursor: pointer;
+          border-color: #4f4fc4;
+          background-color: #4f4fc4;
+          color: #ffffff;
         }
       }
     }
   }
+
   .resultitem-content-main {
     &:hover {
       .resultitem-content-title-filename {
@@ -189,6 +195,7 @@ const StyledResultItem = styled.div`
       }
     }
   }
+
   .resultitem-content {
     &-container {
       &:hover {
@@ -385,9 +392,10 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     }
   }
 
-  const getResultIcon = (kind) => {
-    if (kind === "email") return kind + (subitem ? "" : "s");
-    else return kind;
+  const getResultIcon = (kind, type) => {
+    if (type == null) return kind;
+    if (type === "email") return type + (subitem ? "" : "s");
+    if (type === "file") return type + (subitem ? "" : "s");
   };
 
   const openNewTab = (url) => {
@@ -408,7 +416,9 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
             onClick={() => openNewTab(data.link)}
           >
             <img
-              src={resultIcons[getResultIcon(data.content_kind)]}
+              src={
+                resultIcons[getResultIcon(data.content_kind, data.content_type)]
+              }
               alt="Result Icon"
             ></img>
           </div>
@@ -482,18 +492,22 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 strapingHTML(data.snippet ? checkObject(data.snippet) : "")
               )}
             </div>
-            {data.content_kind === "file" && (
-              <div
-                className="resultitem-content-link"
-                onClick={() => openNewTab(data.link)}
-              >
-                <div className="resultitem-content-link-icon">
-                  <img src={FILE} alt="file"></img>
-                </div>
-                {data.title}
-              </div>
-            )}
           </div>
+          {data.attachments &&
+            data.attachments.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="resultitem-content-link"
+                  onClick={() => openNewTab(item.link)}
+                >
+                  <div className="resultitem-content-link-icon">
+                    <img src={FILE} alt="file"></img>
+                  </div>
+                  {item.title}
+                </div>
+              );
+            })}
         </div>
       </StyledResultItemContainer>
     </StyledResultItem>

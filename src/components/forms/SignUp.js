@@ -5,12 +5,12 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { NotificationManager } from "react-notifications";
 import { Auth } from "aws-amplify";
 
-import GMAILICON from "../../assets/images/gmail.png";
+import GMAILICON from "../../assets/images/gmail.svg";
 import ONEDRIVEICON from "../../assets/images/onedrive.png";
-import DROPBOXICON from "../../assets/images/dropbox.png";
+import DROPBOXICON from "../../assets/images/dropbox.svg";
 import SLACKICON from "../../assets/images/slack.svg";
 import TRELLOICON from "../../assets/images/trello.png";
-import GOOGLEDRIVEICON from "../../assets/images/googledrive.png";
+import GOOGLEDRIVEICON from "../../assets/images/googledrive.svg";
 import { TreviContext } from "../../utils/context";
 import { recaptchaKey } from "../../config";
 
