@@ -399,9 +399,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
 
   const getResultIcon = (kind, type) => {
     let find = contentType.find((item) => item.value === type);
+
     if (find) return find.icon;
     else if (find == null)
       find = contentKind.find((item) => item.value === kind);
+
     if (find) return find.icon;
     else if (find == null) return contentDefaultIcon;
   };
@@ -508,7 +510,10 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                   onClick={() => openNewTab(item.link)}
                 >
                   <div className="resultitem-content-link-icon">
-                    <img src={FILE} alt="file"></img>
+                    <img
+                      src={getResultIcon(item.content_kind, item.content_type)}
+                      alt="file"
+                    ></img>
                   </div>
                   {item.title}
                 </div>
