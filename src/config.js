@@ -67,16 +67,6 @@ const availableIcons = {
   dropbox: DROPBOXICON,
 };
 
-const resultIcons = {
-  folder: ICONFOLDER,
-  email: ICONEMAIL,
-  emails: ICONEMAILMULTIPLE,
-  files: ICONFILEMULTIPLE,
-  file: ICONFILE,
-  message: ICONMESSAGE,
-  task: ICONTASK,
-};
-
 const contentType = [
   { value: "email", icon: ICONEMAIL },
   { value: "task", icon: ICONTASK },
@@ -151,7 +141,6 @@ export {
   API_URL,
   availableAccounts,
   availableIcons,
-  resultIcons,
   contentType,
   contentKind,
   contentDefaultIcon,

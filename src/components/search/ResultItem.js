@@ -4,13 +4,7 @@ import styled from "styled-components";
 import renderHTML from "react-render-html";
 
 import { availableIcons } from "../../config";
-import {
-  resultIcons,
-  contentType,
-  contentKind,
-  contentDefaultIcon,
-} from "../../config";
-import FILE from "../../assets/images/result1.png";
+import { contentType, contentKind, contentDefaultIcon } from "../../config";
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
