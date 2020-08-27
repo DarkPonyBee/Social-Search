@@ -81,7 +81,55 @@ const contentType = [
   { value: "email", icon: ICONEMAIL },
   { value: "task", icon: ICONTASK },
   { value: "message", icon: ICONMESSAGE },
+  { value: "file", icon: ICONFILE },
+
+  { value: "application/pdf", icon: ICONPDF },
+  { value: "application/zip", icon: ICONZIP },
+  {
+    value:
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    icon: ICONWORD,
+  },
+  {
+    value: "application/msword",
+    icon: ICONWORD,
+  },
+  {
+    value:
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    icon: ICONPPT,
+  },
+  { value: "application/vnd.ms-powerpoint", icon: ICONPPT },
+  {
+    value: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    icon: ICONEXEL,
+  },
+  { value: "application/vnd.ms-excel", icon: ICONEXEL },
+  { value: "application/vnd.google-apps.document", icon: ICONGDOC },
+  { value: "application/vnd.google-apps.presentation", icon: ICONGSLIDES },
+  { value: "application/vnd.google-apps.spreadsheet", icon: ICONGSHEET },
+  { value: "text/html", icon: ICONHTML },
+  { value: "text/plain", icon: ICONTEXTFILE },
+  { value: "application/rtf", icon: ICONTEXTFILE },
+  { value: "text/calendar", icon: ICONTEXTFILE },
+  { value: "code", icon: ICONCODEFILE },
+  { value: "project", icon: ICONFILE },
+  { value: "channel", icon: ICONFILE },
+  { value: "board", icon: ICONFILE },
+  { value: "image/png", icon: ICONIMAGE },
+  { value: "video/mp4", icon: ICONVIDEO },
+  { value: "audio/mp3", icon: ICONAUDIO },
 ];
+
+const contentKind = [
+  { value: "email", icon: ICONEMAIL },
+  { value: "task", icon: ICONTASK },
+  { value: "message", icon: ICONMESSAGE },
+  { value: "file", icon: ICONFILE },
+  { value: "container", icon: ICONFILE },
+];
+
+const contentDefaultIcon = ICONFILE;
 
 const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
 
@@ -104,6 +152,9 @@ export {
   availableAccounts,
   availableIcons,
   resultIcons,
+  contentType,
+  contentKind,
+  contentDefaultIcon,
   recaptchaKey,
   userPoolID,
   redirectMSG,

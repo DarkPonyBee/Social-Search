@@ -4,7 +4,12 @@ import styled from "styled-components";
 import renderHTML from "react-render-html";
 
 import { availableIcons } from "../../config";
-import { resultIcons } from "../../config";
+import {
+  resultIcons,
+  contentType,
+  contentKind,
+  contentDefaultIcon,
+} from "../../config";
 import FILE from "../../assets/images/result1.png";
 
 const StyledResultItem = styled.div`
@@ -393,9 +398,12 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   }
 
   const getResultIcon = (kind, type) => {
-    if (type == null) return kind;
-    if (type === "email") return type + (subitem ? "" : "s");
-    if (type === "file") return type + (subitem ? "" : "s");
+    let find = contentType.find((item) => item.value === type);
+    if (find) return find.icon;
+    else if (find == null)
+      find = contentKind.find((item) => item.value === kind);
+    if (find) return find.icon;
+    else if (find == null) return contentDefaultIcon;
   };
 
   const openNewTab = (url) => {
@@ -416,9 +424,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
             onClick={() => openNewTab(data.link)}
           >
             <img
-              src={
-                resultIcons[getResultIcon(data.content_kind, data.content_type)]
-              }
+              src={getResultIcon(data.content_kind, data.content_type)}
               alt="Result Icon"
             ></img>
           </div>
