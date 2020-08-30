@@ -126,11 +126,12 @@ const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
 const userPoolID = "73qek8ikcn8259uhbn1lvgslpv";
 
 const redirectMSG = {
-  200: "Account Connected!",
-  409: "Account already exists!",
-  400: "Request is not valid!",
-  401: "No valid credential!",
-  500: "Server error!",
+  200: "Account Connected",
+  400: "Request is not valid",
+  401: "No valid credential",
+  409: "Account already exists",
+  410: "account is being deleted",
+  500: "Server error",
 };
 
 const accountSyncIntervalTime = 4000;
