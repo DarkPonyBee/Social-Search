@@ -208,6 +208,8 @@ const StyledContainer = styled.div`
 const Icon = ({ data }) => {
   const accountState = data.account_state;
   const accountId = data.id;
+  const accountName = data.name;
+  const accountSource = data.source;
   const timerID = useRef(null);
 
   useEffect(() => {
@@ -240,24 +242,39 @@ const Icon = ({ data }) => {
             accountState.is_syncing ? "icon-container-border-syncing" : ""
           }`}
         ></div>
-        <img src={availableIcons[data.source]} alt={data.name}></img>
+        <img src={availableIcons[accountSource]} alt={accountName}></img>
         <div className="icon-container-delete">
-          <ConfirmAction icon="trash" accountId={accountId}></ConfirmAction>
+          <ConfirmAction
+            icon="trash"
+            accountId={accountId}
+            accountName={accountName}
+            accountSource={accountSource}
+          ></ConfirmAction>
         </div>
         {accountState.state === "active" ? (
           <div className="icon-container-pause">
-            <ConfirmAction icon="pause" accountId={accountId}></ConfirmAction>
+            <ConfirmAction
+              icon="pause"
+              accountId={accountId}
+              accountName={accountName}
+              accountSource={accountSource}
+            ></ConfirmAction>
           </div>
         ) : accountState.state === "pause" ? (
           <div className="icon-container-active">
-            <ConfirmAction icon="active" accountId={accountId}></ConfirmAction>
+            <ConfirmAction
+              icon="active"
+              accountId={accountId}
+              accountName={accountName}
+              accountSource={accountSource}
+            ></ConfirmAction>
           </div>
         ) : (
           ""
         )}
       </div>
       <div className="icon-name">
-        <p>{data.name}</p>
+        <p>{accountName}</p>
       </div>
     </StyledContainer>
   );
