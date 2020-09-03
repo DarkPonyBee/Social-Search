@@ -106,9 +106,9 @@ const contentType = [
   { value: "project", icon: ICONFILE },
   { value: "channel", icon: ICONFILE },
   { value: "board", icon: ICONFILE },
-  { value: "image/png", icon: ICONIMAGE },
-  { value: "video/mp4", icon: ICONVIDEO },
-  { value: "audio/mp3", icon: ICONAUDIO },
+  { value: "image", icon: ICONIMAGE },
+  { value: "video", icon: ICONVIDEO },
+  { value: "audio", icon: ICONAUDIO },
 ];
 
 const contentKind = [
