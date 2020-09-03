@@ -6,6 +6,7 @@ import { NotificationManager } from "react-notifications";
 import request from "../../utils/request";
 import { getConnectedAccount } from "../../redux/actions/account";
 import { TreviContext } from "../../utils/context";
+import { availableAccounts } from "../../config";
 
 const Container = styled.div`
   position: relative;
@@ -77,7 +78,7 @@ const Container = styled.div`
   }
 `;
 
-const ConfirmAction = ({ icon, accountId }) => {
+const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const confirmButton = useRef(null);
   const confirmModal = useRef(null);
@@ -134,6 +135,12 @@ const ConfirmAction = ({ icon, accountId }) => {
     setLoading(false);
   };
 
+  const getAccountSource = () => {
+    let uiName = availableAccounts.find((item) => item.name === accountSource);
+    if (uiName) return uiName.uiname;
+    return "";
+  };
+
   return (
     <Container>
       <div
@@ -160,7 +167,7 @@ const ConfirmAction = ({ icon, accountId }) => {
               : icon === "active"
               ? "active"
               : ""}{" "}
-            this account?
+            the {getAccountSource()} {accountName}?
           </p>
           <div className="confirm-button-container">
             <div

@@ -254,10 +254,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     if (query == null) {
       query = "";
     }
-    // if (typeof text === "object") {
-    //   let temp = text.join("");
-    //   text = temp;
-    // }
     let highLightedText = text;
     let index = text.toLowerCase().indexOf(query.toLowerCase());
     if (index >= 0) {
@@ -403,7 +399,8 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   };
 
   const openNewTab = (url) => {
-    window.open(url, "_blank");
+    if (url != null) window.open(url, "_blank");
+    return;
   };
 
   return (
@@ -417,7 +414,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
           )}
           <div
             className="resultitem-header-icon"
-            onClick={() => openNewTab(data.link)}
+            onClick={() => openNewTab(data.link ? data.link : null)}
           >
             <img
               src={getResultIcon(data.content_kind, data.content_type)}
@@ -428,7 +425,9 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         <div className="resultitem-content">
           <div
             className="resultitem-content-container"
-            onClick={() => openNewTab(data.container.link)}
+            onClick={() =>
+              openNewTab(data.container.link ? data.container.link : null)
+            }
           >
             <div className="resultitem-content-container-icon">
               <img src={availableIcons[data.source]} alt={data.source}></img>
@@ -442,7 +441,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
           <div className="resultitem-content-main">
             <div
               className="resultitem-content-title"
-              onClick={() => openNewTab(data.link)}
+              onClick={() => openNewTab(data.link ? data.link : null)}
             >
               <div className="resultitem-content-title-filename">
                 {/* {renderHTML(
@@ -486,7 +485,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
             </div>
             <div
               className="resultitem-content-snippet"
-              onClick={() => openNewTab(data.link)}
+              onClick={() => openNewTab(data.link ? data.link : null)}
             >
               {/* {renderHTML(highLightText(data.snippet, searchQuery))} */}
               {/* {renderHTML(data.snippet ? checkObject(data.snippet) : "")} */}
@@ -501,7 +500,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 <div
                   key={index}
                   className="resultitem-content-link"
-                  onClick={() => openNewTab(item.link)}
+                  onClick={() => openNewTab(item.link ? item.link : null)}
                 >
                   <div className="resultitem-content-link-icon">
                     <img

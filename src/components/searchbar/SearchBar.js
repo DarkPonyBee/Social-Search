@@ -185,7 +185,7 @@ const SearchBar = ({ setResultPage, resultPage }) => {
           <input
             type="text"
             name="searchQuery"
-            placeholder="Search for files, emails, tasks and much more"
+            placeholder="Search Your Cloud"
             onChange={onInputChange}
             onKeyDown={onKeyDown}
             value={searchQuery}

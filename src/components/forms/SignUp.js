@@ -5,14 +5,8 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { NotificationManager } from "react-notifications";
 import { Auth } from "aws-amplify";
 
-import GMAILICON from "../../assets/images/gmail.svg";
-import ONEDRIVEICON from "../../assets/images/onedrive.png";
-import DROPBOXICON from "../../assets/images/dropbox.svg";
-import SLACKICON from "../../assets/images/slack.svg";
-import TRELLOICON from "../../assets/images/trello.png";
-import GOOGLEDRIVEICON from "../../assets/images/googledrive.svg";
 import { TreviContext } from "../../utils/context";
-import { recaptchaKey } from "../../config";
+import { availableIcons, recaptchaKey } from "../../config";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -368,22 +362,22 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
           </div>
           <div className="signup-content-left-down">
             <div className="signup-content-left-down-item">
-              <img src={GMAILICON} alt="Gmail"></img>
+              <img src={availableIcons.gmail} alt="Gmail"></img>
             </div>
             <div className="signup-content-left-down-item">
-              <img src={SLACKICON} alt="Slack"></img>
+              <img src={availableIcons.slack} alt="Slack"></img>
             </div>
             <div className="signup-content-left-down-item">
-              <img src={DROPBOXICON} alt="Dropbox"></img>
+              <img src={availableIcons.dropbox} alt="Dropbox"></img>
             </div>
             <div className="signup-content-left-down-item">
-              <img src={TRELLOICON} alt="Trello"></img>
+              <img src={availableIcons.teams} alt="Teams"></img>
             </div>
             <div className="signup-content-left-down-item">
-              <img src={ONEDRIVEICON} alt="One Drive"></img>
+              <img src={availableIcons.outlook} alt="Outlook"></img>
             </div>
             <div className="signup-content-left-down-item">
-              <img src={GOOGLEDRIVEICON} alt="Google Drive"></img>
+              <img src={availableIcons.gdrive} alt="Google Drive"></img>
             </div>
             <div className="signup-content-left-down-item">
               ...and many more!
