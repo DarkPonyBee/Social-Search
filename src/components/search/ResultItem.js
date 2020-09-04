@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-// import { useSelector } from "react-redux";
 import renderHTML from "react-render-html";
+import ReactTooltip from "react-tooltip";
+import sanitizeHtml from "sanitize-html-react";
 
 import { availableIcons } from "../../config";
 import { contentType, contentKind, contentDefaultIcon } from "../../config";
@@ -82,6 +83,7 @@ const StyledResultItem = styled.div`
           letter-spacing: -0.45px;
           line-height: 24px;
           em {
+            font-style: normal;
             font-weight: bold;
             color: #4f4fc4;
           }
@@ -150,6 +152,7 @@ const StyledResultItem = styled.div`
         letter-spacing: -0.32px;
         line-height: 17px;
         em {
+          font-style: normal;
           font-weight: bold;
           color: #4f4fc4;
         }
@@ -204,14 +207,13 @@ const StyledResultItem = styled.div`
     }
   }
 `;
+
 const StyledResultItemContainer = styled.div`
   display: flex;
   cursor: pointer;
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
-  // const searchQuery = useSelector((store) => store.search.searchQuery);
-
   const replaceText = (text, startindex, endindex) => {
     return (
       text.substring(0, startindex) +
@@ -233,6 +235,13 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     temp = temp.replace(/>/g, "&gt;");
     temp = temp.replace(/{{/g, "<");
     temp = temp.replace(/}}/g, ">");
+    return temp;
+  };
+
+  const replaceTag = (text) => {
+    let temp = text;
+    temp = temp.replace(/&lt;/g, "<");
+    temp = temp.replace(/&gt;/g, ">");
     return temp;
   };
 
@@ -267,7 +276,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return highLightedText;
   };
 
-  function isYesterday(dateObj) {
+  const isYesterday = (dateObj) => {
     let currentDateObj = new Date();
     if (
       (dateObj.getDay() === currentDateObj.getDay() - 1 ||
@@ -279,9 +288,9 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     } else {
       return false;
     }
-  }
+  };
 
-  function isTomorrow(dateObj) {
+  const isTomorrow = (dateObj) => {
     let currentDateObj = new Date();
     if (
       (dateObj.getDay() === currentDateObj.getDay() + 1 ||
@@ -293,9 +302,9 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     } else {
       return false;
     }
-  }
+  };
 
-  function getFormattedDate(isoDate) {
+  const getFormattedDate = (isoDate) => {
     const months = [
       "January",
       "February",
@@ -376,16 +385,16 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     }
 
     return formattedDate;
-  }
+  };
 
-  function getDateWithoutTime(formattedDate) {
+  const getDateWithoutTime = (formattedDate) => {
     let spl = formattedDate.split(":");
     if (spl.length > 1) {
       return spl[0].slice(0, spl[0].length - 2);
     } else {
       return formattedDate;
     }
-  }
+  };
 
   const getResultIcon = (kind, type) => {
     let find = contentType.find((item) => item.value === type);
@@ -401,6 +410,18 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const openNewTab = (url) => {
     if (url != null) window.open(url, "_blank");
     return;
+  };
+
+  const truncateTitle = (title) => {
+    if (title.length > 20) {
+      return title.substring(0, 17);
+    } else {
+      return title;
+    }
+  };
+
+  const getTitle = (title) => {
+    return title ? checkObject(title) : "";
   };
 
   return (
@@ -443,18 +464,25 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               className="resultitem-content-title"
               onClick={() => openNewTab(data.link ? data.link : null)}
             >
-              <div className="resultitem-content-title-filename">
-                {/* {renderHTML(
-                data.title ? highLightText(data.title, searchQuery) : ""
-              )} */}
-                {renderHTML(data.title ? checkObject(data.title) : "")}
+              <div
+                data-for="main"
+                data-tip={getTitle(data.title).length > 20 ? data.title : ""}
+                data-iscapture={true}
+                data-html={true}
+              >
+                <div className="resultitem-content-title-filename">
+                  {renderHTML(truncateTitle(getTitle(data.title)))}
+                  {getTitle(data.title).length > 20 ? "..." : ""}
+                </div>
+
+                <ReactTooltip
+                  id="main"
+                  place="bottom"
+                  effect="solid"
+                  multiline={true}
+                />
               </div>
               <div className="resultitem-content-title-users">
-                {/* {renderHTML(
-                data.users
-                  ? highLightText(data.users.join(", "), data.primary_user)
-                  : ""
-              )} */}
                 {renderHTML(
                   data.users
                     ? highLightText(data.users.join(", "), data.primary_user)
@@ -487,10 +515,16 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               className="resultitem-content-snippet"
               onClick={() => openNewTab(data.link ? data.link : null)}
             >
-              {/* {renderHTML(highLightText(data.snippet, searchQuery))} */}
-              {/* {renderHTML(data.snippet ? checkObject(data.snippet) : "")} */}
-              {renderHTML(
+              {/* {renderHTML(
                 strapingHTML(data.snippet ? checkObject(data.snippet) : "")
+              )} */}
+              {renderHTML(
+                sanitizeHtml(
+                  replaceTag(data.snippet ? checkObject(data.snippet) : ""),
+                  {
+                    allowedTags: ["em"],
+                  }
+                )
               )}
             </div>
           </div>

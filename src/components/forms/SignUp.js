@@ -402,7 +402,8 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 placeholder="Email"
                 onChange={handleChange}
                 onFocus={handleFocus}
-                vlaue={form.email}
+                value={form.email}
+                autoComplete="off"
               ></input>
               {error.email && (
                 <div className="input-item-error">{error.email}</div>
@@ -425,7 +426,8 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 placeholder="Password"
                 onChange={handleChange}
                 onFocus={handleFocus}
-                vlaue={form.password}
+                value={form.password}
+                autoComplete="off"
               ></input>
               {error.password && (
                 <div className="input-item-error">{error.password}</div>
@@ -448,7 +450,8 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 placeholder="Confirm Password"
                 onChange={handleChange}
                 onFocus={handleFocus}
-                vlaue={form.confirmPassword}
+                value={form.confirmPassword}
+                autoComplete="off"
               ></input>
               {error.confirmPassword && (
                 <div className="input-item-error">{error.confirmPassword}</div>

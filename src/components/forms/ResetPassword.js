@@ -246,7 +246,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
               placeholder="Email"
               onChange={handleChange}
               onFocus={handleFocus}
-              vlaue={form.email}
+              value={form.email}
             ></input>
             {error.email && (
               <div className="input-item-error">{error.email}</div>
@@ -269,7 +269,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
                   placeholder="Code"
                   onChange={handleChange}
                   onFocus={handleFocus}
-                  vlaue={form.code}
+                  value={form.code}
                 ></input>
                 {error.code && (
                   <div className="input-item-error">{error.code}</div>
@@ -292,7 +292,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
                   placeholder="Password"
                   onChange={handleChange}
                   onFocus={handleFocus}
-                  vlaue={form.password}
+                  value={form.password}
                 ></input>
                 {error.password && (
                   <div className="input-item-error">{error.password}</div>

@@ -72,7 +72,6 @@ const contentType = [
   { value: "task", icon: ICONTASK },
   { value: "message", icon: ICONMESSAGE },
   { value: "file", icon: ICONFILE },
-
   { value: "application/pdf", icon: ICONPDF },
   { value: "application/zip", icon: ICONZIP },
   {
