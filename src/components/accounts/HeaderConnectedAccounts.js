@@ -89,7 +89,7 @@ const HeaderConnnectedAccounts = ({ showAddAccount }) => {
           })}
         </div>
         <div className="accounts-content-title">
-          Connecting additional sources means Trevi can find even more.
+          Connecting additional accounts means Trevi can find even more.
         </div>
       </div>
       <div className="accounts-content-icon">

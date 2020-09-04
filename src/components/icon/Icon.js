@@ -251,7 +251,8 @@ const Icon = ({ data }) => {
             accountSource={accountSource}
           ></ConfirmAction>
         </div>
-        {accountState.state === "active" ? (
+        {/* ACCOUNT PAUSE ICON */}
+        {/* {accountState.state === "active" ? (
           <div className="icon-container-pause">
             <ConfirmAction
               icon="pause"
@@ -271,7 +272,7 @@ const Icon = ({ data }) => {
           </div>
         ) : (
           ""
-        )}
+        )} */}
       </div>
       <div className="icon-name">
         <p>{accountName}</p>

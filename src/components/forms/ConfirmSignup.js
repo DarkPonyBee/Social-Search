@@ -208,7 +208,7 @@ const ConfirmSignup = ({ handleOpenSignIn, setFirstConnect }) => {
               placeholder="Email"
               onChange={handleChange}
               onFocus={handleFocus}
-              vlaue={form.email}
+              value={form.email}
             ></input>
             {error.email && (
               <div className="input-item-error">{error.email}</div>
@@ -229,7 +229,7 @@ const ConfirmSignup = ({ handleOpenSignIn, setFirstConnect }) => {
               placeholder="Code"
               onChange={handleChange}
               onFocus={handleFocus}
-              vlaue={form.code}
+              value={form.code}
             ></input>
             {error.code && <div className="input-item-error">{error.code}</div>}
           </div>

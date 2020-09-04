@@ -57,6 +57,26 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   );
 
   useEffect(() => {
+    const notifyUserSession = async () => {
+      let token = null;
+      await Auth.currentSession()
+        .then((data) => {
+          token = data.getIdToken().getJwtToken();
+        })
+        .catch((err) => {
+          console.log(err);
+          NotificationManager.error(err.message, "Error", 5000, () => {});
+          return;
+        });
+
+      request().get("/notifyUserSession", {
+        headers: {
+          authorizer: token,
+        },
+      });
+    };
+
+    notifyUserSession();
     getConnectedAccount(false);
   }, []);
 
