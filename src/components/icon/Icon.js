@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { availableIcons, accountSyncIntervalTime } from "../../config";
 import ConfirmAction from "../accounts/ConfirmAction";
 import { getConnectedAccount } from "../../redux/actions/account";
+import Truncate from "react-truncate";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -134,6 +135,9 @@ const StyledContainer = styled.div`
     text-align: center;
     p {
       margin: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   &:hover {
@@ -276,6 +280,9 @@ const Icon = ({ data }) => {
       </div>
       <div className="icon-name">
         <p>{accountName}</p>
+        {/* <div>
+          <Truncate>fdsfdsfsdfasdfsfsdfdsfdsfadsfadsfadsfadsfasdf</Truncate>
+        </div> */}
       </div>
     </StyledContainer>
   );

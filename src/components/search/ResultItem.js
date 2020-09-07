@@ -1,4 +1,5 @@
 import React from "react";
+import { renderToString } from "react-dom/server";
 import styled from "styled-components";
 import renderHTML from "react-render-html";
 import ReactTooltip from "react-tooltip";
@@ -6,12 +7,17 @@ import sanitizeHtml from "sanitize-html-react";
 
 import { availableIcons } from "../../config";
 import { contentType, contentKind, contentDefaultIcon } from "../../config";
+import Truncate from "react-truncate";
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
   ${(props) =>
     props.subitem ? "border-top: 0.5px solid rgba(117, 119, 115, 0.4);" : ""};
   .resultitem {
+    display: flex;
+    cursor: pointer;
+    position: relative;
+
     &-header {
       padding: 0px 10px;
       &-date {
@@ -76,6 +82,10 @@ const StyledResultItem = styled.div`
         display: flex;
         color: rgba(0, 0, 0, 0.65);
         &-filename {
+          width: 70%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           margin: auto 0px;
           padding-right: 15px;
           border-right: 1px solid #979797;
@@ -89,56 +99,16 @@ const StyledResultItem = styled.div`
           }
         }
         &-users {
+          width: 30%;
+          white-space: nowrap;
           margin: auto 0px;
           padding-left: 15px;
           font-size: 17px;
           letter-spacing: -0.39px;
           line-height: 21px;
-        }
-        &-thread {
-          margin-left: auto;
-          display: flex;
-          font-size: 11px;
-          letter-spacing: -0.25px;
-          line-height: 23px;
-          color: #2d2e2c;
-          &-count {
-            margin: auto 5px auto 0px;
-            font-size: 8px;
-            width: 18px;
-            height: 18px;
-            text-align: center;
-            line-height: 18px;
-            border: 0.5px solid #4f4fc4;
-            border-radius: 50%;
-            color: #4f4fc4;
-            font-weight: bold;
-          }
-          &:after {
-            content: "";
-            border: solid #4f4fc4;
-            border-width: 0 2px 2px 0;
-            display: inline-block;
-            padding: 2px;
-            margin: auto 5px;
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-          }
-          &:hover {
-            cursor: pointer;
-          }
-          &-active {
-            background-color: #4f4fc4;
-            border-radius: 9px;
-            color: white;
-            .resultitem-content-title-thread-count {
-              color: white;
-            }
-            &:after {
-              border-color: white;
-              transform: rotate(-135deg);
-              -webkit-transform: rotate(-135deg);
-            }
+          span {
+            font-weight: normal;
+            color: rgba(0, 0, 0, 0.65);
           }
         }
         b {
@@ -187,6 +157,55 @@ const StyledResultItem = styled.div`
         }
       }
     }
+    &-thread {
+      position: absolute;
+      right: 0;
+      top: -10px;
+      margin-left: auto;
+      display: flex;
+      font-size: 11px;
+      letter-spacing: -0.25px;
+      line-height: 23px;
+      color: #2d2e2c;
+      &-count {
+        margin: auto 5px auto 0px;
+        font-size: 8px;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        line-height: 18px;
+        border: 0.5px solid #4f4fc4;
+        border-radius: 50%;
+        color: #4f4fc4;
+        font-weight: bold;
+      }
+      &:after {
+        content: "";
+        border: solid #4f4fc4;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 2px;
+        margin: auto 5px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
+      &:hover {
+        cursor: pointer;
+      }
+      &-active {
+        background-color: #4f4fc4;
+        border-radius: 9px;
+        color: white;
+        .resultitem-thread-count {
+          color: white;
+        }
+        &:after {
+          border-color: white;
+          transform: rotate(-135deg);
+          -webkit-transform: rotate(-135deg);
+        }
+      }
+    }
   }
 
   .resultitem-content-main {
@@ -206,11 +225,6 @@ const StyledResultItem = styled.div`
       }
     }
   }
-`;
-
-const StyledResultItemContainer = styled.div`
-  display: flex;
-  cursor: pointer;
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
@@ -413,20 +427,50 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   };
 
   const truncateTitle = (title) => {
-    if (title.length > 20) {
-      return title.substring(0, 17);
-    } else {
-      return title;
-    }
+    return title.length > 20 ? title.substring(0, 17) : title;
   };
 
   const getTitle = (title) => {
     return title ? checkObject(title) : "";
   };
 
+  const getUsers = (users) => {
+    return users.slice(0, 3).join(", ");
+  };
+
+  function fitStringToWidth(str, width) {
+    let span = document.createElement("span");
+    span.style.display = "inline";
+    span.style.visibility = "hidden";
+    span.style.padding = "0px";
+    document.body.appendChild(span);
+
+    let result = str;
+    span.innerHTML = result;
+
+    if (span.offsetWidth > width) {
+      let posStart = 0,
+        posMid,
+        posEnd = str.length,
+        posLength;
+
+      while ((posLength = (posEnd - posStart) >> 1)) {
+        posMid = posStart + posLength;
+        span.innerHTML = str.substring(0, posMid) + "   show more";
+
+        if (span.offsetWidth > width) posEnd = posMid;
+        else posStart = posMid;
+      }
+
+      result = str.substring(0, posStart) + "<span>   show more</span>";
+    }
+    document.body.removeChild(span);
+    return result;
+  }
+
   return (
     <StyledResultItem subitem={subitem}>
-      <StyledResultItemContainer>
+      <div className="resultitem">
         <div className="resultitem-header">
           {data.date && (
             <div className="resultitem-header-date">
@@ -465,51 +509,37 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               onClick={() => openNewTab(data.link ? data.link : null)}
             >
               <div
+                className="resultitem-content-title-filename"
                 data-for="main"
                 data-tip={getTitle(data.title).length > 20 ? data.title : ""}
                 data-iscapture={true}
                 data-html={true}
               >
-                <div className="resultitem-content-title-filename">
-                  {renderHTML(truncateTitle(getTitle(data.title)))}
-                  {getTitle(data.title).length > 20 ? "..." : ""}
-                </div>
-
-                <ReactTooltip
-                  id="main"
-                  place="bottom"
-                  effect="solid"
-                  multiline={true}
-                />
+                {/* {renderHTML(truncateTitle(getTitle(data.title)))}
+                {getTitle(data.title).length > 20 ? "..." : ""} */}
+                {renderHTML(getTitle(data.title))}
               </div>
+              <ReactTooltip
+                id="main"
+                place="bottom"
+                effect="float"
+                multiline={true}
+              />
               <div className="resultitem-content-title-users">
-                {renderHTML(
+                {/* {renderHTML(
                   data.users
-                    ? highLightText(data.users.join(", "), data.primary_user)
+                    ? highLightText(getUsers(data.users), data.primary_user)
                     : ""
+                )} */}
+                {renderHTML(
+                  fitStringToWidth(
+                    data.users
+                      ? highLightText(getUsers(data.users), data.primary_user)
+                      : "",
+                    200
+                  )
                 )}
               </div>
-              {data.sub_results && data.sub_results.length !== 0 && (
-                <div
-                  className={`resultitem-content-title-thread ${
-                    openSubResult
-                      ? "resultitem-content-title-thread-active"
-                      : ""
-                  }`}
-                  onClick={(e) => handleOpenSubResult(e)}
-                >
-                  <div className="resultitem-content-title-thread-count">
-                    +{data.sub_results.length}
-                  </div>
-                  {openSubResult
-                    ? `Hide ${
-                        data.content_kind === "file" ? "copies" : "thread"
-                      }`
-                    : `Show ${
-                        data.content_kind === "file" ? "copies" : "thread"
-                      }`}
-                </div>
-              )}
             </div>
             <div
               className="resultitem-content-snippet"
@@ -547,7 +577,22 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               );
             })}
         </div>
-      </StyledResultItemContainer>
+        {data.sub_results && data.sub_results.length !== 0 && (
+          <div
+            className={`resultitem-thread ${
+              openSubResult ? "resultitem-thread-active" : ""
+            }`}
+            onClick={(e) => handleOpenSubResult(e)}
+          >
+            <div className="resultitem-thread-count">
+              +{data.sub_results.length}
+            </div>
+            {openSubResult
+              ? `Hide ${data.content_kind === "file" ? "copies" : "thread"}`
+              : `Show ${data.content_kind === "file" ? "copies" : "thread"}`}
+          </div>
+        )}
+      </div>
     </StyledResultItem>
   );
 };

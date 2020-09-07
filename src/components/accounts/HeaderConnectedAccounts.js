@@ -33,6 +33,9 @@ const AccountsContainer = styled.div`
       display: flex;
       justify-content: left;
       flex-wrap: wrap;
+      &-item {
+        width: 33.33%;
+      }
     }
     &-title {
       text-align: center;
@@ -85,7 +88,11 @@ const HeaderConnnectedAccounts = ({ showAddAccount }) => {
       <div className="accounts-content">
         <div className="accounts-content-container">
           {connectedAccounts.map((item, index) => {
-            return <Icon key={index} data={item}></Icon>;
+            return (
+              <div key={index} className="accounts-content-container-item">
+                <Icon data={item}></Icon>
+              </div>
+            );
           })}
         </div>
         <div className="accounts-content-title">
