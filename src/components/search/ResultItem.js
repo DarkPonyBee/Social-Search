@@ -1,13 +1,17 @@
-import React from "react";
-import { renderToString } from "react-dom/server";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import renderHTML from "react-render-html";
 import ReactTooltip from "react-tooltip";
 import sanitizeHtml from "sanitize-html-react";
 
+import HTMLEllipsis from "react-lines-ellipsis/lib/html";
+import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
+import Truncate from "react-truncate-html";
+
 import { availableIcons } from "../../config";
 import { contentType, contentKind, contentDefaultIcon } from "../../config";
-import Truncate from "react-truncate";
+
+const ResponsiveEllipsis = responsiveHOC()(HTMLEllipsis);
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
@@ -228,6 +232,21 @@ const StyledResultItem = styled.div`
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
+  const [userLength, setUserLength] = useState(209);
+  const userRef = useRef();
+
+  useEffect(() => {
+    setUserLength(userRef.current.offsetWidth);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => setUserLength(userRef.current.offsetWidth);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  });
+
   const replaceText = (text, startindex, endindex) => {
     return (
       text.substring(0, startindex) +
@@ -438,7 +457,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return users.slice(0, 3).join(", ");
   };
 
-  function fitStringToWidth(str, width) {
+  const fitStringToWidth = (str, width) => {
     let span = document.createElement("span");
     span.style.display = "inline";
     span.style.visibility = "hidden";
@@ -456,17 +475,17 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
 
       while ((posLength = (posEnd - posStart) >> 1)) {
         posMid = posStart + posLength;
-        span.innerHTML = str.substring(0, posMid) + "   show more";
+        span.innerHTML = str.substring(0, posMid) + " show more";
 
         if (span.offsetWidth > width) posEnd = posMid;
         else posStart = posMid;
       }
 
-      result = str.substring(0, posStart) + "<span>   show more</span>";
+      result = str.substring(0, posStart) + "<span> show more</span>";
     }
     document.body.removeChild(span);
     return result;
-  }
+  };
 
   return (
     <StyledResultItem subitem={subitem}>
@@ -491,7 +510,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
           <div
             className="resultitem-content-container"
             onClick={() =>
-              openNewTab(data.container.link ? data.container.link : null)
+              openNewTab(
+                data.container && data.container.link
+                  ? data.container.link
+                  : null
+              )
             }
           >
             <div className="resultitem-content-container-icon">
@@ -525,20 +548,38 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 effect="float"
                 multiline={true}
               />
-              <div className="resultitem-content-title-users">
-                {/* {renderHTML(
-                  data.users
-                    ? highLightText(getUsers(data.users), data.primary_user)
-                    : ""
-                )} */}
+              <div ref={userRef} className="resultitem-content-title-users">
+                {/* <Truncate
+                  ellipsis=" show more"
+                  lines={1}
+                  dangerouslySetInnerHTML={{
+                    __html: data.users
+                      ? highLightText(getUsers(data.users), data.primary_user)
+                      : "",
+                  }}
+                /> */}
+                {/* <ResponsiveEllipsis
+                  unsafeHTML={
+                    data.users
+                      ? highLightText(getUsers(data.users), data.primary_user)
+                      : ""
+                  }
+                  maxLine="1"
+                  ellipsis=" show more"
+                  basedOn="letters"
+                  // onReflow={({ clamped, text }) => {
+                  //   console.log(clamped + "+" + text);
+                  // }}
+                /> */}
                 {renderHTML(
                   fitStringToWidth(
                     data.users
                       ? highLightText(getUsers(data.users), data.primary_user)
                       : "",
-                    200
+                    userLength
                   )
                 )}
+                {/* {renderHTML(renderUser)} */}
               </div>
             </div>
             <div
