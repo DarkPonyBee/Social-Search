@@ -86,7 +86,7 @@ const StyledResultItem = styled.div`
         display: flex;
         color: rgba(0, 0, 0, 0.65);
         &-filename {
-          width: 70%;
+          max-width: 70%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;

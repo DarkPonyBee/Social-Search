@@ -57,6 +57,11 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   );
 
   useEffect(() => {
+    if (!resultPage) getConnectedAccount(false);
+    return;
+  }, [resultPage]);
+
+  useEffect(() => {
     const notifyUserSession = async () => {
       let token = null;
       await Auth.currentSession()
@@ -77,7 +82,6 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
     };
 
     notifyUserSession();
-    getConnectedAccount(false);
   }, []);
 
   useEffect(() => {
