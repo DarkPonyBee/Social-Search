@@ -99,7 +99,7 @@ const StyledResultPage = styled.div`
 //     content_kind: "email",
 //     content_type: "email",
 //     title: "RE: Questions to Founders",
-//     date: "2019-12-25T17:00:12",
+//     date: "2019-01-01T18:00:12",
 //     link:
 //       "https://outlook.office365.com/owa/?ItemID=AAMkADM0MDdmNGMxLTc0MjktNGFhMi04OTU4LTI5ZGQzZTIyODRkYgBGAAAAAACwrroobH8PTbyxZoQDU4SJBwAt2gP1xWDwTK26ChytIibpAAAAAAEMAAAt2gP1xWDwTK26ChytIibpAACcUyJmAAA%3D&exvsurl=1&viewmodel=ReadMessageItem",
 //     snippet:
@@ -1035,7 +1035,7 @@ const ResultPage = () => {
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
-  const result = searchResult.result.results;
+  const result = searchResult?.result.results || 0;
   const totalResults = searchResult?.result.total_results || 0;
 
   useEffect(() => {

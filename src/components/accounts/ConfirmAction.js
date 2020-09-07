@@ -12,18 +12,22 @@ const Container = styled.div`
   position: relative;
   display: flex;
   margin: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+
   .confirm-icon-container {
     display: flex;
     margin: auto;
+
     i {
       margin: auto;
       font-size: 10px;
       line-height: 10px;
     }
-    &:hover {
-      cursor: pointer;
-    }
   }
+
   .confirm {
     z-index: 1;
     position: absolute;
@@ -37,13 +41,16 @@ const Container = styled.div`
     box-shadow: 0 1px 0 0 #f24040, 0 2px 30px 8px rgba(0, 0, 0, 0.1);
     transition: all ease-in 0.3s;
     overflow: hidden;
+
     &-container {
       padding: 20px;
     }
+
     &-active {
       opacity: 1;
       max-height: 150px;
     }
+
     p {
       color: #2d2e2c;
       font-size: 14px;
@@ -51,10 +58,12 @@ const Container = styled.div`
       line-height: 18px;
       text-align: center;
     }
+
     &-button-container {
       display: flex;
       justify-content: center;
     }
+
     &-button {
       padding: 2px 20px;
       border: 1px solid #575856;
@@ -66,7 +75,6 @@ const Container = styled.div`
       background-color: #ffffff;
       transition: background-color ease-in 0.3s;
       &:hover {
-        cursor: pointer;
         background-color: #f24040;
         border-color: #f24040;
         color: #ffffff;
