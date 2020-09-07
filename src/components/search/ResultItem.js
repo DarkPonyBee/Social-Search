@@ -309,34 +309,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return highLightedText;
   };
 
-  const isYesterday = (dateObj) => {
-    let currentDateObj = new Date();
-    if (
-      (dateObj.getDay() === currentDateObj.getDay() - 1 ||
-        (dateObj.getDay() === 6 && currentDateObj.getDay() === 0)) &&
-      Math.abs(currentDateObj.getTime() - dateObj.getTime()) <
-        1000 * 3600 * 24 * 2
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  const isTomorrow = (dateObj) => {
-    let currentDateObj = new Date();
-    if (
-      (dateObj.getDay() === currentDateObj.getDay() + 1 ||
-        (dateObj.getDay() === 0 && currentDateObj.getDay() === 6)) &&
-      Math.abs(currentDateObj.getTime() - dateObj.getTime()) <
-        1000 * 3600 * 24 * 2
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const getFormattedDate = (isoDate) => {
     const months = [
       "Jan",
@@ -352,19 +324,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
       "Nov",
       "Dec",
     ];
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
 
     let currentDateObj = new Date();
     let isoDateObj = new Date(isoDate + "Z");
     let t, spl, hm, formattedDate;
+
     if (
       isoDateObj.getFullYear() === currentDateObj.getFullYear() &&
       isoDateObj.getMonth() === currentDateObj.getMonth() &&
@@ -387,15 +351,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     }
 
     return formattedDate;
-  };
-
-  const getDateWithoutTime = (formattedDate) => {
-    let spl = formattedDate.split(":");
-    if (spl.length > 1) {
-      return spl[0].slice(0, spl[0].length - 2);
-    } else {
-      return formattedDate;
-    }
   };
 
   const getResultIcon = (kind, type) => {
