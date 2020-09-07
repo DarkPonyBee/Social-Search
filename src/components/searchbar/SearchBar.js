@@ -115,8 +115,9 @@ const StyledSearchBarContainer = styled.div`
 `;
 
 const SearchBar = ({ setResultPage, resultPage }) => {
-  const [showSuggestionList, setShowSuggestionList] = useState(false);
   const searchQuery = useSelector((store) => store.search.searchQuery);
+  const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
+  const [showSuggestionList, setShowSuggestionList] = useState(false);
 
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
@@ -148,7 +149,7 @@ const SearchBar = ({ setResultPage, resultPage }) => {
 
   const onInputChange = (e) => {
     const query = e.target.value;
-    setSearchQuery(query);
+    setSearchBarQuery(query);
     // if (query.trim().length === 0) {
     //   setShowSuggestionList(false);
     //   return;
@@ -158,21 +159,23 @@ const SearchBar = ({ setResultPage, resultPage }) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
+      setSearchQuery(searchBarQuery);
       setShowSuggestionList(false);
       if (!resultPage) setResultPage(true);
-      getSearchResult(searchQuery);
+      getSearchResult(searchBarQuery);
     }
   };
 
   const handleSearchIcon = () => {
+    setSearchQuery(searchBarQuery);
     setShowSuggestionList(false);
     if (!resultPage) setResultPage(true);
-    getSearchResult(searchQuery);
+    getSearchResult(searchBarQuery);
   };
 
   const handleCloseIcon = () => {
     setShowSuggestionList(false);
-    setSearchQuery("");
+    setSearchBarQuery("");
   };
 
   return (
@@ -188,7 +191,8 @@ const SearchBar = ({ setResultPage, resultPage }) => {
             placeholder="Search Your Cloud"
             onChange={onInputChange}
             onKeyDown={onKeyDown}
-            value={searchQuery}
+            defaultValue={searchQuery}
+            value={searchBarQuery}
           ></input>
           {showSuggestionList && (
             <ion-icon

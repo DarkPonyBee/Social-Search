@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import ReactPaginate from "react-paginate";
+import Pagination from "react-js-pagination";
 
 import { getSearchResult } from "../redux/actions/search";
 import ResultItemContainer from "../components/search/ResultItemContainer";
@@ -10,6 +10,8 @@ import ResultItemContainer from "../components/search/ResultItemContainer";
 // import FilterDate from "../components/filter/FilterDate";
 
 const StyledResultPage = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 70%;
   margin: auto;
   .resultpage-filter {
@@ -33,9 +35,11 @@ const StyledResultPage = styled.div`
     &-loader {
       display: flex;
       justify-content: center;
+      height: 50vh;
       padding: 100px 0px;
     }
     &-empty {
+      height: 50vh;
       color: rgba(0, 0, 0, 0.65);
       font-size: 24px;
       letter-spacing: 0;
@@ -45,39 +49,20 @@ const StyledResultPage = styled.div`
     }
   }
   .resultpage-pagination {
-    /* display: flex; */
-    display: ${(props) => (props.loading === "true" ? "none" : "flex")};
+    display: flex;
     padding-left: 0;
     list-style: none;
-    border-radius: 0.25rem;
+    margin-left: auto;
+    margin-right: auto;
 
-    &-item,
-    &-break {
-      a {
-        padding-left: 10px;
-        padding-right: 10px;
-        outline: none;
-      }
-    }
-
-    &-prev {
-      margin-right: 20px;
-    }
-
-    &-next {
-      margin-left: 20px;
-    }
-
-    &-prev,
-    &-next {
-      border: 1px solid #4f4fc4;
-      border-radius: 5px;
-
-      a {
-        padding-left: 10px;
-        padding-right: 10px;
-        outline: none;
-      }
+    &-link {
+      padding: 6px 12px;
+      line-height: 1.42857143;
+      text-decoration: none;
+      color: #4f4fc4;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
 
       &:hover {
         color: #fff;
@@ -88,7 +73,17 @@ const StyledResultPage = styled.div`
     &-active {
       color: #fff;
       background-color: #4f4fc4;
-      border-radius: 5px;
+    }
+
+    &-first {
+      margin-left: 0;
+      border-bottom-left-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+
+    &-last {
+      border-bottom-right-radius: 4px;
+      border-top-right-radius: 4px;
     }
   }
 `;
@@ -1031,21 +1026,20 @@ const StyledResultPage = styled.div`
 // ];
 
 const ResultPage = () => {
-  const [newLoading, setNewLoading] = useState(false);
+  const [activePage, setActivePage] = useState(1);
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
   const result = searchResult.result.results;
-  const pageCount = searchResult.result.total_results / 10;
+  const totalResults = searchResult?.result.total_results || 0;
 
   useEffect(() => {
-    setNewLoading(true);
+    setActivePage(1);
   }, [searchQuery]);
 
-  const handlePageClick = (data) => {
-    setNewLoading(false);
-    let selected = data.selected;
-    let resultsCursor = selected * 10;
+  const handlePageClick = (pageNumber) => {
+    setActivePage(pageNumber);
+    let resultsCursor = (pageNumber - 1) * 10;
     getSearchResult(searchQuery, resultsCursor);
   };
 
@@ -1084,23 +1078,19 @@ const ResultPage = () => {
           ))
         )}
       </div>
-      {!(newLoading && isLoading) && (
-        <ReactPaginate
-          previousLabel={"previous"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"resultpage-pagination-break"}
-          pageCount={pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={(data) => handlePageClick(data)}
-          containerClassName={"resultpage-pagination"}
-          previousClassName={"resultpage-pagination-prev"}
-          nextClassName={"resultpage-pagination-next"}
-          pageClassName={"resultpage-pagination-item"}
-          activeClassName={"resultpage-pagination-active"}
-        />
-      )}
+      <Pagination
+        hideDisabled
+        activePage={activePage}
+        itemsCountPerPage={10}
+        totalItemsCount={totalResults}
+        pageRangeDisplayed={5}
+        onChange={(pageNumber) => handlePageClick(pageNumber)}
+        innerClass="resultpage-pagination"
+        linkClass="resultpage-pagination-link"
+        linkClassFirst="resultpage-pagination-first"
+        linkClassLast="resultpage-pagination-last"
+        activeLinkClass="resultpage-pagination-active"
+      />
     </StyledResultPage>
   );
 };
