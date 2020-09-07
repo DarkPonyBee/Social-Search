@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { availableIcons, accountSyncIntervalTime } from "../../config";
 import ConfirmAction from "../accounts/ConfirmAction";
 import { getConnectedAccount } from "../../redux/actions/account";
 import Truncate from "react-truncate";
+import ReactTooltip from "react-tooltip";
 
 const StyledContainer = styled.div`
   position: relative;
@@ -135,9 +136,9 @@ const StyledContainer = styled.div`
     text-align: center;
     p {
       margin: auto;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
   &:hover {
@@ -209,7 +210,8 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Icon = ({ data }) => {
+const Icon = ({ data, header = false }) => {
+  const [truncated, setTruncated] = useState(false);
   const accountState = data.account_state;
   const accountId = data.id;
   const accountName = data.name;
@@ -227,6 +229,12 @@ const Icon = ({ data }) => {
       clearInterval(timerID.current);
     }
   }, [accountState.is_syncing]);
+
+  const handleTruncate = (truncate) => {
+    if (truncated !== truncate) {
+      setTruncated(truncate);
+    }
+  };
 
   return (
     <StyledContainer
@@ -279,10 +287,21 @@ const Icon = ({ data }) => {
         )} */}
       </div>
       <div className="icon-name">
-        <p>{accountName}</p>
-        {/* <div>
-          <Truncate>fdsfdsfsdfasdfsfsdfdsfdsfadsfadsfadsfadsfasdf</Truncate>
-        </div> */}
+        {header ? (
+          <div data-for="accountname" data-tip={truncated ? accountName : ""}>
+            <Truncate onTruncate={(truncate) => handleTruncate(truncate)}>
+              {accountName}
+            </Truncate>
+            <ReactTooltip
+              id="accountname"
+              place="bottom"
+              effect="solid"
+              multiline={true}
+            ></ReactTooltip>
+          </div>
+        ) : (
+          <p>{accountName}</p>
+        )}
       </div>
     </StyledContainer>
   );

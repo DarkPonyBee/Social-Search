@@ -167,7 +167,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
               : icon === "active"
               ? "active"
               : ""}{" "}
-            the {getAccountSource()} {accountName}?
+            the {getAccountSource()} account {accountName}?
           </p>
           <div className="confirm-button-container">
             <div
