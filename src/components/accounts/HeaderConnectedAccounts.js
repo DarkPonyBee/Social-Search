@@ -90,7 +90,7 @@ const HeaderConnnectedAccounts = ({ showAddAccount }) => {
           {connectedAccounts.map((item, index) => {
             return (
               <div key={index} className="accounts-content-container-item">
-                <Icon data={item}></Icon>
+                <Icon data={item} header={true}></Icon>
               </div>
             );
           })}
