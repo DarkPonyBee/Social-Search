@@ -296,7 +296,6 @@ const Icon = ({ data, header = false }) => {
               id="accountname"
               place="bottom"
               effect="solid"
-              multiline={true}
             ></ReactTooltip>
           </div>
         ) : (
