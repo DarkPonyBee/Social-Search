@@ -106,18 +106,20 @@ function App() {
           isfirstConnect={firstConnect}
         ></Mainpage>
       )}
-      <Modal
-        open={showSignUp}
-        onClose={() => {}}
-        center
-        showCloseIcon={false}
-        classNames={{ modal: "customModal" }}
-      >
-        <SignUp
-          handleOpenConfirm={handleOpenConfirm}
-          handleOpenSignIn={handleOpenSignIn}
-        ></SignUp>
-      </Modal>
+      {showSignUp && (
+        <Modal
+          open={showSignUp}
+          onClose={() => {}}
+          center
+          showCloseIcon={false}
+          classNames={{ modal: "customModal" }}
+        >
+          <SignUp
+            handleOpenConfirm={handleOpenConfirm}
+            handleOpenSignIn={handleOpenSignIn}
+          ></SignUp>
+        </Modal>
+      )}
       <Modal
         open={showSignIn}
         onClose={() => {}}

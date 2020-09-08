@@ -129,7 +129,7 @@ const redirectMSG = {
   400: "Request is not valid",
   401: "No valid credential",
   409: "Account already exists",
-  410: "account is being deleted",
+  410: "Account is being deleted",
   500: "Server error",
 };
 

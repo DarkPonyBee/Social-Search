@@ -386,7 +386,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
         </div>
         <div className="signup-content-right">
           <div className="signup-content-right-header">Sign Up</div>
-          <form onSubmit={handleSubmit} autoComplete={"off"}>
+          <form autoComplete={"off"}>
             <div className="input-item">
               {form.email && <div className="input-item-header">Email</div>}
               <input
@@ -398,7 +398,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                     : ""
                 }
                 name="email"
-                type="text"
+                type="email"
                 placeholder="Email"
                 onChange={handleChange}
                 onFocus={handleFocus}

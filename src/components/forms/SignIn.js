@@ -51,6 +51,7 @@ const StyledSignIn = styled.div`
           letter-spacing: 0;
           line-height: 18px;
           outline: none;
+          -webkit-appearance: none;
         }
         &-active {
           border: 0.5px solid transparent !important;
@@ -199,7 +200,7 @@ const SignIn = ({
       <div className="signin-title">Welcome Back!</div>
       <div className="signin-content">
         <div className="signin-content-header">Sign In</div>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="input-item">
             {form.email && <div className="input-item-header">Email</div>}
             <input
@@ -211,7 +212,7 @@ const SignIn = ({
                   : ""
               }
               name="email"
-              type="text"
+              type="email"
               placeholder="Email"
               onChange={handleChange}
               onFocus={handleFocus}
