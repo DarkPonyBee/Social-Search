@@ -339,18 +339,18 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
 
   const getFormattedDate = (isoDate) => {
     const months = [
-      "January",
-      "February",
-      "March",
-      "April",
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
       "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const days = [
       "Sunday",
@@ -364,57 +364,26 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
 
     let currentDateObj = new Date();
     let isoDateObj = new Date(isoDate + "Z");
-    let t, spl, hm, am_pm, formattedDate;
+    let t, spl, hm, formattedDate;
     if (
       isoDateObj.getFullYear() === currentDateObj.getFullYear() &&
       isoDateObj.getMonth() === currentDateObj.getMonth() &&
       isoDateObj.getDate() === currentDateObj.getDate()
     ) {
       //today
-
-      t = isoDateObj.toLocaleTimeString();
+      t = isoDateObj.toLocaleTimeString("en-GB");
       spl = t.split(" ");
       hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
-      am_pm = spl[1];
-      formattedDate = "Today " + hm + " " + am_pm;
-    } else if (isYesterday(isoDateObj)) {
-      //yesterday
-      t = isoDateObj.toLocaleTimeString();
-      spl = t.split(" ");
-      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
-      am_pm = spl[1];
-      formattedDate = "Yesterday " + hm + " " + am_pm;
-    } else if (isTomorrow(isoDateObj)) {
-      //tomorrow
-      t = isoDateObj.toLocaleTimeString();
-      spl = t.split(" ");
-      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
-      am_pm = spl[1];
-      formattedDate = "Tomorrow " + hm + " " + am_pm;
-    } else if (
-      Math.abs(currentDateObj.getTime() - isoDateObj.getTime()) <
-      1000 * 3600 * 24 * (currentDateObj.getDay() + 1)
-    ) {
-      //this week
-      t = isoDateObj.toLocaleTimeString();
-      spl = t.split(" ");
-      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
-      am_pm = spl[1];
-      formattedDate = days[isoDateObj.getDay()] + " " + hm + " " + am_pm;
-    } else if (
-      isoDateObj.getFullYear() === currentDateObj.getFullYear() &&
-      isoDateObj.getMonth() === currentDateObj.getMonth()
-    ) {
-      //this month
-
-      formattedDate =
-        months[isoDateObj.getMonth()] + " " + isoDateObj.getDate();
+      formattedDate = hm;
     } else if (isoDateObj.getFullYear() === currentDateObj.getFullYear()) {
       //this year
       formattedDate =
-        months[isoDateObj.getMonth()] + " " + isoDateObj.getDate();
+        isoDateObj.getDate() + " " + months[isoDateObj.getMonth()];
     } else {
-      formattedDate = isoDateObj.toLocaleDateString();
+      let dd = isoDateObj.getDate();
+      let mmm = months[isoDateObj.getMonth()];
+      let yyyy = isoDateObj.getFullYear();
+      formattedDate = dd + "." + mmm + "." + yyyy;
     }
 
     return formattedDate;
@@ -493,7 +462,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         <div className="resultitem-header">
           {data.date && (
             <div className="resultitem-header-date">
-              {getDateWithoutTime(getFormattedDate(data.date))}
+              {getFormattedDate(data.date)}
             </div>
           )}
           <div
