@@ -15,7 +15,9 @@ export async function getConnectedAccount(isSyncing = false) {
     NotificationManager.error(err.message, "Error", 5000, () => {});
   }
   const headers = { authorizer: token };
+
   store.dispatch({ type: types.GET_CONNECTED_ACCOUNT, payload: isSyncing });
+
   return request()
     .get("/accounts", { headers })
     .then((response) => {
@@ -36,7 +38,6 @@ export async function getConnectedAccount(isSyncing = false) {
           });
         })
         .catch((err) => {
-          console.log("error2");
           store.dispatch({
             payload: err.data,
             type: types.GET_CONNECTED_ACCOUNT_FAIL,
