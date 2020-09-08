@@ -386,7 +386,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
         </div>
         <div className="signup-content-right">
           <div className="signup-content-right-header">Sign Up</div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete={"off"}>
             <div className="input-item">
               {form.email && <div className="input-item-header">Email</div>}
               <input
@@ -403,7 +403,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.email}
-                autoComplete="off"
+                autoComplete={"off"}
               ></input>
               {error.email && (
                 <div className="input-item-error">{error.email}</div>
@@ -427,7 +427,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.password}
-                autoComplete="off"
+                autoComplete={"off"}
               ></input>
               {error.password && (
                 <div className="input-item-error">{error.password}</div>
@@ -451,7 +451,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.confirmPassword}
-                autoComplete="off"
+                autoComplete={"off"}
               ></input>
               {error.confirmPassword && (
                 <div className="input-item-error">{error.confirmPassword}</div>
