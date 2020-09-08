@@ -200,7 +200,7 @@ const SignIn = ({
       <div className="signin-title">Welcome Back!</div>
       <div className="signin-content">
         <div className="signin-content-header">Sign In</div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input-item">
             {form.email && <div className="input-item-header">Email</div>}
             <input
