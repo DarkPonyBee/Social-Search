@@ -1,17 +1,12 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import renderHTML from "react-render-html";
 import ReactTooltip from "react-tooltip";
 import sanitizeHtml from "sanitize-html-react";
-
-import HTMLEllipsis from "react-lines-ellipsis/lib/html";
-import responsiveHOC from "react-lines-ellipsis/lib/responsiveHOC";
-import Truncate from "react-truncate-html";
+import Truncate from "react-truncate";
 
 import { availableIcons } from "../../config";
 import { contentType, contentKind, contentDefaultIcon } from "../../config";
-
-const ResponsiveEllipsis = responsiveHOC()(HTMLEllipsis);
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
@@ -42,7 +37,7 @@ const StyledResultItem = styled.div`
       }
     }
     &-content {
-      width: 100%;
+      width: calc(100% - 80px);
       padding: 0px 10px;
       &-container {
         padding-bottom: 5px;
@@ -88,8 +83,8 @@ const StyledResultItem = styled.div`
         &-filename {
           max-width: 70%;
           white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          ${(props) => (props.titletruncate ? "overflow: hidden" : "")};
+          ${(props) => (props.titletruncate ? "text-overflow: ellipsis" : "")};
           margin: auto 0px;
           padding-right: 15px;
           border-right: 1px solid #979797;
@@ -101,10 +96,15 @@ const StyledResultItem = styled.div`
             font-weight: bold;
             color: #4f4fc4;
           }
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: #4f4fc4;
+          }
         }
         &-users {
-          width: 30%;
-          white-space: nowrap;
+          ${(props) => (props.usertruncate ? "white-space: nowrap" : "")};
+          ${(props) => (props.usertruncate ? "overflow: hidden" : "")};
+          ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
           margin: auto 0px;
           padding-left: 15px;
           font-size: 17px;
@@ -113,6 +113,10 @@ const StyledResultItem = styled.div`
           span {
             font-weight: normal;
             color: rgba(0, 0, 0, 0.65);
+          }
+          &:hover {
+            text-decoration: underline;
+            text-decoration-color: #4f4fc4;
           }
         }
         b {
@@ -212,14 +216,14 @@ const StyledResultItem = styled.div`
     }
   }
 
-  .resultitem-content-main {
+  /* .resultitem-content-main {
     &:hover {
       .resultitem-content-title-filename {
         text-decoration: underline;
         text-decoration-color: #4f4fc4;
       }
     }
-  }
+  } */
 
   .resultitem-content {
     &-container {
@@ -232,50 +236,27 @@ const StyledResultItem = styled.div`
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
-  const [userLength, setUserLength] = useState(209);
-  const userRef = useRef();
+  const [titleTruncate, setTitleTruncate] = useState(false);
+  const [userTruncate, setUserTruncate] = useState(false);
 
-  useEffect(() => {
-    setUserLength(userRef.current.offsetWidth);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => setUserLength(userRef.current.offsetWidth);
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
-
-  const replaceText = (text, startindex, endindex) => {
-    return (
-      text.substring(0, startindex) +
-      "{{" +
-      text.substring(startindex + 1, endindex - 1) +
-      "}}" +
-      text.substring(endindex)
-    );
+  const handleTruncate = (truncate, name) => {
+    if (name === "title" && titleTruncate !== truncate) {
+      setTitleTruncate(truncate);
+    } else if (name === "user" && userTruncate !== truncate) {
+      setUserTruncate(truncate);
+    }
   };
 
   const strapingHTML = (text) => {
-    let temp = text;
-    let patt = /<[^>][em]+>/g;
-    let match = null;
-    while ((match = patt.exec(temp))) {
-      temp = replaceText(temp, match.index, patt.lastIndex);
-    }
-    temp = temp.replace(/</g, "&lt;");
-    temp = temp.replace(/>/g, "&gt;");
-    temp = temp.replace(/{{/g, "<");
-    temp = temp.replace(/}}/g, ">");
-    return temp;
+    return text.replace(/(<([^>]+)>)/gi, "");
   };
 
-  const replaceTag = (text) => {
-    let temp = text;
-    temp = temp.replace(/&lt;/g, "<");
-    temp = temp.replace(/&gt;/g, ">");
-    return temp;
+  const getTitle = (title) => {
+    return title ? checkObject(title) : "";
+  };
+
+  const getUsers = (users) => {
+    return users ? highLightText(users.join(", "), data.primary_user) : "";
   };
 
   const checkObject = (text) => {
@@ -287,6 +268,14 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
       text = temp;
     }
     return text;
+  };
+
+  // FOR THE SNIPPET
+  const replaceTag = (text) => {
+    let temp = text;
+    temp = temp.replace(/&lt;/g, "<");
+    temp = temp.replace(/&gt;/g, ">");
+    return temp;
   };
 
   const highLightText = (text, query) => {
@@ -369,50 +358,12 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return;
   };
 
-  const truncateTitle = (title) => {
-    return title.length > 20 ? title.substring(0, 17) : title;
-  };
-
-  const getTitle = (title) => {
-    return title ? checkObject(title) : "";
-  };
-
-  const getUsers = (users) => {
-    return users.slice(0, 3).join(", ");
-  };
-
-  const fitStringToWidth = (str, width) => {
-    let span = document.createElement("span");
-    span.style.display = "inline";
-    span.style.visibility = "hidden";
-    span.style.padding = "0px";
-    document.body.appendChild(span);
-
-    let result = str;
-    span.innerHTML = result;
-
-    if (span.offsetWidth > width) {
-      let posStart = 0,
-        posMid,
-        posEnd = str.length,
-        posLength;
-
-      while ((posLength = (posEnd - posStart) >> 1)) {
-        posMid = posStart + posLength;
-        span.innerHTML = str.substring(0, posMid) + " show more";
-
-        if (span.offsetWidth > width) posEnd = posMid;
-        else posStart = posMid;
-      }
-
-      result = str.substring(0, posStart) + "<span> show more</span>";
-    }
-    document.body.removeChild(span);
-    return result;
-  };
-
   return (
-    <StyledResultItem subitem={subitem}>
+    <StyledResultItem
+      subitem={subitem}
+      titletruncate={titleTruncate}
+      usertruncate={userTruncate}
+    >
       <div className="resultitem">
         <div className="resultitem-header">
           {data.date && (
@@ -457,62 +408,55 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
             >
               <div
                 className="resultitem-content-title-filename"
-                data-for="main"
-                data-tip={getTitle(data.title).length > 20 ? data.title : ""}
-                data-iscapture={true}
-                data-html={true}
+                data-for="title"
+                data-tip={
+                  titleTruncate ? strapingHTML(getTitle(data.title)) : ""
+                }
               >
-                {/* {renderHTML(truncateTitle(getTitle(data.title)))}
-                {getTitle(data.title).length > 20 ? "..." : ""} */}
                 {renderHTML(getTitle(data.title))}
-              </div>
-              <ReactTooltip
-                id="main"
-                place="bottom"
-                effect="float"
-                multiline={true}
-              />
-              <div ref={userRef} className="resultitem-content-title-users">
-                {/* <Truncate
-                  ellipsis=" show more"
-                  lines={1}
-                  dangerouslySetInnerHTML={{
-                    __html: data.users
-                      ? highLightText(getUsers(data.users), data.primary_user)
-                      : "",
+                <div
+                  style={{
+                    visibility: "hidden",
+                    height: "0px",
+                    width: "calc(100% + 16px)",
                   }}
-                /> */}
-                {/* <ResponsiveEllipsis
-                  unsafeHTML={
-                    data.users
-                      ? highLightText(getUsers(data.users), data.primary_user)
-                      : ""
-                  }
-                  maxLine="1"
-                  ellipsis=" show more"
-                  basedOn="letters"
-                  // onReflow={({ clamped, text }) => {
-                  //   console.log(clamped + "+" + text);
-                  // }}
-                /> */}
-                {renderHTML(
-                  fitStringToWidth(
-                    data.users
-                      ? highLightText(getUsers(data.users), data.primary_user)
-                      : "",
-                    userLength
-                  )
-                )}
-                {/* {renderHTML(renderUser)} */}
+                >
+                  <Truncate
+                    onTruncate={(truncate) => handleTruncate(truncate, "title")}
+                  >
+                    {strapingHTML(getTitle(data.title))}
+                  </Truncate>
+                </div>
+                <ReactTooltip id="title" place="bottom" effect="float" />
+              </div>
+              <div
+                className="resultitem-content-title-users"
+                data-for="user"
+                data-tip={
+                  userTruncate ? strapingHTML(getUsers(data.users)) : ""
+                }
+              >
+                {renderHTML(getUsers(data.users))}
+                <div
+                  style={{
+                    visibility: "hidden",
+                    height: "0px",
+                    width: "calc(100% + 15px)",
+                  }}
+                >
+                  <Truncate
+                    onTruncate={(truncate) => handleTruncate(truncate, "user")}
+                  >
+                    {strapingHTML(getUsers(data.users))}
+                  </Truncate>
+                </div>
+                <ReactTooltip id="user" place="bottom" effect="float" />
               </div>
             </div>
             <div
               className="resultitem-content-snippet"
               onClick={() => openNewTab(data.link ? data.link : null)}
             >
-              {/* {renderHTML(
-                strapingHTML(data.snippet ? checkObject(data.snippet) : "")
-              )} */}
               {renderHTML(
                 sanitizeHtml(
                   replaceTag(data.snippet ? checkObject(data.snippet) : ""),

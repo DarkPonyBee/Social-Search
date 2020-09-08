@@ -34,6 +34,7 @@
     "redux": "^4.0.5",
     "sanitize-html-react": "^1.13.0",
     "styled-components": "^5.1.1",
+    "truncate-html": "^1.0.3",
     "validator": "^13.1.1"
   },
   "scripts": {

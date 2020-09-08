@@ -1049,7 +1049,7 @@ const ResultPage = () => {
   };
 
   return (
-    <StyledResultPage loading={isLoading.toString()}>
+    <StyledResultPage>
       {/* <div className="resultpage-filter">
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
