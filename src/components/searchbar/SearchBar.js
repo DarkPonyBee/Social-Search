@@ -191,7 +191,6 @@ const SearchBar = ({ setResultPage, resultPage }) => {
             placeholder="Search Your Cloud"
             onChange={onInputChange}
             onKeyDown={onKeyDown}
-            defaultValue={searchQuery}
             value={searchBarQuery}
           ></input>
           {showSuggestionList && (

@@ -14,6 +14,7 @@ const StyledResultPage = styled.div`
   flex-direction: column;
   width: 70%;
   margin: auto;
+
   .resultpage-filter {
     display: flex;
     width: 100%;
@@ -28,16 +29,19 @@ const StyledResultPage = styled.div`
     background-size: 10px 1px;
     background-repeat: repeat-x;
   }
+
   .resultpage-list {
     max-width: 900px;
     padding-top: 40px;
     padding-bottom: 30px;
+
     &-loader {
       display: flex;
       justify-content: center;
       height: 50vh;
       padding: 100px 0px;
     }
+
     &-empty {
       height: 50vh;
       color: rgba(0, 0, 0, 0.65);
@@ -48,6 +52,7 @@ const StyledResultPage = styled.div`
       padding: 50px 0px;
     }
   }
+
   .resultpage-pagination {
     display: flex;
     padding-left: 0;
