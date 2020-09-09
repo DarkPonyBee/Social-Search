@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
@@ -151,7 +151,8 @@ const StyledReset = styled.div`
   }
 `;
 
-const ResetPassword = ({ handleOpenSignIn }) => {
+const ResetPassword = () => {
+  const history = useHistory();
   const FORM_DATA_ITEMS = {
     email: "",
     code: "",
@@ -201,7 +202,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
       try {
         await Auth.forgotPasswordSubmit(form.email, form.code, form.password);
         setEmailSent(false);
-        handleOpenSignIn();
+        history.push("/login");
       } catch (err) {
         setFormError(err.message);
         NotificationManager.error(err.message, "Error", 5000, () => {});
@@ -312,9 +313,7 @@ const ResetPassword = ({ handleOpenSignIn }) => {
         <div className="signup-item">
           Back to
           <Link to="/login">
-            <div className="signup-item-button" onClick={handleOpenSignIn}>
-              Sign in
-            </div>
+            <div className="signup-item-button">Sign in</div>
           </Link>
         </div>
       </div>

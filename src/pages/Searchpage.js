@@ -16,6 +16,7 @@ import { TreviContext } from "../utils/context";
 import { getConnectedAccount } from "../redux/actions/account";
 import { redirectMSG } from "../config";
 import request from "../utils/request";
+import { setFirstConnect } from "../redux/actions/global";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
@@ -45,14 +46,14 @@ const MainpageConnecteAccounts = styled.div`
 let oauthPopup = null;
 let previousUrl = null;
 
-const Seachpage = ({ handleSignOut, isfirstConnect }) => {
-  const [firstConnect, setFirstConnect] = useState(isfirstConnect);
+const Searchpage = () => {
   const [addAccount, setAddAccount] = useState(false);
   const { setLoading } = useContext(TreviContext);
 
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
   );
+  const firstConnect = useSelector((store) => store.global.firstConnect);
 
   useEffect(() => {
     const notifyUserSession = async () => {
@@ -163,10 +164,7 @@ const Seachpage = ({ handleSignOut, isfirstConnect }) => {
 
   return (
     <MainPageContainer>
-      <Header
-        handleSignOut={handleSignOut}
-        showAddAccount={showAddAccount}
-      ></Header>
+      <Header showAddAccount={showAddAccount}></Header>
 
       <StyledLogo>
         <img src={LOGO} alt="Logo"></img>
@@ -199,4 +197,4 @@ const Seachpage = ({ handleSignOut, isfirstConnect }) => {
   );
 };
 
-export default Seachpage;
+export default Searchpage;

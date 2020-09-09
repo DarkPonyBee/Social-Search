@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
+import { setLogin } from "../../redux/actions/global";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -143,12 +144,8 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const SignIn = ({
-  handleLoggedIn,
-  handleOpenSignUp,
-  handleOpenReset,
-  handleOpenConfirm,
-}) => {
+const SignIn = () => {
+  const history = useHistory();
   const FORM_DATA_ITEMS = {
     email: "",
     password: "",
@@ -191,7 +188,8 @@ const SignIn = ({
     setLoading(true);
     try {
       await Auth.signIn(form.email, form.password);
-      handleLoggedIn();
+      setLogin(true);
+      history.push("/search");
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});

@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
+
 import { TreviContext } from "../../utils/context";
+import { setFirstConnect } from "../../redux/actions/global";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -138,7 +140,7 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const ConfirmSignup = ({ setFirstConnect }) => {
+const ConfirmSignup = () => {
   const history = useHistory();
   const FORM_DATA_ITEMS = {
     email: "",
@@ -180,7 +182,7 @@ const ConfirmSignup = ({ setFirstConnect }) => {
     setLoading(true);
     try {
       await Auth.confirmSignUp(form.email, form.code);
-      // setFirstConnect(true);
+      setFirstConnect(true);
       history.push("/login");
     } catch (err) {
       setFormError(err.message);

@@ -17,6 +17,7 @@ import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
+import { setLogin } from "../../redux/actions/global";
 
 const StyledHeader = styled.div`
   background: white;
@@ -188,7 +189,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ resultPage = false, handleSignOut, showAddAccount }) => {
+const Header = ({ resultPage = false, showAddAccount }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showConnectedAccount, setShowConnectedAccount] = useState(false);
@@ -230,7 +231,7 @@ const Header = ({ resultPage = false, handleSignOut, showAddAccount }) => {
     setLoading(true);
     try {
       await Auth.signOut({ global: true });
-      handleSignOut();
+      setLogin(false);
     } catch (err) {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});

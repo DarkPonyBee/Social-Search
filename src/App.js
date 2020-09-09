@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
 import { Auth } from "aws-amplify";
 import { NotificationContainer } from "react-notifications";
+import { useSelector } from "react-redux";
+import { setLogin } from "./redux/actions/global";
 
 import { TreviContext } from "./utils/context";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Seachpage from "./pages/Searchpage";
+import Searchpage from "./pages/Searchpage";
 import ForgotPassword from "./pages/Forgot";
 import Confirmsignup from "./pages/Confirm";
 import Resultpage from "./pages/Resultpage";
@@ -26,20 +33,36 @@ const StyledLoader = styled(LoadingOverlay)`
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [loggedin, setLoggedIn] = useState(false);
+  const loggedin = useSelector((store) => store.global.loggedin);
 
   useEffect(() => {
     const getCurrentSession = async () => {
       await Auth.currentSession()
         .then(() => {
-          setLoggedIn(true);
+          setLogin(true);
         })
         .catch(() => {
-          setLoggedIn(false);
+          setLogin(false);
         });
     };
     getCurrentSession();
   }, []);
+
+  const routes = loggedin ? (
+    <Switch>
+      <Route path="/search" exact component={Searchpage}></Route>
+      <Route path="/result" exact component={Resultpage}></Route>
+      <Redirect to="/search"></Redirect>
+    </Switch>
+  ) : (
+    <Switch>
+      <Route path="/login" exact component={Login}></Route>
+      <Route path="/signup" exact component={Signup}></Route>
+      <Route path="/reset-password" exact component={ForgotPassword}></Route>
+      <Route path="/confirm-signup" exact component={Confirmsignup}></Route>
+      <Redirect to="/signup"></Redirect>
+    </Switch>
+  );
 
   return (
     <TreviContext.Provider value={{ loading, setLoading }}>
@@ -50,21 +73,7 @@ function App() {
           spinner
         ></StyledLoader>
       )}
-      <Router>
-        <Switch>
-          <Route path="/login" exact component={Login}></Route>
-          <Route path="/signup" exact component={Signup}></Route>
-          <Route
-            path="/reset-password"
-            exact
-            component={ForgotPassword}
-          ></Route>
-          <Route path="/confirm-signup" exact component={Confirmsignup}></Route>
-          <Route path="/search" exact component={Seachpage}></Route>
-          <Route path="/result" exact component={Resultpage}></Route>
-          <Route path="/" component={Homepage}></Route>
-        </Switch>
-      </Router>
+      <Router>{routes}</Router>
       <NotificationContainer />
     </TreviContext.Provider>
   );
