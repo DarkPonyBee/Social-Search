@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
@@ -137,7 +138,8 @@ const StyledSignIn = styled.div`
   }
 `;
 
-const ConfirmSignup = ({ handleOpenSignIn, setFirstConnect }) => {
+const ConfirmSignup = ({ setFirstConnect }) => {
+  const history = useHistory();
   const FORM_DATA_ITEMS = {
     email: "",
     code: "",
@@ -178,8 +180,8 @@ const ConfirmSignup = ({ handleOpenSignIn, setFirstConnect }) => {
     setLoading(true);
     try {
       await Auth.confirmSignUp(form.email, form.code);
-      setFirstConnect(true);
-      handleOpenSignIn();
+      // setFirstConnect(true);
+      history.push("/login");
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});

@@ -13,7 +13,6 @@ import FirstConnect from "../components/accounts/FirstConnect";
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
-import ResultPage from "./ResultPage";
 import { getConnectedAccount } from "../redux/actions/account";
 import { redirectMSG } from "../config";
 import request from "../utils/request";
@@ -46,8 +45,7 @@ const MainpageConnecteAccounts = styled.div`
 let oauthPopup = null;
 let previousUrl = null;
 
-const Mainpage = ({ handleSignOut, isfirstConnect }) => {
-  const [resultPage, setResultPage] = useState(false);
+const Seachpage = ({ handleSignOut, isfirstConnect }) => {
   const [firstConnect, setFirstConnect] = useState(isfirstConnect);
   const [addAccount, setAddAccount] = useState(false);
   const { setLoading } = useContext(TreviContext);
@@ -55,11 +53,6 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
   );
-
-  useEffect(() => {
-    if (!resultPage) getConnectedAccount(false);
-    return;
-  }, [resultPage]);
 
   useEffect(() => {
     const notifyUserSession = async () => {
@@ -82,6 +75,7 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
     };
 
     notifyUserSession();
+    getConnectedAccount(false);
   }, []);
 
   useEffect(() => {
@@ -170,29 +164,17 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   return (
     <MainPageContainer>
       <Header
-        resultPage={resultPage}
-        setResultPage={setResultPage}
         handleSignOut={handleSignOut}
         showAddAccount={showAddAccount}
       ></Header>
-      {resultPage ? (
-        <ResultPage></ResultPage>
-      ) : (
-        <>
-          <StyledLogo>
-            <img src={LOGO} alt="Logo"></img>
-          </StyledLogo>
-          <SearchBar
-            setResultPage={setResultPage}
-            resultPage={resultPage}
-          ></SearchBar>
-          <MainpageConnecteAccounts>
-            <ConnectedAccounts
-              showAddAccount={showAddAccount}
-            ></ConnectedAccounts>
-          </MainpageConnecteAccounts>
-        </>
-      )}
+
+      <StyledLogo>
+        <img src={LOGO} alt="Logo"></img>
+      </StyledLogo>
+      <SearchBar></SearchBar>
+      <MainpageConnecteAccounts>
+        <ConnectedAccounts showAddAccount={showAddAccount}></ConnectedAccounts>
+      </MainpageConnecteAccounts>
 
       <Modal
         open={firstConnect}
@@ -217,4 +199,4 @@ const Mainpage = ({ handleSignOut, isfirstConnect }) => {
   );
 };
 
-export default Mainpage;
+export default Seachpage;

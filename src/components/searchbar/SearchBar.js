@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -114,7 +115,8 @@ const StyledSearchBarContainer = styled.div`
   }
 `;
 
-const SearchBar = ({ setResultPage, resultPage }) => {
+const SearchBar = ({ resultPage = false }) => {
+  const history = useHistory();
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
@@ -161,16 +163,16 @@ const SearchBar = ({ setResultPage, resultPage }) => {
     if (e.keyCode === 13) {
       setSearchQuery(searchBarQuery);
       setShowSuggestionList(false);
-      if (!resultPage) setResultPage(true);
       getSearchResult(searchBarQuery);
+      if (!resultPage) history.push("/result");
     }
   };
 
   const handleSearchIcon = () => {
     setSearchQuery(searchBarQuery);
     setShowSuggestionList(false);
-    if (!resultPage) setResultPage(true);
     getSearchResult(searchBarQuery);
+    if (!resultPage) history.push("/result");
   };
 
   const handleCloseIcon = () => {

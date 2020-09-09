@@ -6,6 +6,7 @@ import Pagination from "react-js-pagination";
 
 import { getSearchResult } from "../redux/actions/search";
 import ResultItemContainer from "../components/search/ResultItemContainer";
+import Header from "../components/layout/Header";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
 
@@ -1030,7 +1031,7 @@ const StyledResultPage = styled.div`
 //   },
 // ];
 
-const ResultPage = () => {
+const Resultpage = () => {
   const [activePage, setActivePage] = useState(1);
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const searchResult = useSelector((store) => store.search.searchResult);
@@ -1049,55 +1050,59 @@ const ResultPage = () => {
   };
 
   return (
-    <StyledResultPage>
-      {/* <div className="resultpage-filter">
+    <>
+      <Header resultPage={true}></Header>
+      <StyledResultPage>
+        {/* <div className="resultpage-filter">
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
         <FilterDate></FilterDate>
       </div> */}
-      <div className="resultpage-list">
-        {isLoading ? (
-          <div className="resultpage-list-loader">
-            <ClipLoader
-              size={45}
-              color={"#4F4FC4"}
-              loading={isLoading}
-            ></ClipLoader>
-          </div>
-        ) : (
-          result &&
-          (result.length !== 0 ? (
-            result.map((item, index) => {
-              return (
-                <ResultItemContainer
-                  key={index}
-                  data={item}
-                ></ResultItemContainer>
-              );
-            })
-          ) : (
-            <div className="resultpage-list-empty">
-              Your search - <b>{searchQuery}</b> - did not match any documents.
+        <div className="resultpage-list">
+          {isLoading ? (
+            <div className="resultpage-list-loader">
+              <ClipLoader
+                size={45}
+                color={"#4F4FC4"}
+                loading={isLoading}
+              ></ClipLoader>
             </div>
-          ))
-        )}
-      </div>
-      <Pagination
-        hideDisabled
-        activePage={activePage}
-        itemsCountPerPage={10}
-        totalItemsCount={totalResults}
-        pageRangeDisplayed={5}
-        onChange={(pageNumber) => handlePageClick(pageNumber)}
-        innerClass="resultpage-pagination"
-        linkClass="resultpage-pagination-link"
-        linkClassFirst="resultpage-pagination-first"
-        linkClassLast="resultpage-pagination-last"
-        activeLinkClass="resultpage-pagination-active"
-      />
-    </StyledResultPage>
+          ) : (
+            result &&
+            (result.length !== 0 ? (
+              result.map((item, index) => {
+                return (
+                  <ResultItemContainer
+                    key={index}
+                    data={item}
+                  ></ResultItemContainer>
+                );
+              })
+            ) : (
+              <div className="resultpage-list-empty">
+                Your search - <b>{searchQuery}</b> - did not match any
+                documents.
+              </div>
+            ))
+          )}
+        </div>
+        <Pagination
+          hideDisabled
+          activePage={activePage}
+          itemsCountPerPage={10}
+          totalItemsCount={totalResults}
+          pageRangeDisplayed={5}
+          onChange={(pageNumber) => handlePageClick(pageNumber)}
+          innerClass="resultpage-pagination"
+          linkClass="resultpage-pagination-link"
+          linkClassFirst="resultpage-pagination-first"
+          linkClassLast="resultpage-pagination-last"
+          activeLinkClass="resultpage-pagination-active"
+        />
+      </StyledResultPage>
+    </>
   );
 };
 
-export default ResultPage;
+export default Resultpage;

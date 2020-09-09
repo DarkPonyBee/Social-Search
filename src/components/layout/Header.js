@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
@@ -187,12 +188,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({
-  resultPage,
-  setResultPage,
-  handleSignOut,
-  showAddAccount,
-}) => {
+const Header = ({ resultPage = false, handleSignOut, showAddAccount }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showConnectedAccount, setShowConnectedAccount] = useState(false);
@@ -247,16 +243,11 @@ const Header = ({
       <div className="header-container">
         {resultPage && (
           <div className="header-container-search">
-            <img
-              className="header-logo"
-              src={LOGO}
-              alt="Logo"
-              onClick={() => {
-                setResultPage(false);
-              }}
-            ></img>
+            <Link to="/search">
+              <img className="header-logo" src={LOGO} alt="Logo"></img>
+            </Link>
             <div className="header-searchbar">
-              <SearchBar resultPage={resultPage}></SearchBar>
+              <SearchBar resultPage={true}></SearchBar>
             </div>
           </div>
         )}

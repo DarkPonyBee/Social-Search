@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
@@ -119,6 +120,9 @@ const StyledReset = styled.div`
       }
     }
     .signup-item {
+      a {
+        text-decoration: none;
+      }
       display: flex;
       font-size: 16px;
       justify-content: center;
@@ -307,9 +311,11 @@ const ResetPassword = ({ handleOpenSignIn }) => {
         </form>
         <div className="signup-item">
           Back to
-          <div className="signup-item-button" onClick={handleOpenSignIn}>
-            Sign in
-          </div>
+          <Link to="/login">
+            <div className="signup-item-button" onClick={handleOpenSignIn}>
+              Sign in
+            </div>
+          </Link>
         </div>
       </div>
     </StyledReset>

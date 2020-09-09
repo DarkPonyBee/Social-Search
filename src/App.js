@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Auth } from "aws-amplify";
-import { Modal } from "react-responsive-modal";
-import { NotificationContainer } from "react-notifications";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
+import { Auth } from "aws-amplify";
+import { NotificationContainer } from "react-notifications";
 
-import Mainpage from "./pages/Mainpage";
-import SignUp from "./components/forms/SignUp";
-import SignIn from "./components/forms/SignIn";
-import ResetPassword from "./components/forms/ResetPassword";
-import ConfirmSignup from "./components/forms/ConfirmSignup";
 import { TreviContext } from "./utils/context";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Seachpage from "./pages/Searchpage";
+import ForgotPassword from "./pages/Forgot";
+import Confirmsignup from "./pages/Confirm";
+import Resultpage from "./pages/Resultpage";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -25,71 +27,19 @@ const StyledLoader = styled(LoadingOverlay)`
 function App() {
   const [loading, setLoading] = useState(false);
   const [loggedin, setLoggedIn] = useState(false);
-  const [showSignUp, setShowSignUp] = useState(false);
-  const [showSignIn, setShowSignIn] = useState(false);
-  const [showReset, setShowReset] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [firstConnect, setFirstConnect] = useState(false);
 
   useEffect(() => {
     const getCurrentSession = async () => {
       await Auth.currentSession()
         .then(() => {
           setLoggedIn(true);
-          handleLoggedIn();
         })
         .catch(() => {
           setLoggedIn(false);
-          setShowSignUp(true);
         });
     };
     getCurrentSession();
   }, []);
-
-  const handleSignOut = () => {
-    setFirstConnect(false);
-    setLoggedIn(false);
-    setShowSignIn(false);
-    setShowSignUp(true);
-    setShowConfirm(false);
-    setShowReset(false);
-  };
-
-  const handleLoggedIn = () => {
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowConfirm(false);
-    setShowReset(false);
-    setLoggedIn(true);
-  };
-
-  const handleOpenSignIn = () => {
-    setShowSignIn(true);
-    setShowSignUp(false);
-    setShowConfirm(false);
-    setShowReset(false);
-  };
-
-  const handleOpenSignUp = () => {
-    setShowSignIn(false);
-    setShowSignUp(true);
-    setShowConfirm(false);
-    setShowReset(false);
-  };
-
-  const handleOpenConfirm = () => {
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowConfirm(true);
-    setShowReset(false);
-  };
-
-  const handleOpenReset = () => {
-    setShowSignIn(false);
-    setShowSignUp(false);
-    setShowConfirm(false);
-    setShowReset(true);
-  };
 
   return (
     <TreviContext.Provider value={{ loading, setLoading }}>
@@ -100,61 +50,21 @@ function App() {
           spinner
         ></StyledLoader>
       )}
-      {loggedin && (
-        <Mainpage
-          handleSignOut={handleSignOut}
-          isfirstConnect={firstConnect}
-        ></Mainpage>
-      )}
-      {showSignUp && (
-        <Modal
-          open={showSignUp}
-          onClose={() => {}}
-          center
-          showCloseIcon={false}
-          classNames={{ modal: "customModal" }}
-        >
-          <SignUp
-            handleOpenConfirm={handleOpenConfirm}
-            handleOpenSignIn={handleOpenSignIn}
-          ></SignUp>
-        </Modal>
-      )}
-      <Modal
-        open={showSignIn}
-        onClose={() => {}}
-        center
-        showCloseIcon={false}
-        classNames={{ modal: "customModal" }}
-      >
-        <SignIn
-          handleLoggedIn={handleLoggedIn}
-          handleOpenSignUp={handleOpenSignUp}
-          handleOpenReset={handleOpenReset}
-          handleOpenConfirm={handleOpenConfirm}
-        ></SignIn>
-      </Modal>
-      <Modal
-        open={showReset}
-        onClose={() => {}}
-        center
-        showCloseIcon={false}
-        classNames={{ modal: "customModal" }}
-      >
-        <ResetPassword handleOpenSignIn={handleOpenSignIn}></ResetPassword>
-      </Modal>
-      <Modal
-        open={showConfirm}
-        onClose={() => {}}
-        center
-        showCloseIcon={false}
-        classNames={{ modal: "customModal" }}
-      >
-        <ConfirmSignup
-          setFirstConnect={setFirstConnect}
-          handleOpenSignIn={handleOpenSignIn}
-        ></ConfirmSignup>
-      </Modal>
+      <Router>
+        <Switch>
+          <Route path="/login" exact component={Login}></Route>
+          <Route path="/signup" exact component={Signup}></Route>
+          <Route
+            path="/reset-password"
+            exact
+            component={ForgotPassword}
+          ></Route>
+          <Route path="/confirm-signup" exact component={Confirmsignup}></Route>
+          <Route path="/search" exact component={Seachpage}></Route>
+          <Route path="/result" exact component={Resultpage}></Route>
+          <Route path="/" component={Homepage}></Route>
+        </Switch>
+      </Router>
       <NotificationContainer />
     </TreviContext.Provider>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
@@ -111,6 +112,9 @@ const StyledSignIn = styled.div`
       }
     }
     .signup-item {
+      a {
+        text-decoration: none;
+      }
       display: flex;
       font-size: 16px;
       justify-content: center;
@@ -248,19 +252,19 @@ const SignIn = ({
             <input type="submit" value="Sign In"></input>
           </div>
         </form>
-        <div className="forgot-item" onClick={handleOpenReset}>
-          Forgot your password?
-        </div>
+        <Link to="/reset-password">
+          <div className="forgot-item">Forgot your password?</div>
+        </Link>
         <div className="signup-item">
           {formerror ? "Do you want to confirm?" : "Don't have an account?"}
           {formerror ? (
-            <div className="signup-item-button" onClick={handleOpenConfirm}>
-              Confirm Code
-            </div>
+            <Link to="/confirm-signup">
+              <div className="signup-item-button">Confirm Code</div>
+            </Link>
           ) : (
-            <div className="signup-item-button" onClick={handleOpenSignUp}>
-              Sign Up
-            </div>
+            <Link to="/signup">
+              <div className="signup-item-button">Sign Up</div>
+            </Link>
           )}
         </div>
       </div>

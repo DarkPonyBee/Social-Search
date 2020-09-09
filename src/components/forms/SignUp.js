@@ -1,4 +1,5 @@
 import React, { useState, createRef, useContext } from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -211,6 +212,9 @@ const StyledSignUp = styled.div`
         }
       }
       .login-item {
+        a {
+          text-decoration: none;
+        }
         display: flex;
         font-size: 16px;
         justify-content: center;
@@ -257,7 +261,8 @@ const StyledSignUp = styled.div`
   }
 `;
 
-const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
+const SignUp = () => {
+  const history = useHistory();
   const drecaptchaRef = createRef();
   const mrecaptchaRef = createRef();
 
@@ -326,7 +331,7 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
         username: form.email,
         password: form.password,
       });
-      handleOpenConfirm();
+      history.push("/confirm-signup");
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
@@ -499,9 +504,9 @@ const SignUp = ({ handleOpenSignIn, handleOpenConfirm }) => {
           </form>
           <div className="login-item">
             Already have an account?
-            <div className="login-item-button" onClick={handleOpenSignIn}>
-              Log in
-            </div>
+            <Link to="/login">
+              <div className="login-item-button">Log in</div>
+            </Link>
           </div>
         </div>
       </div>
