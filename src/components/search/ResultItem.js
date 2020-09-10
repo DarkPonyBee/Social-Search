@@ -82,41 +82,57 @@ const StyledResultItem = styled.div`
         color: rgba(0, 0, 0, 0.65);
         &-filename {
           max-width: 70%;
-          white-space: nowrap;
-          ${(props) => (props.titletruncate ? "overflow: hidden" : "")};
-          ${(props) => (props.titletruncate ? "text-overflow: ellipsis" : "")};
           margin: auto 0px;
-          padding-right: 15px;
-          border-right: 1px solid #979797;
-          font-size: 20px;
           letter-spacing: -0.45px;
           line-height: 24px;
-          em {
-            font-style: normal;
-            font-weight: bold;
-            color: #4f4fc4;
+          &-container {
+            font-size: 20px;
+            white-space: nowrap;
+            ${(props) => (props.titletruncate ? "overflow: hidden" : "")};
+            ${(props) =>
+              props.titletruncate ? "text-overflow: ellipsis" : ""};
+            em {
+              font-style: normal;
+              font-weight: bold;
+              color: #4f4fc4;
+            }
+            &:hover {
+              text-decoration: underline;
+              text-decoration-color: #4f4fc4;
+            }
           }
-          &:hover {
-            text-decoration: underline;
-            text-decoration-color: #4f4fc4;
+          &-truncate {
+            font-size: 18px;
+            visibility: hidden;
+            height: 0px;
           }
         }
+        &-split {
+          width: 0.5px;
+          min-width: 0.5px;
+          margin-left: 15px;
+          margin-right: 15px;
+          background-color: #979797;
+        }
         &-users {
-          ${(props) => (props.usertruncate ? "white-space: nowrap" : "")};
-          ${(props) => (props.usertruncate ? "overflow: hidden" : "")};
-          ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
+          width: 100%;
           margin: auto 0px;
-          padding-left: 15px;
-          font-size: 17px;
           letter-spacing: -0.39px;
           line-height: 21px;
-          span {
-            font-weight: normal;
-            color: rgba(0, 0, 0, 0.65);
+          font-size: 17px;
+          white-space: nowrap;
+          ${(props) => (props.usertruncate ? "overflow: hidden" : "")};
+          ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
+          b {
+            font-weight: bold;
           }
           &:hover {
             text-decoration: underline;
             text-decoration-color: #4f4fc4;
+          }
+          &-truncate {
+            visibility: hidden;
+            height: 0px;
           }
         }
         b {
@@ -413,22 +429,21 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                   titleTruncate ? strapingHTML(getTitle(data.title)) : ""
                 }
               >
-                {renderHTML(getTitle(data.title))}
-                <div
-                  style={{
-                    visibility: "hidden",
-                    height: "0px",
-                    width: "calc(100% + 16px)",
-                  }}
-                >
+                <div className="resultitem-content-title-filename-container">
+                  {renderHTML(getTitle(data.title))}
+                </div>
+                <div className="resultitem-content-title-filename-truncate">
                   <Truncate
                     onTruncate={(truncate) => handleTruncate(truncate, "title")}
                   >
-                    {strapingHTML(getTitle(data.title))}
+                    {renderHTML(getTitle(data.title))}
                   </Truncate>
                 </div>
                 <ReactTooltip id="title" place="bottom" effect="float" />
               </div>
+              {data?.users.length !== 0 && (
+                <div className="resultitem-content-title-split"></div>
+              )}
               <div
                 className="resultitem-content-title-users"
                 data-for="user"
@@ -437,13 +452,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 }
               >
                 {renderHTML(getUsers(data.users))}
-                <div
-                  style={{
-                    visibility: "hidden",
-                    height: "0px",
-                    width: "calc(100% + 15px)",
-                  }}
-                >
+                <div className="resultitem-content-title-users-truncate">
                   <Truncate
                     onTruncate={(truncate) => handleTruncate(truncate, "user")}
                   >
