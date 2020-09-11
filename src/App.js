@@ -10,22 +10,23 @@ import LoadingOverlay from "react-loading-overlay";
 import { Auth } from "aws-amplify";
 import { NotificationContainer } from "react-notifications";
 import { useSelector } from "react-redux";
-import { setLogin } from "./redux/actions/global";
 
-import { TreviContext } from "./utils/context";
-import Homepage from "./pages/Homepage";
-import Login from "./pages/Login";
+// import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
-import Searchpage from "./pages/Searchpage";
+import Login from "./pages/Login";
 import ForgotPassword from "./pages/Forgot";
 import Confirmsignup from "./pages/Confirm";
+import Searchpage from "./pages/Searchpage";
 import Resultpage from "./pages/Resultpage";
+import { TreviContext } from "./utils/context";
+import { setLogin } from "./redux/actions/global";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
   z-index: 1001;
   height: 100vh;
   width: 100vw;
+
   .MyLoader_overlay {
     background: rgba(0, 0, 0, 0.3);
   }

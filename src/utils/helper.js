@@ -6,3 +6,9 @@ export const getAuth = () => {
 export const setAuth = (dataAuth) => {
   localStorage.setItem("auth", JSON.stringify(dataAuth));
 };
+
+export const getParam = (name) => {
+  if (!name) return "";
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(name);
+};

@@ -68,6 +68,9 @@ const Searchpage = () => {
           return;
         });
 
+      if (firstConnect) {
+        request().post("/user", { headers: { authorizer: token } });
+      }
       request().get("/notifyUserSession", {
         headers: {
           authorizer: token,
@@ -76,8 +79,8 @@ const Searchpage = () => {
     };
 
     notifyUserSession();
-    getConnectedAccount(false);
-  }, []);
+    if (!firstConnect) getConnectedAccount(false);
+  }, [firstConnect]);
 
   useEffect(() => {
     setLoading(isLoading);

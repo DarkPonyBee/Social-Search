@@ -18,14 +18,14 @@ import ICONGDOC from "./assets/images/icon-gdoc.svg";
 import ICONGSHEET from "./assets/images/icon-gsheet.svg";
 import ICONGSLIDES from "./assets/images/icon-gslides.svg";
 import ICONFILE from "./assets/images/icon-file.svg";
-import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
 import ICONVIDEO from "./assets/images/icon-video.svg";
 import ICONIMAGE from "./assets/images/icon-image.svg";
-import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
-import ICONFOLDER from "./assets/images/icon-folder.svg";
 import ICONEMAIL from "./assets/images/icon-email.svg";
 import ICONTASK from "./assets/images/icon-task.svg";
 import ICONMESSAGE from "./assets/images/icon-message.svg";
+import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
+import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
+import ICONFOLDER from "./assets/images/icon-folder.svg";
 
 let API_URL = "https://api-dev.trevi.io";
 
@@ -137,6 +137,8 @@ const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
+const passcode = "Trevi1984";
+
 export {
   API_URL,
   availableAccounts,
@@ -149,4 +151,5 @@ export {
   redirectMSG,
   accountSyncIntervalTime,
   bugsnagKEY,
+  passcode,
 };

@@ -7,7 +7,7 @@ import { NotificationManager } from "react-notifications";
 import { Auth } from "aws-amplify";
 
 import { TreviContext } from "../../utils/context";
-import { availableIcons, recaptchaKey } from "../../config";
+import { availableIcons, recaptchaKey, passcode } from "../../config";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -134,6 +134,8 @@ const StyledSignUp = styled.div`
             font-size: 13px;
             justify-content: center;
             input {
+              margin-top: auto;
+              margin-bottom: auto;
               margin-right: 10px;
               &:hover {
                 cursor: pointer;
@@ -145,6 +147,7 @@ const StyledSignUp = styled.div`
                 margin: auto;
                 a {
                   color: #575856;
+                  text-decoration: underline;
                   &:hover {
                     cursor: pointer;
                     color: blue;
@@ -267,6 +270,7 @@ const SignUp = () => {
   const mrecaptchaRef = createRef();
 
   const FORM_DATA_ITEMS = {
+    passcode: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -302,6 +306,8 @@ const SignUp = () => {
 
   const validate = () => {
     const errorState = {};
+    if (form.passcode !== passcode)
+      errorState.passcode = "Please enter a valid Sign-Up Code";
     if (!isEmail(form.email))
       errorState.email = "Please enter a valid e-mail address";
     if (form.password.length < 6)
@@ -319,10 +325,10 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errorState = validate();
-    drecaptchaRef.current.reset();
-    mrecaptchaRef.current.reset();
     setForm({ ...form, captcha: false });
     if (Object.keys(errorState).length > 0) {
+      drecaptchaRef.current.reset();
+      mrecaptchaRef.current.reset();
       return setError(errorState);
     }
     setLoading(true);
@@ -333,6 +339,8 @@ const SignUp = () => {
       });
       history.push("/confirm-signup");
     } catch (err) {
+      drecaptchaRef.current.reset();
+      mrecaptchaRef.current.reset();
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
@@ -408,7 +416,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.email}
-                autoComplete={"off"}
+                // autoComplete={"off"}
               ></input>
               {error.email && (
                 <div className="input-item-error">{error.email}</div>
@@ -432,7 +440,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.password}
-                autoComplete={"off"}
+                // autoComplete={"off"}
               ></input>
               {error.password && (
                 <div className="input-item-error">{error.password}</div>
@@ -456,10 +464,34 @@ const SignUp = () => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.confirmPassword}
-                autoComplete={"off"}
+                // autoComplete={"off"}
               ></input>
               {error.confirmPassword && (
                 <div className="input-item-error">{error.confirmPassword}</div>
+              )}
+            </div>
+            <div className="input-item">
+              {form.passcode && (
+                <div className="input-item-header">Sign-Up Code</div>
+              )}
+              <input
+                className={
+                  error.passcode
+                    ? "input-item-error-border"
+                    : form.passcode
+                    ? "input-item-active"
+                    : ""
+                }
+                name="passcode"
+                type="text"
+                placeholder="Sign-Up Code"
+                onChange={handleChange}
+                onFocus={handleFocus}
+                value={form.passcode}
+                // autoComplete={"off"}
+              ></input>
+              {error.passcode && (
+                <div className="input-item-error">{error.passcode}</div>
               )}
             </div>
             <div className="check-item">

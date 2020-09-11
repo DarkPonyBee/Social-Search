@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 import { setSearchQuery } from "../../redux/actions/search";
-import { getSearchResult } from "../../redux/actions/search";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
@@ -118,9 +117,11 @@ const StyledSearchBarContainer = styled.div`
 const SearchBar = ({ resultPage = false }) => {
   const history = useHistory();
   const searchQuery = useSelector((store) => store.search.searchQuery);
-  const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
+  useEffect(() => {
+    if (!resultPage) setSearchQuery("");
+  }, [resultPage]);
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
   //   responseResult.forEach((item) => {
@@ -151,7 +152,7 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onInputChange = (e) => {
     const query = e.target.value;
-    setSearchBarQuery(query);
+    setSearchQuery(query);
     // if (query.trim().length === 0) {
     //   setShowSuggestionList(false);
     //   return;
@@ -161,23 +162,22 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      setSearchQuery(searchBarQuery);
-      setShowSuggestionList(false);
-      getSearchResult(searchBarQuery);
-      if (!resultPage) history.push("/result");
+      openResultPage();
     }
   };
 
   const handleSearchIcon = () => {
-    setSearchQuery(searchBarQuery);
+    openResultPage();
+  };
+
+  const openResultPage = () => {
     setShowSuggestionList(false);
-    getSearchResult(searchBarQuery);
-    if (!resultPage) history.push("/result");
+    history.push(`/result?q=${searchQuery}`);
   };
 
   const handleCloseIcon = () => {
     setShowSuggestionList(false);
-    setSearchBarQuery("");
+    setSearchQuery("");
   };
 
   return (
@@ -193,7 +193,7 @@ const SearchBar = ({ resultPage = false }) => {
             placeholder="Search Your Cloud"
             onChange={onInputChange}
             onKeyDown={onKeyDown}
-            value={searchBarQuery}
+            value={searchQuery}
           ></input>
           {showSuggestionList && (
             <ion-icon

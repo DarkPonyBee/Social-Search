@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import Pagination from "react-js-pagination";
 
-import { getSearchResult } from "../redux/actions/search";
+import { getSearchResult, setSearchQuery } from "../redux/actions/search";
 import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
+import { getParam } from "../utils/helper";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
 
@@ -1033,14 +1034,15 @@ const StyledResultPage = styled.div`
 
 const Resultpage = () => {
   const [activePage, setActivePage] = useState(1);
-  const searchQuery = useSelector((store) => store.search.searchQuery);
+  const searchQuery = getParam("q");
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
   const result = searchResult?.result.results || 0;
   const totalResults = searchResult?.result.total_results || 0;
 
   useEffect(() => {
-    setActivePage(1);
+    setSearchQuery(searchQuery);
+    getSearchResult(searchQuery);
   }, [searchQuery]);
 
   const handlePageClick = (pageNumber) => {
