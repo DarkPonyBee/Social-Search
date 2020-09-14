@@ -4,6 +4,7 @@ import OUTLOOKICON from "./assets/images/outlook.svg";
 import TEAMSICON from "./assets/images/teams.svg";
 import SLACKICON from "./assets/images/slack.svg";
 import DROPBOXICON from "./assets/images/dropbox.svg";
+import ASANAICON from "./assets/images/dropbox.svg";
 
 import ICONCODEFILE from "./assets/images/icon-code-file.svg";
 import ICONHTML from "./assets/images/icon-html.svg";
@@ -57,6 +58,11 @@ const availableAccounts = [
     icon: DROPBOXICON,
     uiname: "Dropbox",
   },
+  {
+    name: "asana",
+    icon: ASANAICON,
+    uiname: "Asana",
+  },
 ];
 
 const availableIcons = {
@@ -66,6 +72,7 @@ const availableIcons = {
   teams: TEAMSICON,
   slack: SLACKICON,
   dropbox: DROPBOXICON,
+  asana: ASANAICON,
 };
 
 const contentType = [
