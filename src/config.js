@@ -118,7 +118,7 @@ const contentKind = [
   { value: "task", icon: ICONTASK },
   { value: "message", icon: ICONMESSAGE },
   { value: "file", icon: ICONFILE },
-  { value: "container", icon: ICONFILE },
+  { value: "container", icon: ICONCONTAINER },
 ];
 
 const contentDefaultIcon = ICONFILE;
