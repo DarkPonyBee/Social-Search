@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 

@@ -69,7 +69,9 @@ const Searchpage = () => {
         });
 
       // if (firstConnect) {
-      request().post("/user", null, { headers: { authorizer: token } });
+      request().post("/user", null, {
+        headers: { authorizer: token },
+      });
       // }
       request().get("/notifyUserSession", {
         headers: {
