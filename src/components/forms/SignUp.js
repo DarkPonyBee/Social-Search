@@ -325,10 +325,10 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const errorState = validate();
+    drecaptchaRef.current.reset();
+    mrecaptchaRef.current.reset();
     setForm({ ...form, captcha: false });
     if (Object.keys(errorState).length > 0) {
-      drecaptchaRef.current.reset();
-      mrecaptchaRef.current.reset();
       return setError(errorState);
     }
     setLoading(true);
@@ -339,8 +339,6 @@ const SignUp = () => {
       });
       history.push("/confirm-signup");
     } catch (err) {
-      drecaptchaRef.current.reset();
-      mrecaptchaRef.current.reset();
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
