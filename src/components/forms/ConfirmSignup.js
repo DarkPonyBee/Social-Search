@@ -7,6 +7,7 @@ import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
 import { setFirstConnect } from "../../redux/actions/global";
+import { useSelector } from "react-redux";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -142,8 +143,9 @@ const StyledSignIn = styled.div`
 
 const ConfirmSignup = () => {
   const history = useHistory();
+  const signupEmail = useSelector((store) => store.global.signupemail);
+
   const FORM_DATA_ITEMS = {
-    email: "",
     code: "",
   };
 
@@ -167,8 +169,6 @@ const ConfirmSignup = () => {
   const validate = () => {
     const errorState = {};
     // check validate
-    if (!isEmail(form.email))
-      errorState.email = "Please enter a valid e-mail address";
     if (form.code.length === 0) errorState.code = "Please enter a code";
     return errorState;
   };
@@ -181,7 +181,7 @@ const ConfirmSignup = () => {
     }
     setLoading(true);
     try {
-      await Auth.confirmSignUp(form.email, form.code);
+      await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
       history.push("/login");
     } catch (err) {
@@ -197,27 +197,6 @@ const ConfirmSignup = () => {
       <div className="signin-content">
         <div className="signin-content-header">Confirm</div>
         <form onSubmit={handleSubmit}>
-          <div className="input-item">
-            {form.email && <div className="input-item-header">Email</div>}
-            <input
-              className={
-                error.email
-                  ? "input-item-error-border"
-                  : form.email
-                  ? "input-item-active"
-                  : ""
-              }
-              name="email"
-              type="text"
-              placeholder="Email"
-              onChange={handleChange}
-              onFocus={handleFocus}
-              value={form.email}
-            ></input>
-            {error.email && (
-              <div className="input-item-error">{error.email}</div>
-            )}
-          </div>
           <div className="input-item">
             {form.code && <div className="input-item-header">Code</div>}
             <input

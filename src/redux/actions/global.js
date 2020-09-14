@@ -8,3 +8,7 @@ export function setLogin(loggedin = false) {
 export function setFirstConnect(firstConnect = false) {
   store.dispatch({ type: types.SET_FIRSTCONNECT, payload: firstConnect });
 }
+
+export function setSignupEmail(email = "") {
+  store.dispatch({ type: types.SET_SIGNUPEMAIL, payload: email });
+}
