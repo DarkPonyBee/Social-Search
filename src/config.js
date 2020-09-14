@@ -34,10 +34,7 @@ const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
 const aws_user_pools_web_client_id = "73qek8ikcn8259uhbn1lvgslpv";
 const aws_cognito_identity_pool_id = "us-east-1:209715472977";
 const aws_user_pools_id = "us-east-1_kylhAkCDK";
-
-// if (process.env.NODE_ENV === "production") {
-//   API_URL = "/api/v1";
-// }
+const passcode = "Trevi1984";
 
 const availableAccounts = [
   { name: "gmail", icon: GMAILICON, uiname: "Gmail" },
@@ -143,7 +140,7 @@ const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
-const passcode = "Trevi1984";
+
 
 export {
   API_URL,
