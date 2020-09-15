@@ -34,6 +34,7 @@ const StyledLoader = styled(LoadingOverlay)`
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const loadingContext = { loading, setLoading };
   const loggedin = useSelector((store) => store.global.loggedin);
 
   useEffect(() => {
@@ -66,7 +67,7 @@ function App() {
   );
 
   return (
-    <TreviContext.Provider value={{ loading, setLoading }}>
+    <TreviContext.Provider value={loadingContext}>
       {loading && (
         <StyledLoader
           active={true}
