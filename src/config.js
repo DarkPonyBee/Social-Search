@@ -4,7 +4,7 @@ import OUTLOOKICON from "./assets/images/outlook.svg";
 import TEAMSICON from "./assets/images/teams.svg";
 import SLACKICON from "./assets/images/slack.svg";
 import DROPBOXICON from "./assets/images/dropbox.svg";
-import ASANAICON from "./assets/images/dropbox.svg";
+import ASANAICON from "./assets/images/asana.svg";
 
 import ICONCODEFILE from "./assets/images/icon-code-file.svg";
 import ICONHTML from "./assets/images/icon-html.svg";
@@ -139,8 +139,6 @@ const redirectMSG = {
 const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
-
-
 
 export {
   API_URL,
