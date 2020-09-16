@@ -68,11 +68,12 @@ const Searchpage = () => {
           return;
         });
 
-      // if (firstConnect) {
-      request().post("/user", null, {
-        headers: { authorizer: token },
-      });
-      // }
+      if (firstConnect) {
+        request().post("/user", null, {
+          headers: { authorizer: token },
+        });
+      }
+
       request().get("/notifyUserSession", {
         headers: {
           authorizer: token,
