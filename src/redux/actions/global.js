@@ -12,3 +12,7 @@ export function setFirstConnect(firstConnect = false) {
 export function setSignupEmail(email = "") {
   store.dispatch({ type: types.SET_SIGNUPEMAIL, payload: email });
 }
+
+export function setSignupPassword(password = "") {
+  store.dispatch({ type: types.SET_SIGNUPPASSWORD, payload: password });
+}

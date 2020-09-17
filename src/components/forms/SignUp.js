@@ -8,7 +8,7 @@ import { Auth } from "aws-amplify";
 
 import { TreviContext } from "../../utils/context";
 import { availableIcons, recaptchaKey, passcode } from "../../config";
-import { setSignupEmail } from "../../redux/actions/global";
+import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -339,6 +339,7 @@ const SignUp = () => {
         password: form.password,
       });
       setSignupEmail(form.email);
+      setSignupPassword(form.password);
       history.push("/confirm-signup");
     } catch (err) {
       setFormError(err.message);

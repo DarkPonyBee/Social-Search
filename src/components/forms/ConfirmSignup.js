@@ -5,7 +5,7 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
-import { setFirstConnect } from "../../redux/actions/global";
+import { setFirstConnect, setLogin } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
 
 const StyledSignIn = styled.div`
@@ -143,6 +143,7 @@ const StyledSignIn = styled.div`
 const ConfirmSignup = () => {
   const history = useHistory();
   const signupEmail = useSelector((store) => store.global.signupemail);
+  const signupPassword = useSelector((store) => store.global.signuppassword);
 
   const FORM_DATA_ITEMS = {
     code: "",
@@ -182,7 +183,9 @@ const ConfirmSignup = () => {
     try {
       await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
-      history.push("/login");
+      await Auth.signIn(signupEmail, signupPassword);
+      setLogin(true);
+      history.push("/search");
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
