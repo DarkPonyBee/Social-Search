@@ -117,6 +117,7 @@ const StyledSearchBarContainer = styled.div`
 const SearchBar = ({ resultPage = false }) => {
   const history = useHistory();
   const searchQuery = useSelector((store) => store.search.searchQuery);
+  const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
   useEffect(() => {
@@ -152,7 +153,7 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onInputChange = (e) => {
     const query = e.target.value;
-    setSearchQuery(query);
+    setSearchBarQuery(query);
     // if (query.trim().length === 0) {
     //   setShowSuggestionList(false);
     //   return;
@@ -162,22 +163,23 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      openResultPage();
+      if (searchBarQuery !== searchQuery) openResultPage();
     }
   };
 
   const handleSearchIcon = () => {
-    openResultPage();
+    if (searchBarQuery !== searchQuery) openResultPage();
   };
 
   const openResultPage = () => {
     setShowSuggestionList(false);
-    history.push(`/result?q=${searchQuery}`);
+    setSearchQuery(searchBarQuery);
+    history.push(`/result?q=${searchBarQuery}`);
   };
 
   const handleCloseIcon = () => {
     setShowSuggestionList(false);
-    setSearchQuery("");
+    setSearchBarQuery("");
   };
 
   return (
@@ -193,7 +195,7 @@ const SearchBar = ({ resultPage = false }) => {
             placeholder="Search Your Cloud"
             onChange={onInputChange}
             onKeyDown={onKeyDown}
-            value={searchQuery}
+            value={searchBarQuery}
           ></input>
           {showSuggestionList && (
             <ion-icon
