@@ -1052,7 +1052,7 @@ const Resultpage = () => {
     setActivePage(pageNumber);
     let resultsCursor = (pageNumber - 1) * 10;
     getSearchResult(searchQuery, resultsCursor);
-    history.push(`/result/?q=${searchQuery}&?page=${pageNumber}`);
+    history.push(`/result/?q=${searchQuery}&page=${pageNumber}`);
   };
 
   return (
