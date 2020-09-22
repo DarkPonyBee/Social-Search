@@ -1,15 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
-import { Auth } from "aws-amplify";
 import { NotificationContainer } from "react-notifications";
-import { useSelector } from "react-redux";
 
 // import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
@@ -19,9 +12,9 @@ import Confirmsignup from "./pages/Confirm";
 import Searchpage from "./pages/Searchpage";
 import Resultpage from "./pages/Resultpage";
 import { TreviContext } from "./utils/context";
-import { setLogin } from "./redux/actions/global";
 import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
+import { getAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -37,20 +30,7 @@ const StyledLoader = styled(LoadingOverlay)`
 function App() {
   const [loading, setLoading] = useState(false);
   const loadingContext = { loading, setLoading };
-  const loggedin = useSelector((store) => store.global.loggedin);
-
-  useEffect(() => {
-    const getCurrentSession = async () => {
-      await Auth.currentSession()
-        .then(() => {
-          setLogin(true);
-        })
-        .catch(() => {
-          setLogin(false);
-        });
-    };
-    getCurrentSession();
-  }, []);
+  const auth = getAuth();
 
   return (
     <TreviContext.Provider value={loadingContext}>
@@ -66,37 +46,43 @@ function App() {
           <RoutePublic
             path="/login"
             component={Login}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
             exact
           />
           <RoutePublic
             path="/signup"
             component={Signup}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
             exact
           />
           <RoutePublic
             path="/reset-password"
             component={ForgotPassword}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
             exact
           />
           <RoutePublic
             path="/confirm-signup"
             component={Confirmsignup}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
             exact
           />
           <RoutePrivate
             path="/search"
             component={Searchpage}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
             exact
           />
           <RoutePrivate
             path="/result"
             component={Resultpage}
-            isAuthenticated={loggedin}
+            isAuthenticated={auth}
+            exact
+          />
+          <RoutePublic
+            path="/"
+            component={Signup}
+            isAuthenticated={auth}
             exact
           />
           <Redirect to="/signup" />

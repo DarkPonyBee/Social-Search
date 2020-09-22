@@ -271,8 +271,14 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return title ? checkObject(title) : "";
   };
 
-  const getUsers = (users) => {
-    return users ? highLightText(users.join(", "), data.primary_user) : "";
+  const getUsers = () => {
+    // return users ? highLightText(users.join(", "), data.primary_user) : "";
+    return (
+      "<b>" +
+      (data.primary_people ? data.primary_people.join(", ") + ", " : " ") +
+      "</b>" +
+      (data.secondary_people ? data.secondary_people.join(", ") : " ")
+    );
   };
 
   const checkObject = (text) => {
@@ -441,22 +447,20 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 </div>
                 <ReactTooltip id="title" place="bottom" effect="float" />
               </div>
-              {data?.users.length !== 0 && (
+              {data.primary_people?.length != null && (
                 <div className="resultitem-content-title-split"></div>
               )}
               <div
                 className="resultitem-content-title-users"
                 data-for="user"
-                data-tip={
-                  userTruncate ? strapingHTML(getUsers(data.users)) : ""
-                }
+                data-tip={userTruncate ? strapingHTML(getUsers()) : ""}
               >
-                {renderHTML(getUsers(data.users))}
+                {renderHTML(getUsers())}
                 <div className="resultitem-content-title-users-truncate">
                   <Truncate
                     onTruncate={(truncate) => handleTruncate(truncate, "user")}
                   >
-                    {strapingHTML(getUsers(data.users))}
+                    {strapingHTML(getUsers())}
                   </Truncate>
                 </div>
                 <ReactTooltip id="user" place="bottom" effect="float" />

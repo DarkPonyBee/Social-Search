@@ -17,7 +17,6 @@ import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
-import { setLogin } from "../../redux/actions/global";
 
 const StyledHeader = styled.div`
   background: white;
@@ -231,7 +230,7 @@ const Header = ({ resultPage = false, showAddAccount }) => {
     setLoading(true);
     try {
       await Auth.signOut({ global: true });
-      setLogin(false);
+      localStorage.removeItem("auth");
     } catch (err) {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});

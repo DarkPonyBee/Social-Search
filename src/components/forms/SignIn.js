@@ -6,7 +6,7 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
-import { setLogin } from "../../redux/actions/global";
+import { setAuth } from "../../utils/helper";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -188,7 +188,8 @@ const SignIn = () => {
     setLoading(true);
     try {
       await Auth.signIn(form.email, form.password);
-      setLogin(true);
+      let token = await Auth.currentSession();
+      setAuth(token.getIdToken().getJwtToken());
       history.push("/search");
     } catch (err) {
       setFormError(err.message);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -1034,6 +1035,7 @@ const StyledResultPage = styled.div`
 
 const Resultpage = () => {
   const [activePage, setActivePage] = useState(1);
+  const history = useHistory();
   const searchQuery = getParam("q");
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
@@ -1050,6 +1052,7 @@ const Resultpage = () => {
     setActivePage(pageNumber);
     let resultsCursor = (pageNumber - 1) * 10;
     getSearchResult(searchQuery, resultsCursor);
+    history.push(`/result/?q=${searchQuery}&?page=${pageNumber}`);
   };
 
   return (
