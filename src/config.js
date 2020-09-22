@@ -1,3 +1,5 @@
+//This is the DEV config
+
 import GMAILICON from "./assets/images/gmail.svg";
 import GOOGLEDRIVEICON from "./assets/images/googledrive.svg";
 import OUTLOOKICON from "./assets/images/outlook.svg";
