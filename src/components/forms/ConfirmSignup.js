@@ -5,8 +5,9 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
-import { setFirstConnect, setLogin } from "../../redux/actions/global";
+import { setFirstConnect } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
+import { setAuth } from "../../utils/helper";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -184,7 +185,8 @@ const ConfirmSignup = () => {
       await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
       await Auth.signIn(signupEmail, signupPassword);
-      setLogin(true);
+      let token = await Auth.currentSession();
+      setAuth(token.getIdToken().getJwtToken());
       history.push("/search");
     } catch (err) {
       setFormError(err.message);

@@ -9,8 +9,6 @@ const initialState = {
 
 export default function reducer(state = initialState, actions) {
   switch (actions.type) {
-    case types.SET_LOGIN:
-      return { ...state, loggedin: actions.payload };
     case types.SET_FIRSTCONNECT:
       return { ...state, firstConnect: actions.payload };
     case types.SET_SIGNUPEMAIL:

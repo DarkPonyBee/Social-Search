@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-import { setSearchQuery } from "../../redux/actions/search";
+import { getSearchResult, setSearchQuery } from "../../redux/actions/search";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
@@ -166,18 +166,21 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      if (searchBarQuery !== searchQuery || !resultPage) openResultPage();
+      openResultPage();
     }
   };
 
   const handleSearchIcon = () => {
-    if (searchBarQuery !== searchQuery || !resultPage) openResultPage();
+    openResultPage();
   };
 
   const openResultPage = () => {
     setShowSuggestionList(false);
     setSearchQuery(searchBarQuery);
-    history.push(`/result?q=${searchBarQuery}`);
+    if (resultPage && searchQuery === searchBarQuery) {
+      getSearchResult(searchQuery);
+    }
+    history.push(`/result/?q=${searchBarQuery}`);
   };
 
   const handleCloseIcon = () => {

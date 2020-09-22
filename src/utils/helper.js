@@ -1,6 +1,6 @@
 export const getAuth = () => {
   const auth = localStorage.getItem("auth");
-  return typeof auth === "string" ? JSON.parse(auth) : {};
+  return typeof auth === "string" ? JSON.parse(auth) : false;
 };
 
 export const setAuth = (dataAuth) => {
