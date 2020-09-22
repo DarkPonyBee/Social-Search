@@ -121,7 +121,10 @@ const SearchBar = ({ resultPage = false }) => {
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
   useEffect(() => {
-    if (!resultPage) setSearchQuery("");
+    if (!resultPage) {
+      setSearchQuery("");
+      setSearchBarQuery("");
+    }
   }, [resultPage]);
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
