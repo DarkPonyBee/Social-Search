@@ -56,7 +56,7 @@ const StyledResultPage = styled.div`
   }
 
   .resultpage-pagination {
-    display: flex;
+    display: ${(props) => (props.isloading ? "none" : "flex")};
     padding-left: 0;
     list-style: none;
     margin-left: auto;
@@ -1041,6 +1041,7 @@ const Resultpage = () => {
   const totalResults = searchResult?.result.total_results || 0;
 
   useEffect(() => {
+    setActivePage(1);
     setSearchQuery(searchQuery);
     getSearchResult(searchQuery);
   }, [searchQuery]);
@@ -1054,7 +1055,7 @@ const Resultpage = () => {
   return (
     <>
       <Header resultPage={true}></Header>
-      <StyledResultPage>
+      <StyledResultPage isloading={isLoading}>
         {/* <div className="resultpage-filter">
         <FilterDropdown></FilterDropdown>
         <FilterDropdown></FilterDropdown>
