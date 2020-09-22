@@ -400,7 +400,7 @@ const SignUp = () => {
         </div>
         <div className="signup-content-right">
           <div className="signup-content-right-header">Sign Up</div>
-          <form autoComplete={"off"}>
+          <form>
             <div className="input-item">
               {form.email && <div className="input-item-header">Email</div>}
               <input
