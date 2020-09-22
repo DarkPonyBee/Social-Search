@@ -45,9 +45,9 @@ const availableAccounts = [
     uiname: "Outlook",
   },
   {
-    name: "teams",
+    name: "onedrive",
     icon: TEAMSICON,
-    uiname: "Teams",
+    uiname: "OneDrive and Teams files",
   },
   { name: "slack", icon: SLACKICON, uiname: "Slack" },
   {
