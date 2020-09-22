@@ -1,3 +1,5 @@
+//This is the DEV config
+
 import GMAILICON from "./assets/images/gmail.svg";
 import GOOGLEDRIVEICON from "./assets/images/googledrive.svg";
 import OUTLOOKICON from "./assets/images/outlook.svg";
@@ -45,9 +47,9 @@ const availableAccounts = [
     uiname: "Outlook",
   },
   {
-    name: "teams",
+    name: "onedrive",
     icon: TEAMSICON,
-    uiname: "Teams",
+    uiname: "OneDrive and Teams files",
   },
   { name: "slack", icon: SLACKICON, uiname: "Slack" },
   {
