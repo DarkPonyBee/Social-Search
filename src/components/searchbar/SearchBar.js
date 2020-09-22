@@ -166,12 +166,12 @@ const SearchBar = ({ resultPage = false }) => {
 
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
-      if (searchBarQuery !== searchQuery) openResultPage();
+      if (searchBarQuery !== searchQuery || !resultPage) openResultPage();
     }
   };
 
   const handleSearchIcon = () => {
-    if (searchBarQuery !== searchQuery) openResultPage();
+    if (searchBarQuery !== searchQuery || !resultPage) openResultPage();
   };
 
   const openResultPage = () => {
