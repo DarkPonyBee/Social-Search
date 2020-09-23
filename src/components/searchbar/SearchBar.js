@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 import { getSearchResult, setSearchQuery } from "../../redux/actions/search";
+import { getParam } from "../../utils/helper";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
@@ -120,12 +121,26 @@ const SearchBar = ({ resultPage = false }) => {
   const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
+  const searchPageURL = getParam("page");
+  const searchQueryURL = getParam("q");
+
+  useEffect(() => {
+    if (resultPage) {
+      let filterSearchQuery = searchQueryURL ? searchQueryURL : "";
+      let filterSearchPage = searchPageURL ? parseInt(searchPageURL) : 1;
+      setSearchBarQuery(filterSearchQuery);
+      setSearchQuery(filterSearchQuery);
+      getSearchResult(filterSearchQuery, (filterSearchPage - 1) * 10);
+    }
+  }, [searchQueryURL, searchPageURL, resultPage]);
+
   useEffect(() => {
     if (!resultPage) {
       setSearchQuery("");
       setSearchBarQuery("");
     }
   }, [resultPage]);
+
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
   //   responseResult.forEach((item) => {
@@ -176,11 +191,10 @@ const SearchBar = ({ resultPage = false }) => {
 
   const openResultPage = () => {
     setShowSuggestionList(false);
-    setSearchQuery(searchBarQuery);
     if (resultPage && searchQuery === searchBarQuery) {
       getSearchResult(searchQuery);
     }
-    history.push(`/result/?q=${searchBarQuery}`);
+    history.push(`/result/?q=${searchBarQuery}&page=1`);
   };
 
   const handleCloseIcon = () => {

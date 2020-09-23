@@ -1034,32 +1034,22 @@ const StyledResultPage = styled.div`
 // ];
 
 const Resultpage = () => {
+  const history = useHistory();
   const [activePage, setActivePage] = useState(1);
   const searchResult = useSelector((store) => store.search.searchResult);
+  const searchQuery = useSelector((store) => store.search.searchQuery);
   const isLoading = searchResult.loading;
   const result = searchResult?.result.results || 0;
   const totalResults = searchResult?.result.total_results || 0;
 
-  const history = useHistory();
-  const searchQuery = getParam("q");
-  const searchPage = getParam("page");
+  const searchPageURL = getParam("page");
 
   useEffect(() => {
-    console.log("searchquery", searchQuery);
-    setSearchQuery(searchQuery);
-    getSearchResult(searchQuery);
-  }, [searchQuery]);
-
-  useEffect(() => {
-    console.log("searchpage", searchPage);
-    let pageNumber = searchPage ? parseInt(searchPage) : 1;
-    setActivePage(pageNumber);
-  }, [searchPage]);
+    setActivePage(parseInt(searchPageURL ? searchPageURL : 1));
+  }, [searchPageURL]);
 
   const handlePageClick = (pageNumber) => {
     setActivePage(pageNumber);
-    let resultsCursor = (pageNumber - 1) * 10;
-    getSearchResult(searchQuery, resultsCursor);
     history.push(`/result/?q=${searchQuery}&page=${pageNumber}`);
   };
 
