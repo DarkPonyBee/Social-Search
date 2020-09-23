@@ -220,12 +220,10 @@ const Icon = ({ data, header = false }) => {
 
   useEffect(() => {
     if (accountState.is_syncing) {
-      console.log("setinterval");
       timerID.current = setInterval(() => {
         getConnectedAccount(true);
       }, accountSyncIntervalTime);
     } else {
-      console.log("clearinterval");
       clearInterval(timerID.current);
     }
   }, [accountState.is_syncing]);

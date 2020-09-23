@@ -1035,18 +1035,26 @@ const StyledResultPage = styled.div`
 
 const Resultpage = () => {
   const [activePage, setActivePage] = useState(1);
-  const history = useHistory();
-  const searchQuery = getParam("q");
   const searchResult = useSelector((store) => store.search.searchResult);
   const isLoading = searchResult.loading;
   const result = searchResult?.result.results || 0;
   const totalResults = searchResult?.result.total_results || 0;
 
+  const history = useHistory();
+  const searchQuery = getParam("q");
+  const searchPage = getParam("page");
+
   useEffect(() => {
-    setActivePage(1);
+    console.log("searchquery", searchQuery);
     setSearchQuery(searchQuery);
     getSearchResult(searchQuery);
   }, [searchQuery]);
+
+  useEffect(() => {
+    console.log("searchpage", searchPage);
+    let pageNumber = searchPage ? parseInt(searchPage) : 1;
+    setActivePage(pageNumber);
+  }, [searchPage]);
 
   const handlePageClick = (pageNumber) => {
     setActivePage(pageNumber);

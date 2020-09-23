@@ -272,13 +272,18 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   };
 
   const getUsers = () => {
-    // return users ? highLightText(users.join(", "), data.primary_user) : "";
-    return (
-      "<b>" +
-      (data.primary_people ? data.primary_people.join(", ") + ", " : " ") +
-      "</b>" +
-      (data.secondary_people ? data.secondary_people.join(", ") : " ")
-    );
+    let primaryUser =
+      data.primary_people?.length > 0
+        ? "<b>" + data.primary_people.join(", ") + "</b>"
+        : "";
+    let secondaryUser =
+      data.secondary_people?.length > 0
+        ? primaryUser !== ""
+          ? ", "
+          : "" + data.secondary_people.join(", ")
+        : "";
+
+    return primaryUser + secondaryUser;
   };
 
   const checkObject = (text) => {
@@ -298,26 +303,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     temp = temp.replace(/&lt;/g, "<");
     temp = temp.replace(/&gt;/g, ">");
     return temp;
-  };
-
-  const highLightText = (text, query) => {
-    if (text == null) {
-      text = "";
-    }
-    if (query == null) {
-      query = "";
-    }
-    let highLightedText = text;
-    let index = text.toLowerCase().indexOf(query.toLowerCase());
-    if (index >= 0) {
-      highLightedText =
-        text.substring(0, index) +
-        "<b>" +
-        text.substring(index, index + query.length) +
-        "</b>" +
-        text.substring(index + query.length);
-    }
-    return highLightedText;
   };
 
   const getFormattedDate = (isoDate) => {
@@ -447,7 +432,8 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 </div>
                 <ReactTooltip id="title" place="bottom" effect="float" />
               </div>
-              {data.primary_people?.length != null && (
+              {(data.primary_people?.length > 0 ||
+                data.secondary_people?.length > 0) && (
                 <div className="resultitem-content-title-split"></div>
               )}
               <div
