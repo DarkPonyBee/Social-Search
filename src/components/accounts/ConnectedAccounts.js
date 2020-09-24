@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import Icon from "../icon/Icon";
 import ADDICON from "../../assets/images/accouts-add-icon.svg";
+import { setShowAddAccount } from "../../redux/actions/global";
 
 const AccountsContainer = styled.div`
   position: relative;
@@ -61,7 +62,7 @@ const AccountsContainer = styled.div`
   }
 `;
 
-const ConnnectedAccounts = ({ showAddAccount }) => {
+const ConnnectedAccounts = () => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result
   );
@@ -82,7 +83,7 @@ const ConnnectedAccounts = ({ showAddAccount }) => {
       </div>
       <div className="accounts-content-icon">
         <img
-          onClick={() => showAddAccount()}
+          onClick={() => setShowAddAccount(true)}
           src={ADDICON}
           alt="Add Icon"
         ></img>

@@ -27,8 +27,8 @@ import ICONEMAIL from "./assets/images/icon-email.svg";
 import ICONTASK from "./assets/images/icon-task.svg";
 import ICONMESSAGE from "./assets/images/icon-message.svg";
 import ICONCONTAINER from "./assets/images/icon-container.svg";
-import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
-import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
+// import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
+// import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
 import ICONFOLDER from "./assets/images/icon-folder.svg";
 
 const API_URL = "https://api-dev.trevi.io";

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
 import { NotificationContainer } from "react-notifications";
+import { Modal } from "react-responsive-modal";
+import { useSelector } from "react-redux";
 
 // import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
@@ -11,10 +13,12 @@ import ForgotPassword from "./pages/Forgot";
 import Confirmsignup from "./pages/Confirm";
 import Searchpage from "./pages/Searchpage";
 import Resultpage from "./pages/Resultpage";
+import AddAccounts from "./components/accounts/AddAccounts";
 import { TreviContext } from "./utils/context";
 import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getAuth } from "./utils/helper";
+import { setShowAddAccount } from "./redux/actions/global";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -29,6 +33,7 @@ const StyledLoader = styled(LoadingOverlay)`
 
 function App() {
   const [loading, setLoading] = useState(false);
+  const showAddAccount = useSelector((store) => store.global.showAddAccount);
   const loadingContext = { loading, setLoading };
   const auth = getAuth();
 
@@ -41,6 +46,7 @@ function App() {
           spinner
         ></StyledLoader>
       )}
+
       <Router>
         <Switch>
           <RoutePublic
@@ -88,6 +94,17 @@ function App() {
           <Redirect to="/signup" />
         </Switch>
       </Router>
+
+      <Modal
+        open={showAddAccount}
+        onClose={() => setShowAddAccount(false)}
+        center
+        showCloseIcon={true}
+        classNames={{ modal: "addModal" }}
+      >
+        <AddAccounts></AddAccounts>
+      </Modal>
+
       <NotificationContainer />
     </TreviContext.Provider>
   );

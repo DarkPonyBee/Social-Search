@@ -1,5 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { Auth } from "aws-amplify";
+import { NotificationManager } from "react-notifications";
+
+import { TreviContext } from "../../utils/context";
+import request from "../../utils/request";
+import { redirectMSG } from "../../config";
+import { getConnectedAccount } from "../../redux/actions/account";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -76,7 +83,88 @@ const StyledContainer = styled.div`
   }
 `;
 
-const Provider = ({ name, icon, uiname, handleAddAccount }) => {
+const Provider = ({ name, icon, uiname }) => {
+  const { setLoading } = useContext(TreviContext);
+  let oauthPopup = null;
+  let previousUrl = null;
+
+  const storageListener = () => {
+    try {
+      if (localStorage.getItem("code")) {
+        let code = localStorage.getItem("code");
+        if (code === "200") {
+          NotificationManager.success(
+            redirectMSG[code],
+            "Add Accounts",
+            5000,
+            () => {}
+          );
+          getConnectedAccount(true);
+        } else {
+          NotificationManager.error(
+            redirectMSG[code],
+            "Add Accounts",
+            5000,
+            () => {}
+          );
+        }
+        oauthPopup.close();
+        window.localStorage.removeItem("code");
+        window.removeEventListener("storage", storageListener);
+      }
+    } catch (e) {
+      window.removeEventListener("storage", storageListener);
+    }
+  };
+
+  const handleAddAccount = async (name) => {
+    let token = null;
+    await Auth.currentSession()
+      .then((data) => {
+        token = data.getIdToken().getJwtToken();
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+        return;
+      });
+
+    setLoading(true);
+    await request()
+      .get("/addAccount", {
+        params: {
+          source: name,
+        },
+        headers: {
+          authorizer: token,
+        },
+      })
+      .then((response) => {
+        const url = response.data.oauth_url;
+        const width = 500;
+        const height = 600;
+        const top = window.innerHeight / 2 - height / 2;
+        const left = window.innerWidth / 2 - width / 2;
+        const params = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
+        window.localStorage.removeItem("code");
+        if (oauthPopup === null || oauthPopup.closed) {
+          oauthPopup = window.open(url, name, params);
+        } else if (previousUrl !== url) {
+          oauthPopup = window.open(url, name, params);
+          oauthPopup.focus();
+        } else {
+          oauthPopup.focus();
+        }
+        previousUrl = url;
+        window.addEventListener("storage", storageListener);
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+      });
+    setLoading(false);
+  };
+
   return (
     <StyledContainer>
       <div

@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import Pagination from "react-js-pagination";
 
-import { getSearchResult, setSearchQuery } from "../redux/actions/search";
 import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
 import { getParam } from "../utils/helper";

@@ -56,7 +56,7 @@ const AddAccountsContainer = styled.div`
   }
 `;
 
-const AddAccounts = ({ handleAddAccount }) => {
+const AddAccounts = () => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result
   );
@@ -75,13 +75,7 @@ const AddAccounts = ({ handleAddAccount }) => {
         </div>
         <div className="accounts-provider-content">
           {availableAccounts.map((item, index) => {
-            return (
-              <Provider
-                key={index}
-                {...item}
-                handleAddAccount={handleAddAccount}
-              ></Provider>
-            );
+            return <Provider key={index} {...item}></Provider>;
           })}
         </div>
       </div>

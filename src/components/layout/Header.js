@@ -188,7 +188,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = ({ resultPage = false, showAddAccount }) => {
+const Header = ({ resultPage = false }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showConnectedAccount, setShowConnectedAccount] = useState(false);
@@ -270,9 +270,7 @@ const Header = ({ resultPage = false, showAddAccount }) => {
                 showConnectedAccount ? "connect-accounts-menu-active" : ""
               }`}
             >
-              <HeaderConnnectedAccounts
-                showAddAccount={showAddAccount}
-              ></HeaderConnnectedAccounts>
+              <HeaderConnnectedAccounts></HeaderConnnectedAccounts>
             </div>
           </div>
           <UncontrolledDropdown>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Modal } from "react-responsive-modal";
 import { Auth } from "aws-amplify";
@@ -8,15 +8,12 @@ import { useSelector } from "react-redux";
 import Header from "../components/layout/Header";
 import SearchBar from "../components/searchbar/SearchBar";
 import ConnectedAccounts from "../components/accounts/ConnectedAccounts";
-import AddAccounts from "../components/accounts/AddAccounts";
 import FirstConnect from "../components/accounts/FirstConnect";
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
 import { getConnectedAccount } from "../redux/actions/account";
-import { redirectMSG } from "../config";
 import request from "../utils/request";
-import { setFirstConnect } from "../redux/actions/global";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
@@ -43,13 +40,8 @@ const MainpageConnecteAccounts = styled.div`
   }
 `;
 
-let oauthPopup = null;
-let previousUrl = null;
-
 const Searchpage = () => {
-  const [addAccount, setAddAccount] = useState(false);
   const { setLoading } = useContext(TreviContext);
-
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
   );
@@ -69,7 +61,7 @@ const Searchpage = () => {
         });
 
       if (firstConnect) {
-        request().post("/user", null, {
+        request().put("/user", null, {
           headers: { authorizer: token },
         });
       }
@@ -89,116 +81,26 @@ const Searchpage = () => {
     setLoading(isLoading);
   }, [isLoading, setLoading]);
 
-  const storageListener = () => {
-    try {
-      if (localStorage.getItem("code")) {
-        let code = localStorage.getItem("code");
-        if (code === "200") {
-          NotificationManager.success(
-            redirectMSG[code],
-            "Add Accounts",
-            5000,
-            () => {}
-          );
-          getConnectedAccount(true);
-        } else
-          NotificationManager.error(
-            redirectMSG[code],
-            "Add Accounts",
-            5000,
-            () => {}
-          );
-        oauthPopup.close();
-        window.localStorage.removeItem("code");
-        window.removeEventListener("storage", storageListener);
-      }
-    } catch (e) {
-      window.removeEventListener("storage", storageListener);
-    }
-  };
-
-  const showAddAccount = () => {
-    setAddAccount(true);
-  };
-
-  const handleAddAccount = async (name) => {
-    let token = null;
-    await Auth.currentSession()
-      .then((data) => {
-        token = data.getIdToken().getJwtToken();
-      })
-      .catch((err) => {
-        console.log(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
-        return;
-      });
-
-    setLoading(true);
-    await request()
-      .get("/addAccount", {
-        params: {
-          source: name,
-        },
-        headers: {
-          authorizer: token,
-        },
-      })
-      .then((response) => {
-        const url = response.data.oauth_url;
-        const width = 500;
-        const height = 600;
-        const top = window.innerHeight / 2 - height / 2;
-        const left = window.innerWidth / 2 - width / 2;
-        const params = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
-        window.localStorage.removeItem("code");
-        if (oauthPopup === null || oauthPopup.closed) {
-          oauthPopup = window.open(url, name, params);
-        } else if (previousUrl !== url) {
-          oauthPopup = window.open(url, name, params);
-          oauthPopup.focus();
-        } else {
-          oauthPopup.focus();
-        }
-        previousUrl = url;
-        window.addEventListener("storage", storageListener);
-      })
-      .catch((err) => {
-        console.log(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
-      });
-    setLoading(false);
-  };
-
   return (
     <MainPageContainer>
-      <Header showAddAccount={showAddAccount}></Header>
+      <Header></Header>
 
       <StyledLogo>
         <img src={LOGO} alt="Logo"></img>
       </StyledLogo>
       <SearchBar></SearchBar>
       <MainpageConnecteAccounts>
-        <ConnectedAccounts showAddAccount={showAddAccount}></ConnectedAccounts>
+        <ConnectedAccounts></ConnectedAccounts>
       </MainpageConnecteAccounts>
 
       <Modal
         open={firstConnect}
-        onClose={() => setFirstConnect(false)}
+        onClose={() => {}}
         center
         showCloseIcon={false}
         classNames={{ modal: "addModal" }}
       >
-        <FirstConnect handleAddAccount={handleAddAccount}></FirstConnect>
-      </Modal>
-
-      <Modal
-        open={addAccount}
-        onClose={() => setAddAccount(false)}
-        center
-        showCloseIcon={true}
-        classNames={{ modal: "addModal" }}
-      >
-        <AddAccounts handleAddAccount={handleAddAccount}></AddAccounts>
+        <FirstConnect></FirstConnect>
       </Modal>
     </MainPageContainer>
   );

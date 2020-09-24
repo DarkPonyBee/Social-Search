@@ -1,6 +1,7 @@
 import * as types from "../constants";
 
 const initialState = {
+  showAddAccount: false,
   signupemail: "",
   signuppassword: "",
   firstConnect: false,
@@ -15,6 +16,8 @@ export default function reducer(state = initialState, actions) {
       return { ...state, signupemail: actions.payload };
     case types.SET_SIGNUPPASSWORD:
       return { ...state, signuppassword: actions.payload };
+    case types.SET_SHOWADDACCOUNT:
+      return { ...state, showAddAccount: actions.payload };
     default:
       return state;
   }
