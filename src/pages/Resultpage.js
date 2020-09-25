@@ -1048,7 +1048,6 @@ const Resultpage = () => {
   }, [searchPageURL]);
 
   const handlePageClick = (pageNumber) => {
-    setActivePage(pageNumber);
     history.push(`/result/?q=${searchQuery}&page=${pageNumber}`);
   };
 
