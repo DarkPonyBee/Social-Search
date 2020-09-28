@@ -14,6 +14,7 @@ import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
 import { getConnectedAccount } from "../redux/actions/account";
 import request from "../utils/request";
+import { setFirstConnect } from "../redux/actions/global";
 
 const MainPageContainer = styled.section`
   background: url(${BG}) no-repeat left -50px bottom -50px;
@@ -95,7 +96,9 @@ const Searchpage = () => {
 
       <Modal
         open={firstConnect}
-        onClose={() => {}}
+        onClose={() => {
+          setFirstConnect(false);
+        }}
         center
         showCloseIcon={false}
         classNames={{ modal: "addModal" }}
