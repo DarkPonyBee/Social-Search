@@ -134,13 +134,6 @@ const SearchBar = ({ resultPage = false }) => {
     }
   }, [searchQueryURL, searchPageURL, resultPage]);
 
-  useEffect(() => {
-    if (!resultPage) {
-      setSearchQuery("");
-      setSearchBarQuery("");
-    }
-  }, [resultPage]);
-
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
   //   responseResult.forEach((item) => {

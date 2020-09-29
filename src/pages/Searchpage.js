@@ -98,6 +98,7 @@ const Searchpage = () => {
         open={firstConnect}
         onClose={() => {
           setFirstConnect(false);
+          getConnectedAccount(false);
         }}
         center
         showCloseIcon={false}

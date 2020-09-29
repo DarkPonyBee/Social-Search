@@ -252,7 +252,7 @@ const Header = ({ resultPage = false }) => {
           </div>
         )}
         <div className="header-container-buttons">
-          <ion-icon name="help-circle-outline" class="help-icon"></ion-icon>
+          {/* <ion-icon name="help-circle-outline" class="help-icon"></ion-icon> */}
           <div className="contact-button">
             <img src={BUTTONIMG} alt="ButtonImg"></img>
             <p>Contact Us</p>
