@@ -52,6 +52,11 @@ const availableAccounts = [
     icon: TEAMSICON,
     uiname: "Teams",
   },
+  {
+    name: "onedrive",
+    icon: ONEDRIVEICON,
+    uiname: "One Drive",
+  },
   { name: "slack", icon: SLACKICON, uiname: "Slack" },
   {
     name: "dropbox",
@@ -62,11 +67,6 @@ const availableAccounts = [
     name: "asana",
     icon: ASANAICON,
     uiname: "Asana",
-  },
-  {
-    name: "onedrive",
-    icon: ONEDRIVEICON,
-    uiname: "OneDrive",
   },
 ];
 
