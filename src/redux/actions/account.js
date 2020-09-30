@@ -1,6 +1,7 @@
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
+import { accountSyncIntervalTime } from "../../config";
 import * as types from "../constants";
 import request from "../../utils/request";
 import store from "../store";
@@ -26,6 +27,8 @@ export async function getConnectedAccount(isSyncing = false) {
         payload: response.data,
         type: types.GET_CONNECTED_ACCOUNT_SUCCEED,
       });
+      if (response.data.some((item) => item.account_state.is_syncing))
+        setTimeout(() => getConnectedAccount(true), accountSyncIntervalTime);
     })
     .catch(() => {
       return request()
@@ -36,6 +39,11 @@ export async function getConnectedAccount(isSyncing = false) {
             payload: response.data,
             type: types.GET_CONNECTED_ACCOUNT_SUCCEED,
           });
+          if (response.data.some((item) => item.account_state.is_syncing))
+            setTimeout(
+              () => getConnectedAccount(true),
+              accountSyncIntervalTime
+            );
         })
         .catch((err) => {
           store.dispatch({

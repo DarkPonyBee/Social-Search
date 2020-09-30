@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-import { availableIcons, accountSyncIntervalTime } from "../../config";
+import { availableIcons } from "../../config";
 import ConfirmAction from "../accounts/ConfirmAction";
-import { getConnectedAccount } from "../../redux/actions/account";
 import Truncate from "react-truncate";
 import ReactTooltip from "react-tooltip";
 
@@ -216,17 +215,6 @@ const Icon = ({ data, header = false }) => {
   const accountId = data.id;
   const accountName = data.name;
   const accountSource = data.source;
-  const timerID = useRef(null);
-
-  useEffect(() => {
-    if (accountState.is_syncing) {
-      timerID.current = setInterval(() => {
-        getConnectedAccount(true);
-      }, accountSyncIntervalTime);
-    } else {
-      clearInterval(timerID.current);
-    }
-  }, [accountState.is_syncing]);
 
   const handleTruncate = (truncate) => {
     if (truncated !== truncate) {
