@@ -123,8 +123,9 @@ const StyledResultItem = styled.div`
           white-space: nowrap;
           ${(props) => (props.usertruncate ? "overflow: hidden" : "")};
           ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
-          b {
+          i {
             font-weight: bold;
+            color: #4f4fc4;
           }
           &:hover {
             text-decoration: underline;
@@ -274,7 +275,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const getUsers = () => {
     let primaryUser =
       data.primary_people?.length > 0
-        ? "<b>" + data.primary_people.join(", ") + "</b>"
+        ? "<i>" + data.primary_people.join(", ") + "</i>"
         : "";
     let secondaryUser =
       data.secondary_people?.length > 0 ? data.secondary_people.join(", ") : "";
@@ -433,9 +434,10 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 <ReactTooltip id="title" place="bottom" effect="float" />
               </div>
               {(data.primary_people?.length > 0 ||
-                data.secondary_people?.length > 0) && (
-                <div className="resultitem-content-title-split"></div>
-              )}
+                data.secondary_people?.length > 0) &&
+                data.title !== "" && (
+                  <div className="resultitem-content-title-split"></div>
+                )}
               <div
                 className="resultitem-content-title-users"
                 data-for="user"
