@@ -133,7 +133,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
         })
         .then((response) => {
           console.log(response.data);
-          getConnectedAccount();
+          getConnectedAccount(true);
         })
         .catch((err) => {
           console.log(err);
