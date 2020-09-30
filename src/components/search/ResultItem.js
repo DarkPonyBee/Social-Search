@@ -277,13 +277,13 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         ? "<b>" + data.primary_people.join(", ") + "</b>"
         : "";
     let secondaryUser =
-      data.secondary_people?.length > 0
-        ? primaryUser !== ""
-          ? ", "
-          : "" + data.secondary_people.join(", ")
-        : "";
+      data.secondary_people?.length > 0 ? data.secondary_people.join(", ") : "";
 
-    return primaryUser + secondaryUser;
+    return (
+      primaryUser +
+      (primaryUser !== "" && secondaryUser !== "" ? ", " : "") +
+      secondaryUser
+    );
   };
 
   const checkObject = (text) => {
