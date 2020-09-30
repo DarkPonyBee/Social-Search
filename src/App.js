@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
 import { NotificationContainer } from "react-notifications";
@@ -85,13 +85,7 @@ function App() {
             isAuthenticated={auth}
             exact
           />
-          <RoutePublic
-            path="/"
-            component={Signup}
-            isAuthenticated={auth}
-            exact
-          />
-          <Redirect to="/signup" />
+          <RoutePublic isAuthenticated={auth} extra />
         </Switch>
       </Router>
 

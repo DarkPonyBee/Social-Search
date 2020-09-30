@@ -5,12 +5,19 @@ const RoutePublic = ({
   component: Component,
   isAuthenticated,
   to = "/search",
+  extra,
   ...rest
 }) => (
   <Route
     {...rest}
     render={(props) =>
-      isAuthenticated ? <Redirect to={to} /> : <Component {...props} />
+      isAuthenticated ? (
+        <Redirect to={to} />
+      ) : extra ? (
+        <Redirect to="/signup" />
+      ) : (
+        <Component {...props} />
+      )
     }
   />
 );

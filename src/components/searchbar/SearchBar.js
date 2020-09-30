@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -117,14 +117,14 @@ const StyledSearchBarContainer = styled.div`
 
 const SearchBar = ({ resultPage = false }) => {
   const history = useHistory();
+  const location = useLocation();
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
-  const searchPageURL = getParam("page");
-  const searchQueryURL = getParam("q");
-
   useEffect(() => {
+    const searchPageURL = getParam("page", location.search);
+    const searchQueryURL = getParam("q", location.search);
     if (resultPage) {
       let filterSearchQuery = searchQueryURL ? searchQueryURL : "";
       let filterSearchPage = searchPageURL ? parseInt(searchPageURL) : 1;
@@ -132,7 +132,7 @@ const SearchBar = ({ resultPage = false }) => {
       setSearchQuery(filterSearchQuery);
       getSearchResult(filterSearchQuery, (filterSearchPage - 1) * 10);
     }
-  }, [searchQueryURL, searchPageURL, resultPage]);
+  }, [location, resultPage]);
 
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
@@ -184,9 +184,6 @@ const SearchBar = ({ resultPage = false }) => {
 
   const openResultPage = () => {
     setShowSuggestionList(false);
-    if (resultPage && searchQuery === searchBarQuery) {
-      getSearchResult(searchQuery);
-    }
     history.push(`/result/?q=${searchBarQuery}&page=1`);
   };
 

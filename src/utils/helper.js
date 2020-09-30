@@ -7,8 +7,8 @@ export const setAuth = (dataAuth) => {
   localStorage.setItem("auth", JSON.stringify(dataAuth));
 };
 
-export const getParam = (name) => {
-  if (!name) return "";
-  const urlParams = new URLSearchParams(window.location.search);
+export const getParam = (name, search) => {
+  if (!name || !search) return "";
+  const urlParams = new URLSearchParams(search);
   return urlParams.get(name);
 };
