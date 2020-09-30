@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import styled from "styled-components";
 import LoadingOverlay from "react-loading-overlay";
@@ -19,6 +19,8 @@ import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getAuth } from "./utils/helper";
 import { setShowAddAccount } from "./redux/actions/global";
+import { getConnectedAccount } from "./redux/actions/account";
+import { accountSyncIntervalTime } from "./config";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -34,6 +36,23 @@ const StyledLoader = styled(LoadingOverlay)`
 function App() {
   const [loading, setLoading] = useState(false);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
+  const timerID = useRef(null);
+  const connectedAccounts = useSelector(
+    (store) => store.account.connectedAccount.result
+  );
+  const isSyncing = connectedAccounts.some(
+    (item) => item.account_state.is_syncing
+  );
+
+  useEffect(() => {
+    if (isSyncing) {
+      timerID.current = setInterval(
+        () => getConnectedAccount(true),
+        accountSyncIntervalTime
+      );
+    } else clearInterval(timerID.current);
+  }, [isSyncing]);
+
   const loadingContext = { loading, setLoading };
   const auth = getAuth();
 
