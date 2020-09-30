@@ -131,10 +131,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
             authorizer: token,
           },
         })
-        .then((response) => {
-          console.log(response.data);
-          getConnectedAccount(true);
-        })
+        .then(() => getConnectedAccount(true))
         .catch((err) => {
           console.log(err);
           NotificationManager.error(err.message, "Error", 5000, () => {});

@@ -131,6 +131,9 @@ const SearchBar = ({ resultPage = false }) => {
       setSearchBarQuery(filterSearchQuery);
       setSearchQuery(filterSearchQuery);
       getSearchResult(filterSearchQuery, (filterSearchPage - 1) * 10);
+    } else {
+      setSearchBarQuery("");
+      setSearchQuery("");
     }
   }, [location, resultPage]);
 
