@@ -124,7 +124,6 @@ const StyledResultItem = styled.div`
           ${(props) => (props.usertruncate ? "overflow: hidden" : "")};
           ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
           i {
-            font-weight: bold;
             color: #4f4fc4;
           }
           &:hover {
