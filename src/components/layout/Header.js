@@ -17,6 +17,7 @@ import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
+import { setAuth } from "../../utils/helper";
 
 const StyledHeader = styled.div`
   background: white;
@@ -230,7 +231,7 @@ const Header = ({ resultPage = false }) => {
     setLoading(true);
     try {
       await Auth.signOut({ global: true });
-      localStorage.removeItem("auth");
+      setAuth(false);
     } catch (err) {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});

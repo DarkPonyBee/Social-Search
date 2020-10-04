@@ -17,7 +17,6 @@ import AddAccounts from "./components/accounts/AddAccounts";
 import { TreviContext } from "./utils/context";
 import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
-import { getAuth } from "./utils/helper";
 import { setShowAddAccount } from "./redux/actions/global";
 import { getConnectedAccount } from "./redux/actions/account";
 import { accountSyncIntervalTime } from "./config";
@@ -54,7 +53,6 @@ function App() {
   }, [isSyncing]);
 
   const loadingContext = { loading, setLoading };
-  const auth = getAuth();
 
   return (
     <TreviContext.Provider value={loadingContext}>
@@ -68,43 +66,17 @@ function App() {
 
       <Router>
         <Switch>
-          <RoutePublic
-            path="/login"
-            component={Login}
-            isAuthenticated={auth}
-            exact
-          />
-          <RoutePublic
-            path="/signup"
-            component={Signup}
-            isAuthenticated={auth}
-            exact
-          />
+          <RoutePublic path="/login" component={Login} exact />
+          <RoutePublic path="/signup" component={Signup} exact />
           <RoutePublic
             path="/reset-password"
             component={ForgotPassword}
-            isAuthenticated={auth}
             exact
           />
-          <RoutePublic
-            path="/confirm-signup"
-            component={Confirmsignup}
-            isAuthenticated={auth}
-            exact
-          />
-          <RoutePrivate
-            path="/search"
-            component={Searchpage}
-            isAuthenticated={auth}
-            exact
-          />
-          <RoutePrivate
-            path="/result"
-            component={Resultpage}
-            isAuthenticated={auth}
-            exact
-          />
-          <RoutePublic isAuthenticated={auth} extra />
+          <RoutePublic path="/confirm-signup" component={Confirmsignup} exact />
+          <RoutePrivate path="/search" component={Searchpage} exact />
+          <RoutePrivate path="/result" component={Resultpage} exact />
+          <RoutePublic extra />
         </Switch>
       </Router>
 

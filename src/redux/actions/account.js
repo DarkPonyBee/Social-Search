@@ -13,6 +13,7 @@ export async function getConnectedAccount(isSyncing = false) {
   } catch (err) {
     console.log(err);
     NotificationManager.error(err.message, "Error", 5000, () => {});
+    return;
   }
   const headers = { authorizer: token };
 

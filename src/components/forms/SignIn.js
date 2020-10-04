@@ -188,8 +188,8 @@ const SignIn = () => {
     setLoading(true);
     try {
       await Auth.signIn(form.email, form.password);
-      let token = await Auth.currentSession();
-      setAuth(token.getIdToken().getJwtToken());
+      await Auth.currentSession();
+      setAuth(true);
       history.push("/search");
     } catch (err) {
       setFormError(err.message);
