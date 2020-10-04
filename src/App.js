@@ -5,6 +5,7 @@ import LoadingOverlay from "react-loading-overlay";
 import { NotificationContainer } from "react-notifications";
 import { Modal } from "react-responsive-modal";
 import { useSelector } from "react-redux";
+import { Auth } from "aws-amplify";
 
 // import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
@@ -20,6 +21,7 @@ import RoutePublic from "./components/route/RoutePublic";
 import { setShowAddAccount } from "./redux/actions/global";
 import { getConnectedAccount } from "./redux/actions/account";
 import { accountSyncIntervalTime } from "./config";
+import { setAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -51,6 +53,17 @@ function App() {
       );
     } else clearInterval(timerID.current);
   }, [isSyncing]);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        await Auth.currentSession();
+      } catch (err) {
+        setAuth(false);
+      }
+    };
+    checkToken();
+  });
 
   const loadingContext = { loading, setLoading };
 

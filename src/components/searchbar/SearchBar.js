@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Auth } from "aws-amplify";
 
 import { getSearchResult, setSearchQuery } from "../../redux/actions/search";
-import { getParam, setAuth } from "../../utils/helper";
+import { getParam } from "../../utils/helper";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
@@ -137,17 +136,6 @@ const SearchBar = ({ resultPage = false }) => {
       setSearchQuery("");
     }
   }, [location, resultPage]);
-
-  useEffect(() => {
-    const checkToken = async () => {
-      try {
-        await Auth.currentSession();
-      } catch (err) {
-        setAuth(false);
-      }
-    };
-    checkToken();
-  });
 
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
