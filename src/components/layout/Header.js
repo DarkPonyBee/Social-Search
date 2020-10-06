@@ -11,7 +11,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import BUTTONIMG from "../../assets/images/button-img.svg";
-import USERIMG from "../../assets/images/user-avatar.png";
+import USERIMG from "../../assets/images/user-icon.svg";
 import CONNECTIMG from "../../assets/images/icon-settings.svg";
 import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
