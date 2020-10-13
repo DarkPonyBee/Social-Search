@@ -51,6 +51,7 @@ const StyledResultItem = styled.div`
           width: 16px;
           img {
             width: 100%;
+            height: 100%;
             margin: auto;
           }
         }
@@ -125,6 +126,9 @@ const StyledResultItem = styled.div`
           ${(props) => (props.usertruncate ? "text-overflow: ellipsis" : "")};
           i {
             color: #4f4fc4;
+            em {
+              font-weight: bold;
+            }
           }
           &:hover {
             text-decoration: underline;
