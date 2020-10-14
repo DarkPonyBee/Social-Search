@@ -97,10 +97,6 @@ const StyledResultItem = styled.div`
               font-weight: bold;
               color: #4f4fc4;
             }
-            &:hover {
-              text-decoration: underline;
-              text-decoration-color: #4f4fc4;
-            }
           }
           &-truncate {
             font-size: 18px;
@@ -129,10 +125,6 @@ const StyledResultItem = styled.div`
             em {
               font-weight: bold;
             }
-          }
-          &:hover {
-            text-decoration: underline;
-            text-decoration-color: #4f4fc4;
           }
           &-truncate {
             visibility: hidden;
@@ -235,7 +227,9 @@ const StyledResultItem = styled.div`
       }
     }
   }
-
+  a {
+    text-decoration-color: #4f4fc4;
+  }
   /* .resultitem-content-main {
     &:hover {
       .resultitem-content-title-filename {
@@ -244,15 +238,6 @@ const StyledResultItem = styled.div`
       }
     }
   } */
-
-  .resultitem-content {
-    &-container {
-      &:hover {
-        text-decoration: underline;
-        text-decoration-color: #4f4fc4;
-      }
-    }
-  }
 `;
 
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
@@ -382,26 +367,26 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
               {getFormattedDate(data.date)}
             </div>
           )}
-          <div
+          <a
             className="resultitem-header-icon"
-            onClick={() => openNewTab(data.link ? data.link : null)}
+            href={data.link ? data.link : null}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <img
               src={getResultIcon(data.content_kind, data.content_type)}
               alt="Result Icon"
             ></img>
-          </div>
+          </a>
         </div>
         <div className="resultitem-content">
-          <div
+          <a
             className="resultitem-content-container"
-            onClick={() =>
-              openNewTab(
-                data.container && data.container.link
-                  ? data.container.link
-                  : null
-              )
+            href={
+              data.container && data.container.link ? data.container.link : null
             }
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <div className="resultitem-content-container-icon">
               <img src={availableIcons[data.source]} alt={data.source}></img>
@@ -411,11 +396,13 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 return <li key={index}>{item.name}</li>;
               })}
             </ul>
-          </div>
+          </a>
           <div className="resultitem-content-main">
-            <div
+            <a
               className="resultitem-content-title"
-              onClick={() => openNewTab(data.link ? data.link : null)}
+              href={data.link ? data.link : null}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <div
                 className="resultitem-content-title-filename"
@@ -456,10 +443,12 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 </div>
                 <ReactTooltip id="user" place="bottom" effect="float" />
               </div>
-            </div>
-            <div
+            </a>
+            <a
               className="resultitem-content-snippet"
-              onClick={() => openNewTab(data.link ? data.link : null)}
+              href={data.link ? data.link : null}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               {renderHTML(
                 sanitizeHtml(
@@ -469,7 +458,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                   }
                 )
               )}
-            </div>
+            </a>
           </div>
           {data.attachments &&
             data.attachments.map((item, index) => {
