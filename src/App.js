@@ -87,7 +87,7 @@ function App() {
             exact
           />
           <RoutePublic path="/confirm-signup" component={Confirmsignup} exact />
-          <RoutePrivate path="/search" component={Searchpage} exact />
+          <RoutePrivate path="/" component={Searchpage} exact />
           <RoutePrivate path="/result" component={Resultpage} exact />
           <RoutePublic extra />
         </Switch>

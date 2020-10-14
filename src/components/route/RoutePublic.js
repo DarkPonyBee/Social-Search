@@ -3,12 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import { getAuth } from "../../utils/helper";
 
-const RoutePublic = ({
-  component: Component,
-  to = "/search",
-  extra,
-  ...rest
-}) => {
+const RoutePublic = ({ component: Component, to = "/", extra, ...rest }) => {
   const isAuthenticated = getAuth();
 
   return (
