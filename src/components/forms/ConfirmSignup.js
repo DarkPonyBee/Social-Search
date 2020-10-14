@@ -30,6 +30,15 @@ const StyledSignIn = styled.div`
       margin-bottom: 27px;
       text-align: center;
     }
+    &-description {
+      color: #2d2e2c;
+      font-size: 16px;
+      letter-spacing: 0;
+      line-height: 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 0px 5%;
+    }
     form {
       .input-item {
         font-family: Graphik;
@@ -197,9 +206,13 @@ const ConfirmSignup = () => {
 
   return (
     <StyledSignIn>
-      <div className="signin-title">Confirm Signup!</div>
+      <div className="signin-title"></div>
       <div className="signin-content">
         <div className="signin-content-header">Confirm</div>
+        <div className="signin-content-description">
+          An email with a code has been sent to {signupEmail}. Please check your
+          email
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
             {form.code && <div className="input-item-header">Code</div>}

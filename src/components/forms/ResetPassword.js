@@ -221,19 +221,15 @@ const ResetPassword = () => {
 
   return (
     <StyledReset>
-      <div className="signin-title">Welcome Back!</div>
+      <div className="signin-title"></div>
       <div className="signin-content">
         <div className="signin-content-header">Reset Password</div>
         <div className="signin-content-description">
-          {emailSent ? (
-            <>
-              <strong>Email Sent!</strong>
-              <br />
-              Check your inbox for verification code
-            </>
-          ) : (
-            "Please enter your registered Trevi Email to recieve reset password instructions"
-          )}
+          {emailSent
+            ? "An email with a code has been sent to " +
+              form.email +
+              ". Please check your email"
+            : "Please enter your registered Trevi Email to recieve reset password instructions"}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
@@ -247,7 +243,7 @@ const ResetPassword = () => {
                   : ""
               }
               name="email"
-              type="text"
+              type="email"
               placeholder="Email"
               onChange={handleChange}
               onFocus={handleFocus}
@@ -294,7 +290,7 @@ const ResetPassword = () => {
                   }
                   name="password"
                   type="password"
-                  placeholder="Password"
+                  placeholder="New Password"
                   onChange={handleChange}
                   onFocus={handleFocus}
                   value={form.password}

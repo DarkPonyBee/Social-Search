@@ -69,6 +69,7 @@ const StyledHeader = styled.div`
     &:hover {
       cursor: pointer;
       opacity: 0.8;
+      text-decoration: none;
     }
   }
   .connect-accounts {
@@ -254,10 +255,15 @@ const Header = ({ resultPage = false }) => {
         )}
         <div className="header-container-buttons">
           {/* <ion-icon name="help-circle-outline" class="help-icon"></ion-icon> */}
-          <div className="contact-button">
+          <a
+            href="https://www.trevi.io/contact/"
+            rel="noopener noreferrer"
+            target="_blank"
+            className="contact-button"
+          >
             <img src={BUTTONIMG} alt="ButtonImg"></img>
             <p>Contact Us</p>
-          </div>
+          </a>
           <div className="connect-accounts">
             <img
               ref={dropbarRef}
