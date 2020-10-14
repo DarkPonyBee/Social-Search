@@ -155,6 +155,9 @@ const Provider = ({ name, icon, uiname }) => {
         } else {
           oauthPopup.focus();
         }
+        oauthPopup.onload = function () {
+          oauthPopup.document.title = "Add account";
+        };
         previousUrl = url;
         window.addEventListener("storage", storageListener);
       })
