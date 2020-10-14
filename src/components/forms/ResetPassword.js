@@ -282,7 +282,7 @@ const ResetPassword = () => {
               </div>
               <div className="input-item">
                 {form.password && (
-                  <div className="input-item-header">Password</div>
+                  <div className="input-item-header">New Password</div>
                 )}
                 <input
                   className={
