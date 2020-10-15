@@ -62,14 +62,10 @@ const StyledResultItem = styled.div`
           list-style: none;
           li {
             &:after {
-              content: "";
-              border: solid #e606cf;
-              border-width: 0 2px 2px 0;
+              content: ",";
+              color: #e606cf;
+              padding: 0px 2px;
               display: inline-block;
-              padding: 2px;
-              margin: auto 5px;
-              transform: rotate(-45deg);
-              -webkit-transform: rotate(-45deg);
             }
             &:last-child:after {
               display: none;
