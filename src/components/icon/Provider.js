@@ -131,7 +131,7 @@ const Provider = ({ name, icon, uiname }) => {
 
     setLoading(true);
     await request()
-      .post("/accounts", {
+      .post("/accounts", null, {
         params: {
           source: name,
         },
