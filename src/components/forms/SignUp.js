@@ -350,11 +350,13 @@ const SignUp = () => {
 
   return (
     <StyledSignUp>
-      <div className="signup-title">Get Started with a free Trevi account</div>
+      <div className="signup-title">
+        Get Started with a Free trevi.io Account
+      </div>
       <div className="signup-content">
         <div className="signup-content-left">
           <div className="signup-content-left-header">
-            Trevi helps you easily find what you need:
+            Find what you need with trevi.io:
           </div>
           <div className="signup-content-left-up">
             <div className="signup-content-left-up-item">
@@ -364,16 +366,17 @@ const SignUp = () => {
               <ion-icon name="mail-outline"></ion-icon>E-mails
             </div>
             <div className="signup-content-left-up-item">
-              <ion-icon name="chatbox-ellipses-outline"></ion-icon>Text messages
+              <ion-icon name="chatbox-ellipses-outline"></ion-icon>Texts
+            </div>
+            <div className="signup-content-left-up-item">
+              <ion-icon name="chatbox-ellipses-outline"></ion-icon>Chats
             </div>
             <div className="signup-content-left-up-item">
               <ion-icon name="folder-outline"></ion-icon>Folders
             </div>
             <div className="signup-content-left-up-item">...and more</div>
           </div>
-          <div className="signup-content-left-header">
-            Across all your accounts:
-          </div>
+          <div className="signup-content-left-header">Across your cloud: </div>
           <div className="signup-content-left-down">
             <div className="signup-content-left-down-item">
               <img src={availableIcons.gmail} alt="Gmail"></img>
@@ -473,7 +476,7 @@ const SignUp = () => {
             </div>
             <div className="input-item">
               {form.passcode && (
-                <div className="input-item-header">Sign-Up Code</div>
+                <div className="input-item-header">Sign Up Code</div>
               )}
               <input
                 className={
@@ -485,7 +488,7 @@ const SignUp = () => {
                 }
                 name="passcode"
                 type="text"
-                placeholder="Sign-Up Code"
+                placeholder="Sign Up Code"
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.passcode}
@@ -505,7 +508,22 @@ const SignUp = () => {
                 ></input>
                 <div>
                   <p>
-                    I accept the Trevi <a href="/">terms & conditions</a>
+                    I agree to the{" "}
+                    <a
+                      href="https://www.trevi.io/info/terms-conditions/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      EULA
+                    </a>{" "}
+                    and{" "}
+                    <a
+                      href="https://www.trevi.io/info/privacy/"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      privacy policy
+                    </a>
                   </p>
                 </div>
               </div>
@@ -538,7 +556,7 @@ const SignUp = () => {
           <div className="login-item">
             Already have an account?
             <Link to="/login">
-              <div className="login-item-button">Log in</div>
+              <div className="login-item-button">Sign In</div>
             </Link>
           </div>
         </div>
