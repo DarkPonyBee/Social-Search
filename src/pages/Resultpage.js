@@ -102,8 +102,8 @@ const Resultpage = () => {
   const searchResult = useSelector((store) => store.search.searchResult);
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const isLoading = searchResult.loading;
-  const result = searchResult?.result.results || 0;
-  const totalResults = searchResult?.result.total_results || 0;
+  const result = searchResult.result?.results;
+  const totalResults = searchResult.result?.total_results;
 
   useEffect(() => {
     const searchPageURL = getParam("page", location.search);
