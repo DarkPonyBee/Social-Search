@@ -85,7 +85,8 @@ const StyledResultItem = styled.div`
           &-container {
             font-size: 20px;
             white-space: nowrap;
-            ${(props) => (props.titletruncate ? "overflow: hidden" : "")};
+            /* ${(props) => (props.titletruncate ? "overflow: hidden" : "")}; */
+            overflow: hidden;
             ${(props) =>
               props.titletruncate ? "text-overflow: ellipsis" : ""};
             em {
