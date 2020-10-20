@@ -245,7 +245,7 @@ const Header = ({ resultPage = false }) => {
       <div className="header-container">
         {resultPage && (
           <div className="header-container-search">
-            <Link to="/search">
+            <Link to={{ pathname: "/", state: { fromResult: true } }}>
               <img className="header-logo" src={LOGO} alt="Logo"></img>
             </Link>
             <div className="header-searchbar">

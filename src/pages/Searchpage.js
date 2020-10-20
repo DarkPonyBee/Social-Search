@@ -41,7 +41,8 @@ const MainpageConnecteAccounts = styled.div`
   }
 `;
 
-const Searchpage = () => {
+const Searchpage = ({ location: { state } }) => {
+  const fromResult = state?.fromResult;
   const { setLoading } = useContext(TreviContext);
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
@@ -75,8 +76,10 @@ const Searchpage = () => {
     };
 
     notifyUserSession();
-    if (!firstConnect) getConnectedAccount(false);
-  }, [firstConnect]);
+    if (!firstConnect) {
+      fromResult ? getConnectedAccount(true) : getConnectedAccount(false);
+    }
+  }, [firstConnect, fromResult]);
 
   useEffect(() => {
     setLoading(isLoading);
