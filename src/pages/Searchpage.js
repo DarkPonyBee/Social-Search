@@ -35,7 +35,7 @@ const StyledLogo = styled.div`
 `;
 
 const MainpageConnecteAccounts = styled.div`
-  margin: auto;
+  margin: 8vh auto auto auto;
   width: 100%;
   max-width: 1101px;
   @media only screen and (max-width: 1240px) {
