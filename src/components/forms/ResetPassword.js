@@ -128,7 +128,7 @@ const StyledReset = styled.div`
       justify-content: center;
       color: #4f4fc4;
       &-button {
-        margin-left: 10px;
+        margin-left: 5px;
         color: #e606cf;
         &:hover {
           cursor: pointer;
@@ -229,7 +229,7 @@ const ResetPassword = () => {
             ? "An email with a code has been sent to " +
               form.email +
               ". Please check your email"
-            : "Please enter your registered Trevi Email to recieve reset password instructions"}
+            : "Please enter the email you used to register to get instructions on resetting your password"}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="input-item">
@@ -309,7 +309,7 @@ const ResetPassword = () => {
         <div className="signup-item">
           Back to
           <Link to="/login">
-            <div className="signup-item-button">Sign in</div>
+            <div className="signup-item-button">Sign In</div>
           </Link>
         </div>
       </div>
