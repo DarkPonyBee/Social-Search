@@ -17,13 +17,14 @@ import request from "../utils/request";
 import { setFirstConnect } from "../redux/actions/global";
 
 const MainPageContainer = styled.section`
+  display: flex;
+  flex-direction: column;
   background: url(${BG}) no-repeat left -50px bottom -50px;
-  min-height: 100vh;
+  height: 100vh;
 `;
 
 const StyledLogo = styled.div`
-  margin: 80px auto auto;
-  display: flex;
+  margin: 10vh auto 0px auto;
   max-width: 180px;
   max-height: 80px;
   img {
@@ -34,7 +35,8 @@ const StyledLogo = styled.div`
 `;
 
 const MainpageConnecteAccounts = styled.div`
-  margin: 95px auto auto auto;
+  margin: auto;
+  width: 100%;
   max-width: 1101px;
   @media only screen and (max-width: 1240px) {
     width: 85%;

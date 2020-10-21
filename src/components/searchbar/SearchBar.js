@@ -8,7 +8,7 @@ import { getParam } from "../../utils/helper";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
-  margin: ${(props) => (props.resultPage ? "auto" : "35px auto auto")};
+  margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
   max-width: 900px;
   width: 90%;
   .searchbar {
