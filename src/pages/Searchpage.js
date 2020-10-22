@@ -24,7 +24,7 @@ const MainPageContainer = styled.section`
 `;
 
 const StyledLogo = styled.div`
-  margin: 10vh auto 0px auto;
+  margin: 4vh auto 0px auto;
   max-width: 180px;
   max-height: 80px;
   img {
