@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Modal } from "react-responsive-modal";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -7,7 +8,9 @@ import Pagination from "react-js-pagination";
 
 import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
+import AddAccounts from "../components/accounts/AddAccounts";
 import { getParam } from "../utils/helper";
+import { setShowAddAccount } from "../redux/actions/global";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
 
@@ -101,9 +104,10 @@ const Resultpage = () => {
   const [activePage, setActivePage] = useState(1);
   const searchResult = useSelector((store) => store.search.searchResult);
   const searchQuery = useSelector((store) => store.search.searchQuery);
+  const showAddAccount = useSelector((store) => store.global.showAddAccount);
   const isLoading = searchResult.loading;
   const result = searchResult.result?.results;
-  const totalResults = searchResult.result?.total_results;
+  const totalResults = searchResult.result.total_results || 0;
 
   useEffect(() => {
     const searchPageURL = getParam("page", location.search);
@@ -166,6 +170,16 @@ const Resultpage = () => {
           activeLinkClass="resultpage-pagination-active"
         />
       </StyledResultPage>
+
+      <Modal
+        open={showAddAccount}
+        onClose={() => setShowAddAccount(false)}
+        center
+        showCloseIcon={true}
+        classNames={{ modal: "addModal" }}
+      >
+        <AddAccounts></AddAccounts>
+      </Modal>
     </>
   );
 };

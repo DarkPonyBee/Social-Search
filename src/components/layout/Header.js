@@ -231,7 +231,7 @@ const Header = ({ resultPage = false }) => {
   const handleLogOut = async () => {
     setLoading(true);
     try {
-      await Auth.signOut({ global: true });
+      await Auth.signOut();
       setAuth(false);
     } catch (err) {
       console.log(err);

@@ -194,8 +194,7 @@ const ConfirmSignup = () => {
       await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
       await Auth.signIn(signupEmail, signupPassword);
-      let token = await Auth.currentSession();
-      setAuth(token.getIdToken().getJwtToken());
+      setAuth(true);
       history.push("/search");
     } catch (err) {
       setFormError(err.message);

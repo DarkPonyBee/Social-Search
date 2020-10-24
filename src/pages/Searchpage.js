@@ -8,13 +8,14 @@ import { useSelector } from "react-redux";
 import Header from "../components/layout/Header";
 import SearchBar from "../components/searchbar/SearchBar";
 import ConnectedAccounts from "../components/accounts/ConnectedAccounts";
+import AddAccounts from "../components/accounts/AddAccounts";
 import FirstConnect from "../components/accounts/FirstConnect";
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
 import { TreviContext } from "../utils/context";
 import { getConnectedAccount } from "../redux/actions/account";
 import request from "../utils/request";
-import { setFirstConnect } from "../redux/actions/global";
+import { setFirstConnect, setShowAddAccount } from "../redux/actions/global";
 
 const MainPageContainer = styled.section`
   display: flex;
@@ -44,12 +45,13 @@ const MainpageConnecteAccounts = styled.div`
 `;
 
 const Searchpage = ({ location: { state } }) => {
-  const fromResult = state?.fromResult;
   const { setLoading } = useContext(TreviContext);
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading
   );
   const firstConnect = useSelector((store) => store.global.firstConnect);
+  const showAddAccount = useSelector((store) => store.global.showAddAccount);
+  const fromResult = state?.fromResult;
 
   useEffect(() => {
     const notifyUserSession = async () => {
@@ -64,11 +66,9 @@ const Searchpage = ({ location: { state } }) => {
           return;
         });
 
-      if (firstConnect) {
-        request().put("/user", null, {
-          headers: { authorizer: token },
-        });
-      }
+      request().put("/user", null, {
+        headers: { authorizer: token },
+      });
 
       request().get("/notifyUserSession", {
         headers: {
@@ -80,7 +80,7 @@ const Searchpage = ({ location: { state } }) => {
     notifyUserSession();
     if (!firstConnect) {
       fromResult ? getConnectedAccount(true) : getConnectedAccount(false);
-    }
+    } else getConnectedAccount(true);
   }, [firstConnect, fromResult]);
 
   useEffect(() => {
@@ -110,6 +110,16 @@ const Searchpage = ({ location: { state } }) => {
         classNames={{ modal: "addModal" }}
       >
         <FirstConnect></FirstConnect>
+      </Modal>
+
+      <Modal
+        open={showAddAccount}
+        onClose={() => setShowAddAccount(false)}
+        center
+        showCloseIcon={true}
+        classNames={{ modal: "addModal" }}
+      >
+        <AddAccounts></AddAccounts>
       </Modal>
     </MainPageContainer>
   );
