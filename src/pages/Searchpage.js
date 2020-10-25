@@ -66,11 +66,6 @@ const Searchpage = ({ location: { state } }) => {
           return;
         });
 
-      if (!firstConnect)
-        request().put("/user", null, {
-          headers: { authorizer: token },
-        });
-
       request().get("/notifyUserSession", {
         headers: {
           authorizer: token,

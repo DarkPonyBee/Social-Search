@@ -5,6 +5,8 @@ import { isEmail } from "validator";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
+
+import request from "../../utils/request";
 import { TreviContext } from "../../utils/context";
 import { setAuth } from "../../utils/helper";
 
@@ -188,8 +190,16 @@ const SignIn = () => {
     setLoading(true);
     try {
       await Auth.signIn(form.email, form.password);
-      await Auth.currentSession();
+      let token = null;
+      await Auth.currentSession().then((data) => {
+        token = data.getIdToken().getJwtToken();
+      });
       setAuth(true);
+      
+      await request().put("/user", null, {
+          headers: { authorizer: token },
+        });
+
       history.push("/search");
     } catch (err) {
       setFormError(err.message);
