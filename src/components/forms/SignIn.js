@@ -2,13 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
-import { Auth } from "aws-amplify";
-import { NotificationManager } from "react-notifications";
 
-
-import request from "../../utils/request";
 import { TreviContext } from "../../utils/context";
-import { setAuth } from "../../utils/helper";
+import { signIn } from "../../utils/helper";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -188,24 +184,9 @@ const SignIn = () => {
     }
 
     setLoading(true);
-    try {
-      await Auth.signIn(form.email, form.password);
-      let token = null;
-      await Auth.currentSession().then((data) => {
-        token = data.getIdToken().getJwtToken();
-      });
-      setAuth(true);
-      
-      await request().put("/user", null, {
-          headers: { authorizer: token },
-        });
-
-      history.push("/search");
-    } catch (err) {
-      setFormError(err.message);
-      NotificationManager.error(err.message, "Error", 5000, () => {});
-    }
+    let loginState = await signIn(form.email, form.password);
     setLoading(false);
+    if (loginState) history.push("/search");
   };
 
   return (
