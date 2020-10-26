@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
-
 import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { Modal } from "react-responsive-modal";
+
 import BUTTONIMG from "../../assets/images/button-img.svg";
 import USERIMG from "../../assets/images/user-icon.svg";
 import CONNECTIMG from "../../assets/images/icon-settings.svg";
@@ -18,6 +19,8 @@ import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
 import { setAuth } from "../../utils/helper";
+import LeaveTrevi from "../accounts/LeaveTrevi";
+import request from "../../utils/request";
 
 const StyledHeader = styled.div`
   background: white;
@@ -191,8 +194,8 @@ const StyledHeader = styled.div`
 `;
 
 const Header = ({ resultPage = false }) => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [showConnectedAccount, setShowConnectedAccount] = useState(false);
   const dropbarRef = useRef(null);
   const droplistRef = useRef(null);
@@ -202,7 +205,6 @@ const Header = ({ resultPage = false }) => {
     const getUserInfo = async () => {
       try {
         const userInfo = await Auth.currentAuthenticatedUser();
-        setName(userInfo.username);
         setEmail(userInfo.attributes.email);
       } catch (err) {
         console.log(err);
@@ -238,6 +240,31 @@ const Header = ({ resultPage = false }) => {
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
     setLoading(false);
+  };
+
+  const handleToggleLeaveTrevi = () => {
+    setShowLeaveModal((prev) => !prev);
+  };
+
+  const handleLeaveTrevi = async () => {
+    let token = null;
+    await Auth.currentSession()
+      .then((data) => {
+        token = data.getIdToken().getJwtToken();
+      })
+      .catch((err) => {
+        console.log(err);
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+        return;
+      });
+    setLoading(true);
+    await request().delete("/user", {
+      headers: {
+        authorizer: token,
+      },
+    });
+    setLoading(false);
+    window.location.href = "https://www.trevi.io/";
   };
 
   return (
@@ -287,18 +314,12 @@ const Header = ({ resultPage = false }) => {
               </div>
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>{name}</DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>User ID #4625556y6</DropdownItem>
-              <DropdownItem divider />
               <DropdownItem>Email: {email}</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem
-                onClick={() => {
-                  handleLogOut();
-                }}
-              >
-                Log out
+              <DropdownItem onClick={handleLogOut}>Log out</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem onClick={handleToggleLeaveTrevi}>
+                Leave Trevi
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
@@ -309,6 +330,18 @@ const Header = ({ resultPage = false }) => {
           <span />
         </div>
       </div>
+      <Modal
+        open={showLeaveModal}
+        onClose={() => {}}
+        classNames={{ modal: "addModal" }}
+        center
+        showCloseIcon={false}
+      >
+        <LeaveTrevi
+          handleLeaveTrevi={handleLeaveTrevi}
+          toggleModal={handleToggleLeaveTrevi}
+        ></LeaveTrevi>
+      </Modal>
     </StyledHeader>
   );
 };
