@@ -8,6 +8,7 @@ import { TreviContext } from "../../utils/context";
 import { setFirstConnect } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
 import { setAuth } from "../../utils/helper";
+import request from "../../utils/request";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -194,7 +195,16 @@ const ConfirmSignup = () => {
       await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
       await Auth.signIn(signupEmail, signupPassword);
+      let token = null;
+      await Auth.currentSession().then((data) => {
+        token = data.getIdToken().getJwtToken();
+      });
       setAuth(true);
+
+      await request().put("/user", null, {
+        headers: { authorizer: token },
+      });
+
       history.push("/search");
     } catch (err) {
       setFormError(err.message);
