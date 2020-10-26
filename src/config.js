@@ -118,7 +118,7 @@ const contentType = [
   { value: "application/rtf", icon: ICONTEXTFILE },
   { value: "text/calendar", icon: ICONTEXTFILE },
   { value: "code", icon: ICONCODEFILE },
-  { value: "project", icon: ICONFILE },
+  // { value: "project", icon: ICONFILE },
   { value: "channel", icon: ICONFILE },
   { value: "board", icon: ICONFILE },
   { value: "image", icon: ICONIMAGE },
