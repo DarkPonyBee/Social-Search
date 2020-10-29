@@ -47,3 +47,7 @@ code {
     padding-right: 25px !important;
   }
 }
+
+.customToolTip {
+  z-index: 9999;
+}

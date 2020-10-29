@@ -1,10 +1,11 @@
-import React, { useState, createRef, useContext } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
 import { NotificationManager } from "react-notifications";
 import { Auth } from "aws-amplify";
+import ReactTooltip from "react-tooltip";
 
 import { TreviContext } from "../../utils/context";
 import { availableIcons, recaptchaKey, passcode } from "../../config";
@@ -124,6 +125,16 @@ const StyledSignUp = styled.div`
             color: #f24040;
             font-size: 11px;
             padding: 3px 24px;
+          }
+          &__signupcode {
+            display: flex;
+            ion-icon {
+              width: 35px;
+              height: 35px;
+              margin: auto 0px auto 10px;
+              color: #4f4fc4;
+              cursor: pointer;
+            }
           }
         }
         .check-item {
@@ -267,8 +278,26 @@ const StyledSignUp = styled.div`
 
 const SignUp = () => {
   const history = useHistory();
-  const drecaptchaRef = createRef();
-  const mrecaptchaRef = createRef();
+  const drecaptchaRef = useRef();
+  const mrecaptchaRef = useRef();
+  const tooltipRef = useRef();
+  const signupCodeRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        signupCodeRef.current &&
+        !signupCodeRef.current.contains(event.target)
+      )
+        ReactTooltip.hide(tooltipRef.current);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+  ReactTooltip.rebuild();
 
   const FORM_DATA_ITEMS = {
     passcode: "",
@@ -299,9 +328,10 @@ const SignUp = () => {
       [e.target.name]: "",
     });
     setFormError("");
+    if (e.target.name === "passcode") ReactTooltip.show(tooltipRef.current);
   };
 
-  const handleCaptcha = (e) => {
+  const handleCaptcha = () => {
     setForm({ ...form, captcha: true });
   };
 
@@ -474,11 +504,12 @@ const SignUp = () => {
                 <div className="input-item-error">{error.confirmPassword}</div>
               )}
             </div>
-            <div className="input-item">
+            <div className="input-item input-item__signupcode">
               {form.passcode && (
                 <div className="input-item-header">Sign Up Code</div>
               )}
               <input
+                ref={signupCodeRef}
                 className={
                   error.passcode
                     ? "input-item-error-border"
@@ -494,6 +525,13 @@ const SignUp = () => {
                 value={form.passcode}
                 // autoComplete={"off"}
               ></input>
+              <ion-icon
+                ref={tooltipRef}
+                data-for="signupcodedesc"
+                data-tip="This product is on invite only closed beta.<br />You will need a passcode to sign up.<br />Want to be a part of our beta users? <a href='https://www.trevi.io/contact/'>email us</a>."
+                name="help-circle-outline"
+                class="help-icon"
+              ></ion-icon>
               {error.passcode && (
                 <div className="input-item-error">{error.passcode}</div>
               )}
