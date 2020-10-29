@@ -123,14 +123,14 @@ const SearchBar = ({ resultPage = false }) => {
   const [showSuggestionList, setShowSuggestionList] = useState(false);
 
   useEffect(() => {
-    const searchPageURL = getParam("page", location.search);
+    const searchCursorURL = getParam("cursor", location.search);
     const searchQueryURL = getParam("q", location.search);
     if (resultPage) {
       let filterSearchQuery = searchQueryURL ? searchQueryURL : "";
-      let filterSearchPage = searchPageURL ? parseInt(searchPageURL) : 1;
+      let filterSearchCursor = searchCursorURL ? parseInt(searchCursorURL) : 0;
       setSearchBarQuery(filterSearchQuery);
       setSearchQuery(filterSearchQuery);
-      getSearchResult(filterSearchQuery, (filterSearchPage - 1) * 10);
+      getSearchResult(filterSearchQuery, filterSearchCursor);
     } else {
       setSearchBarQuery("");
       setSearchQuery("");
@@ -187,7 +187,7 @@ const SearchBar = ({ resultPage = false }) => {
 
   const openResultPage = () => {
     setShowSuggestionList(false);
-    history.push(`/result/?q=${searchBarQuery}&page=1`);
+    history.push(`/result/?q=${searchBarQuery}&cursor=0`);
   };
 
   const handleCloseIcon = () => {

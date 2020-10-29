@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Modal } from "react-responsive-modal";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
-import Pagination from "react-js-pagination";
 
 import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
 import AddAccounts from "../components/accounts/AddAccounts";
-import { getParam } from "../utils/helper";
 import { setShowAddAccount } from "../redux/actions/global";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
@@ -60,12 +58,10 @@ const StyledResultPage = styled.div`
 
   .resultpage-pagination {
     display: ${(props) => (props.isloading ? "none" : "flex")};
-    padding-left: 0;
-    list-style: none;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: center;
+    margin-bottom: 30px;
 
-    &-link {
+    &__item {
       padding: 6px 12px;
       line-height: 1.42857143;
       text-decoration: none;
@@ -75,47 +71,29 @@ const StyledResultPage = styled.div`
       margin-left: -1px;
 
       &:hover {
+        cursor: pointer;
         color: #fff;
         background-color: #4f4fc4;
       }
-    }
-
-    &-active {
-      color: #fff;
-      background-color: #4f4fc4;
-    }
-
-    &-first {
-      margin-left: 0;
-      border-bottom-left-radius: 4px;
-      border-top-left-radius: 4px;
-    }
-
-    &-last {
-      border-bottom-right-radius: 4px;
-      border-top-right-radius: 4px;
     }
   }
 `;
 
 const Resultpage = () => {
   const history = useHistory();
-  const location = useLocation();
-  const [activePage, setActivePage] = useState(1);
   const searchResult = useSelector((store) => store.search.searchResult);
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
   const isLoading = searchResult.loading;
   const result = searchResult.result?.results;
-  const totalResults = searchResult.result.total_results || 0;
+  const nextCursor = searchResult.result.next_cursor;
+  const prevCursor = searchResult.result.prev_cursor;
 
-  useEffect(() => {
-    const searchPageURL = getParam("page", location.search);
-    setActivePage(parseInt(searchPageURL ? searchPageURL : 1));
-  }, [location]);
-
-  const handlePageClick = (pageNumber) => {
-    history.push(`/result/?q=${searchQuery}&page=${pageNumber}`);
+  const handleBtnClick = (type) => {
+    if (type === "next")
+      history.push(`/result/?q=${searchQuery}&cursor=${nextCursor}`);
+    else if (type === "prev")
+      history.push(`/result/?q=${searchQuery}&cursor=${prevCursor}`);
   };
 
   return (
@@ -148,6 +126,10 @@ const Resultpage = () => {
                   ></ResultItemContainer>
                 );
               })
+            ) : nextCursor != null ? (
+              <div className="resultpage-list-empty">
+                No more results for <b>{searchQuery}</b>
+              </div>
             ) : (
               <div className="resultpage-list-empty">
                 Your search - <b>{searchQuery}</b> - did not match any
@@ -156,19 +138,24 @@ const Resultpage = () => {
             ))
           )}
         </div>
-        <Pagination
-          hideDisabled
-          activePage={activePage}
-          itemsCountPerPage={10}
-          totalItemsCount={totalResults}
-          pageRangeDisplayed={5}
-          onChange={(pageNumber) => handlePageClick(pageNumber)}
-          innerClass="resultpage-pagination"
-          linkClass="resultpage-pagination-link"
-          linkClassFirst="resultpage-pagination-first"
-          linkClassLast="resultpage-pagination-last"
-          activeLinkClass="resultpage-pagination-active"
-        />
+        <div className="resultpage-pagination">
+          {prevCursor != null && (
+            <div
+              onClick={() => handleBtnClick("prev")}
+              className="resultpage-pagination__item"
+            >
+              Prev
+            </div>
+          )}
+          {nextCursor != null && (
+            <div
+              onClick={() => handleBtnClick("next")}
+              className="resultpage-pagination__item"
+            >
+              Next
+            </div>
+          )}
+        </div>
       </StyledResultPage>
 
       <Modal
