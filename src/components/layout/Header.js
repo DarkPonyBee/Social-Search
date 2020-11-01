@@ -235,6 +235,7 @@ const Header = ({ resultPage = false }) => {
     try {
       await Auth.signOut();
       setAuth(false);
+      window.location.href = "https://www.trevi.io/";
     } catch (err) {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});

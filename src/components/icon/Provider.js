@@ -131,10 +131,7 @@ const Provider = ({ name, icon, uiname }) => {
 
     setLoading(true);
     await request()
-      .post("/accounts", null, {
-        params: {
-          source: name,
-        },
+      .get(`/sources/${name}/authorizationEndpoint`, {
         headers: {
           authorizer: token,
         },
