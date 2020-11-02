@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal } from "react-responsive-modal";
+import ReactTooltip from "react-tooltip";
 
 import SignUp from "../components/forms/SignUp";
 
@@ -15,6 +16,14 @@ const Signup = () => {
       >
         <SignUp></SignUp>
       </Modal>
+      <ReactTooltip
+        id="signupcodedesc"
+        offset={{ top: -10, left: 0 }}
+        effect="solid"
+        className="customToolTip"
+        clickable={true}
+        html={true}
+      ></ReactTooltip>
     </>
   );
 };

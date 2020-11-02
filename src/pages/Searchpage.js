@@ -86,7 +86,6 @@ const Searchpage = ({ location: { state } }) => {
   return (
     <MainPageContainer>
       <Header></Header>
-
       <StyledLogo>
         <img src={LOGO} alt="Logo"></img>
       </StyledLogo>
