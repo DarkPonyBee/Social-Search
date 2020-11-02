@@ -74,9 +74,7 @@ const Searchpage = ({ location: { state } }) => {
     };
 
     notifyUserSession();
-    if (!firstConnect) {
-      fromResult ? getConnectedAccount(true) : getConnectedAccount(false);
-    } else getConnectedAccount(true);
+    getConnectedAccount(true);
   }, [firstConnect, fromResult]);
 
   useEffect(() => {
