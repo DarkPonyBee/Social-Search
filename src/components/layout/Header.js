@@ -259,13 +259,29 @@ const Header = ({ resultPage = false }) => {
         return;
       });
     setLoading(true);
-    await request().delete("/user", {
-      headers: {
-        authorizer: token,
-      },
-    });
+    await request()
+      .delete("/user", {
+        headers: {
+          authorizer: token,
+        },
+      })
+      .then()
+      .catch((err) => console.log(err));
+    await Auth.currentAuthenticatedUser()
+      .then(
+        (user) =>
+          new Promise((resolve, reject) => {
+            user.deleteUser((error) => {
+              if (error) {
+                return reject(error);
+              }
+              window.location.href = "https://www.trevi.io/";
+              resolve();
+            });
+          })
+      )
+      .catch((err) => console.log(err));
     setLoading(false);
-    window.location.href = "https://www.trevi.io/";
   };
 
   return (
