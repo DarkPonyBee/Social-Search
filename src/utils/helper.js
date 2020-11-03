@@ -6,7 +6,7 @@ export const getAuth = () => {
   return typeof auth === "string" ? JSON.parse(auth) : false;
 };
 
-export const setAuth = (dataAuth) => {
+export const setAuth = async (dataAuth) => {
   localStorage.setItem("auth", JSON.stringify(dataAuth));
 };
 
@@ -20,7 +20,7 @@ export const signIn = async (email, password) => {
   try {
     let cognitoUser = await Auth.signIn(email, password);
     let token = cognitoUser.signInUserSession.idToken.jwtToken;
-    setAuth(true);
+    await setAuth(true);
     await request().put("/user", null, {
       headers: { authorizer: token },
     });

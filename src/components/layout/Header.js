@@ -234,7 +234,7 @@ const Header = ({ resultPage = false }) => {
     setLoading(true);
     try {
       await Auth.signOut();
-      setAuth(false);
+      await setAuth(false);
       window.location.href = "https://www.trevi.io/";
     } catch (err) {
       console.log(err);

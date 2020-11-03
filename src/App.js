@@ -55,7 +55,7 @@ function App() {
       try {
         await Auth.currentSession();
       } catch (err) {
-        setAuth(false);
+        await setAuth(false);
       }
     };
     checkToken();
