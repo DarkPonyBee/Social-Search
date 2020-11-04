@@ -435,7 +435,9 @@ const SignUp = () => {
           <div className="signup-content-right-header">Sign Up</div>
           <form>
             <div className="input-item">
-              {form.email_signup && <div className="input-item-header">Email</div>}
+              {form.email_signup && (
+                <div className="input-item-header">Email</div>
+              )}
               <input
                 className={
                   error.email
@@ -475,7 +477,6 @@ const SignUp = () => {
                 onFocus={handleFocus}
                 value={form.password_signup}
                 autoComplete="new-password"
-                // autoComplete={"off"}
               ></input>
               {error.password && (
                 <div className="input-item-error">{error.password}</div>
@@ -500,7 +501,6 @@ const SignUp = () => {
                 onFocus={handleFocus}
                 value={form.confirmPassword}
                 autoComplete="new-password"
-                // autoComplete={"off"}
               ></input>
               {error.confirmPassword && (
                 <div className="input-item-error">{error.confirmPassword}</div>
@@ -525,7 +525,6 @@ const SignUp = () => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.passcode}
-                // autoComplete={"off"}
               ></input>
               <ion-icon
                 ref={tooltipRef}

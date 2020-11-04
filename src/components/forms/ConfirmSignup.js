@@ -121,18 +121,14 @@ const StyledSignIn = styled.div`
         opacity: 0.8;
       }
     }
-    .signup-item {
+    .resend-item {
       display: flex;
       font-size: 16px;
       justify-content: center;
-      color: #4f4fc4;
-      &-button {
-        margin-left: 10px;
-        color: #e606cf;
-        &:hover {
-          cursor: pointer;
-          opacity: 0.8;
-        }
+      color: #e606cf;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.8;
       }
     }
   }
@@ -181,6 +177,15 @@ const ConfirmSignup = () => {
     // check validate
     if (form.code.length === 0) errorState.code = "Please enter a code";
     return errorState;
+  };
+
+  const handleResend = async () => {
+    try {
+      await Auth.resendSignUp(signupEmail);
+    } catch (err) {
+      setFormError(err.message);
+      NotificationManager.error(err.message, "Error", 5000, () => {});
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -236,6 +241,9 @@ const ConfirmSignup = () => {
             <input type="submit" value="Confirm"></input>
           </div>
         </form>
+        <div className="resend-item" onClick={handleResend}>
+          Resend code
+        </div>
       </div>
     </StyledSignIn>
   );
