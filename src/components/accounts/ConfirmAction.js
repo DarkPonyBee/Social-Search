@@ -123,7 +123,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
     setLoading(true);
     if (icon === "trash") {
       await request()
-        .delete("/account", {
+        .delete("/accounts", {
           params: {
             accountId,
           },
