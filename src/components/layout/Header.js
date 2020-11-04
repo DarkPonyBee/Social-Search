@@ -231,7 +231,6 @@ const Header = ({ resultPage = false }) => {
   }, [droplistRef, dropbarRef]);
 
   const handleLogOut = async () => {
-    setLoading(true);
     try {
       await Auth.signOut();
       await setAuth(false);
@@ -240,7 +239,6 @@ const Header = ({ resultPage = false }) => {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});
     }
-    setLoading(false);
   };
 
   const handleToggleLeaveTrevi = () => {
