@@ -301,8 +301,8 @@ const SignUp = () => {
 
   const FORM_DATA_ITEMS = {
     passcode: "",
-    email: "",
-    password: "",
+    email_signup: "",
+    password_signup: "",
     confirmPassword: "",
     terms: false,
     captcha: false,
@@ -339,11 +339,11 @@ const SignUp = () => {
     const errorState = {};
     if (form.passcode !== passcode)
       errorState.passcode = "Please enter a valid Sign-Up Code";
-    if (!isEmail(form.email))
+    if (!isEmail(form.email_signup))
       errorState.email = "Please enter a valid e-mail address";
-    if (form.password.length < 6)
+    if (form.password_signup.length < 6)
       errorState.password = "Password must be at least 6 Char long";
-    if (form.password !== form.confirmPassword)
+    if (form.password_signup !== form.confirmPassword)
       errorState.confirmPassword =
         "Confirm Password must be same with Password";
     if (form.confirmPassword.length === 0)
@@ -365,11 +365,11 @@ const SignUp = () => {
     setLoading(true);
     try {
       await Auth.signUp({
-        username: form.email,
-        password: form.password,
+        username: form.email_signup,
+        password: form.password_signup,
       });
-      setSignupEmail(form.email);
-      setSignupPassword(form.password);
+      setSignupEmail(form.email_signup);
+      setSignupPassword(form.password_signup);
       history.push("/confirm-signup");
     } catch (err) {
       setFormError(err.message);
@@ -435,45 +435,46 @@ const SignUp = () => {
           <div className="signup-content-right-header">Sign Up</div>
           <form>
             <div className="input-item">
-              {form.email && <div className="input-item-header">Email</div>}
+              {form.email_signup && <div className="input-item-header">Email</div>}
               <input
                 className={
                   error.email
                     ? "input-item-error-border"
-                    : form.email
+                    : form.email_signup
                     ? "input-item-active"
                     : ""
                 }
-                name="email"
+                name="email_signup"
                 type="email"
                 placeholder="Email"
                 onChange={handleChange}
                 onFocus={handleFocus}
-                value={form.email}
-                // autoComplete={"off"}
+                value={form.email_signup}
+                autoComplete="new-password"
               ></input>
               {error.email && (
                 <div className="input-item-error">{error.email}</div>
               )}
             </div>
             <div className="input-item">
-              {form.password && (
+              {form.password_signup && (
                 <div className="input-item-header">Password</div>
               )}
               <input
                 className={
                   error.password
                     ? "input-item-error-border"
-                    : form.password
+                    : form.password_signup
                     ? "input-item-active"
                     : ""
                 }
-                name="password"
+                name="password_signup"
                 type="password"
                 placeholder="Password"
                 onChange={handleChange}
                 onFocus={handleFocus}
-                value={form.password}
+                value={form.password_signup}
+                autoComplete="new-password"
                 // autoComplete={"off"}
               ></input>
               {error.password && (
@@ -498,6 +499,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 onFocus={handleFocus}
                 value={form.confirmPassword}
+                autoComplete="new-password"
                 // autoComplete={"off"}
               ></input>
               {error.confirmPassword && (
