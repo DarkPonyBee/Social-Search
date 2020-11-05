@@ -36,7 +36,6 @@ const StyledResultPage = styled.div`
   .resultpage-list {
     max-width: 900px;
     padding-top: 40px;
-    padding-bottom: 30px;
 
     &-loader {
       display: flex;
@@ -54,26 +53,27 @@ const StyledResultPage = styled.div`
       text-align: center;
       padding: 50px 0px;
     }
-  }
 
-  .resultpage-pagination {
-    display: ${(props) => (props.isloading ? "none" : "flex")};
-    justify-content: center;
-    margin-bottom: 30px;
+    &-pagination {
+      display: ${(props) => (props.isloading ? "none" : "flex")};
+      justify-content: center;
+      margin-top: 30px;
+      margin-bottom: 30px;
 
-    &__item {
-      padding: 6px 12px;
-      line-height: 1.42857143;
-      text-decoration: none;
-      color: #4f4fc4;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      margin-left: -1px;
+      &__item {
+        padding: 6px 12px;
+        line-height: 1.42857143;
+        text-decoration: none;
+        color: #4f4fc4;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        margin-left: -1px;
 
-      &:hover {
-        cursor: pointer;
-        color: #fff;
-        background-color: #4f4fc4;
+        &:hover {
+          cursor: pointer;
+          color: #fff;
+          background-color: #4f4fc4;
+        }
       }
     }
   }
@@ -137,24 +137,24 @@ const Resultpage = () => {
               </div>
             ))
           )}
-        </div>
-        <div className="resultpage-pagination">
-          {prevCursor != null && (
-            <div
-              onClick={() => handleBtnClick("prev")}
-              className="resultpage-pagination__item"
-            >
-              Prev
-            </div>
-          )}
-          {nextCursor != null && (
-            <div
-              onClick={() => handleBtnClick("next")}
-              className="resultpage-pagination__item"
-            >
-              Next
-            </div>
-          )}
+          <div className="resultpage-list-pagination">
+            {prevCursor != null && (
+              <div
+                onClick={() => handleBtnClick("prev")}
+                className="resultpage-list-pagination__item"
+              >
+                Prev
+              </div>
+            )}
+            {nextCursor != null && (
+              <div
+                onClick={() => handleBtnClick("next")}
+                className="resultpage-list-pagination__item"
+              >
+                Next
+              </div>
+            )}
+          </div>
         </div>
       </StyledResultPage>
 
