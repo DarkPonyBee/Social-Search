@@ -183,7 +183,7 @@ const ConfirmSignup = () => {
     try {
       await Auth.resendSignUp(signupEmail);
       setFormError(
-        `An email with a code has been sent to ${signupEmail}. Please check your email`
+        `An email with a code has been resent to ${signupEmail}. Please check your email`
       );
     } catch (err) {
       setFormError(err.message);
