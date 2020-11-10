@@ -20,6 +20,7 @@ import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
 import { setAuth } from "../../utils/helper";
 import LeaveTrevi from "../accounts/LeaveTrevi";
+import ChangePassword from "../forms/ChangePassword";
 import request from "../../utils/request";
 
 const StyledHeader = styled.div`
@@ -196,6 +197,7 @@ const StyledHeader = styled.div`
 const Header = ({ resultPage = false }) => {
   const [email, setEmail] = useState("");
   const [showLeaveModal, setShowLeaveModal] = useState(false);
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [showConnectedAccount, setShowConnectedAccount] = useState(false);
   const dropbarRef = useRef(null);
   const droplistRef = useRef(null);
@@ -229,6 +231,10 @@ const Header = ({ resultPage = false }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [droplistRef, dropbarRef]);
+
+  const handleToggleChangePassword = () => {
+    setShowChangePasswordModal((prev) => !prev);
+  };
 
   const handleLogOut = async () => {
     try {
@@ -331,6 +337,10 @@ const Header = ({ resultPage = false }) => {
             <DropdownMenu right>
               <DropdownItem>Email: {email}</DropdownItem>
               <DropdownItem divider />
+              <DropdownItem onClick={handleToggleChangePassword}>
+                Change password
+              </DropdownItem>
+              <DropdownItem divider />
               <DropdownItem onClick={handleLogOut}>Log out</DropdownItem>
               <DropdownItem divider />
               <DropdownItem onClick={handleToggleLeaveTrevi}>
@@ -347,7 +357,7 @@ const Header = ({ resultPage = false }) => {
       </div>
       <Modal
         open={showLeaveModal}
-        onClose={() => {}}
+        onClose={handleToggleLeaveTrevi}
         classNames={{ modal: "addModal" }}
         center
         showCloseIcon={false}
@@ -356,6 +366,16 @@ const Header = ({ resultPage = false }) => {
           handleLeaveTrevi={handleLeaveTrevi}
           toggleModal={handleToggleLeaveTrevi}
         ></LeaveTrevi>
+      </Modal>
+
+      <Modal
+        open={showChangePasswordModal}
+        onClose={handleToggleChangePassword}
+        classNames={{ modal: "customModal" }}
+        center
+        showCloseIcon={false}
+      >
+        <ChangePassword toggleModal={handleToggleChangePassword} />
       </Modal>
     </StyledHeader>
   );
