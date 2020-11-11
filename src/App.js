@@ -6,7 +6,7 @@ import { NotificationContainer } from "react-notifications";
 import { useSelector } from "react-redux";
 import { Auth } from "aws-amplify";
 
-// import Homepage from "./pages/Homepage";
+import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/Forgot";
@@ -18,7 +18,7 @@ import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getConnectedAccount } from "./redux/actions/account";
 import { accountSyncIntervalTime } from "./config";
-import { setAuth } from "./utils/helper";
+import { getAuth, setAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -72,7 +72,7 @@ function App() {
           spinner
         ></StyledLoader>
       )}
-
+      {!getAuth() && <Homepage />}
       <Router>
         <Switch>
           <RoutePublic path="/login" component={Login} exact />

@@ -204,16 +204,20 @@ const Header = ({ resultPage = false }) => {
   const { setLoading } = useContext(TreviContext);
 
   useEffect(() => {
+    let isMounted = true;
     const getUserInfo = async () => {
       try {
         const userInfo = await Auth.currentAuthenticatedUser();
-        setEmail(userInfo.attributes.email);
+        if (isMounted) setEmail(userInfo.attributes.email);
       } catch (err) {
         console.log(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
       }
     };
     getUserInfo();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
