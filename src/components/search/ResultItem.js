@@ -173,6 +173,12 @@ const StyledResultItem = styled.div`
           color: #ffffff;
         }
       }
+      &-extra {
+        margin-top: 10px;
+        font-size: 14px;
+        letter-spacing: -0.32px;
+        line-height: 17px;
+      }
     }
     &-thread {
       position: absolute;
@@ -240,6 +246,17 @@ const StyledResultItem = styled.div`
 const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const [titleTruncate, setTitleTruncate] = useState(false);
   const [userTruncate, setUserTruncate] = useState(false);
+
+  const getExtraString = (extra) => {
+    return extra
+      .map(
+        (item) =>
+          item.display_name +
+          ": " +
+          (item.type === "date" ? getFormattedDate(item.value) : item.value)
+      )
+      .join(", ");
+  };
 
   const handleTruncate = (truncate, name) => {
     if (name === "title" && titleTruncate !== truncate) {
@@ -475,6 +492,11 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                 </div>
               );
             })}
+          {data.extra_fields && data.extra_fields.length > 0 && (
+            <div className="resultitem-content-extra">
+              {getExtraString(data.extra_fields)}
+            </div>
+          )}
         </div>
         {data.sub_results && data.sub_results.length !== 0 && (
           <div
