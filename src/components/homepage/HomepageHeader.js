@@ -4,6 +4,7 @@ import styled from "styled-components";
 import BUTTONIMG from "../../assets/images/button-img.svg";
 import CONNECTIMG from "../../assets/images/icon-settings.svg";
 import USERIMG from "../../assets/images/user-icon.svg";
+import LOGO from "../../assets/images/logo.png";
 
 const StyledHomepageHeader = styled.div`
   background: white;
@@ -180,6 +181,9 @@ const HomepageHeader = () => {
   return (
     <StyledHomepageHeader>
       <div className="header-container">
+        <div className="header-container-search">
+          <img className="header-logo" src={LOGO} alt="Logo"></img>
+        </div>
         <div className="header-container-buttons">
           <div className="contact-button">
             <img src={BUTTONIMG} alt="ButtonImg"></img>
