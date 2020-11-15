@@ -346,7 +346,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
       let dd = isoDateObj.getDate();
       let mmm = months[isoDateObj.getMonth()];
       let yy = isoDateObj.getFullYear().toString().substr(-2);
-      formattedDate = dd + "." + mmm + "." + yy;
+      formattedDate = dd + " " + mmm + " " + yy;
     }
 
     return formattedDate;
