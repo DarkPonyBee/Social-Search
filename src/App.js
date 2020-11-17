@@ -18,7 +18,7 @@ import { TreviContext } from "./utils/context";
 import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getConnectedAccount } from "./redux/actions/account";
-import { accountSyncIntervalTime, trackingID } from "./config";
+import { accountSyncIntervalTime, ga_trackingID } from "./config";
 import { getAuth, setAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
@@ -43,7 +43,7 @@ function App() {
   );
 
   useEffect(() => {
-    ReactGA.initialize(trackingID);
+    ReactGA.initialize(ga_trackingID);
     ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
