@@ -31,9 +31,11 @@ export const signIn = async (email, password) => {
   }
 };
 
-export const gaEvent = (category, action) => {
+export const gaEvent = (category, action,value, label) => {
   ReactGA.event({
     category: category,
     action: action,
+    value: value,
+    label: label
   });
 };

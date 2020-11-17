@@ -91,11 +91,16 @@ const Resultpage = () => {
   const prevCursor = searchResult.result.prev_cursor;
 
   const handleBtnClick = (type) => {
-    gaEvent("UserAction", `Paging - ${type}`);
-    if (type === "next")
+    
+    if (type === "next") {
       history.push(`/result/?q=${searchQuery}&cursor=${nextCursor}`);
-    else if (type === "prev")
+      gaEvent("UserAction", `Paging`,nextCursor,type);
+    }
+    else if (type === "prev") {
+      gaEvent("UserAction", `Paging`,prevCursor,type);
       history.push(`/result/?q=${searchQuery}&cursor=${prevCursor}`);
+    }
+      
   };
 
   return (

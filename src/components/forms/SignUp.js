@@ -356,7 +356,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    gaEvent("UserAction", "Signup");
+    gaEvent("UserAction", "Sign Up");
     const errorState = validate();
     drecaptchaRef.current.reset();
     mrecaptchaRef.current.reset();

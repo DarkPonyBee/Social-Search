@@ -119,7 +119,7 @@ const Provider = ({ name, icon, uiname }) => {
   };
 
   const handleAddAccount = async (name) => {
-    gaEvent("UserAction", `Add account ${name}`);
+    gaEvent("Accounts", `Add`, null ,name);
     let token = null;
     await Auth.currentSession()
       .then((data) => {

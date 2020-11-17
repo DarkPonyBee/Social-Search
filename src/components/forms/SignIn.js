@@ -179,7 +179,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    gaEvent("UserAction", "Login");
+    gaEvent("UserAction", "Sign In");
     const errorState = validate();
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);

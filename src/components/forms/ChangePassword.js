@@ -4,6 +4,7 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
+import { gaEvent } from "../../utils/helper";
 
 const StyledChangePassword = styled.div`
   width: 500px;
@@ -137,14 +138,14 @@ const ChangePassword = ({ toggleModal }) => {
     const errorState = {};
     // check validate
     if (form.current_password.length < 6)
-      errorState.current_password = "Password must be at least 6 Char long";
+      errorState.current_password = "Password must be at least 6 characters";
     if (form.new_password.length < 6)
-      errorState.new_password = "Password must be at least 6 Char long";
+      errorState.new_password = "Password must be at least 6 characters";
     if (form.new_password !== form.new_verify_password)
       errorState.new_verify_password =
-        "Confirm Password must be same with Password";
+        "Your password and confirmation password do not match";
     if (form.new_verify_password.length < 6)
-      errorState.new_verify_password = "Password must be at least 6 Char long";
+      errorState.new_verify_password = "Password must be at least 6 characters";
     return errorState;
   };
 
@@ -155,6 +156,7 @@ const ChangePassword = ({ toggleModal }) => {
       return;
     }
     setLoading(true);
+    gaEvent("UserAction", "Change Password");
     try {
       const user = await Auth.currentAuthenticatedUser();
       await Auth.changePassword(user, form.current_password, form.new_password);
