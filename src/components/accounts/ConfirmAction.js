@@ -7,6 +7,7 @@ import request from "../../utils/request";
 import { getConnectedAccount } from "../../redux/actions/account";
 import { TreviContext } from "../../utils/context";
 import { availableAccounts } from "../../config";
+import { gaEvent } from "../../utils/helper";
 
 const Container = styled.div`
   position: relative;
@@ -122,6 +123,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
 
     setLoading(true);
     if (icon === "trash") {
+      gaEvent("UserAction", "Delete account");
       await request()
         .delete(`/accounts/${accountId}`, {
           headers: {

@@ -9,6 +9,7 @@ import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
 import AddAccounts from "../components/accounts/AddAccounts";
 import { setShowAddAccount } from "../redux/actions/global";
+import { gaEvent } from "../utils/helper";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
 
@@ -90,6 +91,7 @@ const Resultpage = () => {
   const prevCursor = searchResult.result.prev_cursor;
 
   const handleBtnClick = (type) => {
+    gaEvent("UserAction", `Paging - ${type}`);
     if (type === "next")
       history.push(`/result/?q=${searchQuery}&cursor=${nextCursor}`);
     else if (type === "prev")

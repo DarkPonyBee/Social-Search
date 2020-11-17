@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
 
 import Icon from "../icon/Icon";
 import ADDICON from "../../assets/images/accouts-add-icon.svg";
@@ -24,6 +25,11 @@ const AccountsContainer = styled.div`
   }
   .accounts-content {
     padding: 35px 100px;
+    &-loader {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 35px;
+    }
     &-container {
       display: flex;
       justify-content: left;
@@ -66,17 +72,31 @@ const ConnnectedAccounts = () => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result
   );
+  const isLoading = useSelector(
+    (store) => store.account.connectedAccount.loading
+  );
 
   return (
     <AccountsContainer>
       <div className="accounts-title">Connected Accounts</div>
       <div className="accounts-title-border"></div>
       <div className="accounts-content">
-        <div className="accounts-content-container">
-          {connectedAccounts.map((item, index) => {
-            return <Icon key={index} data={item}></Icon>;
-          })}
-        </div>
+        {isLoading && (
+          <div className="accounts-content-loader">
+            <ClipLoader
+              size={45}
+              color={"#4F4FC4"}
+              loading={isLoading}
+            ></ClipLoader>
+          </div>
+        )}
+        {!isLoading && (
+          <div className="accounts-content-container">
+            {connectedAccounts.map((item, index) => {
+              return <Icon key={index} data={item}></Icon>;
+            })}
+          </div>
+        )}
         <div className="accounts-content-title">
           Connecting additional accounts means Trevi can find even more.
         </div>

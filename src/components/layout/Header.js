@@ -18,7 +18,7 @@ import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
-import { setAuth } from "../../utils/helper";
+import { gaEvent, setAuth } from "../../utils/helper";
 import LeaveTrevi from "../accounts/LeaveTrevi";
 import ChangePassword from "../forms/ChangePassword";
 import request from "../../utils/request";
@@ -241,6 +241,7 @@ const Header = ({ resultPage = false }) => {
   };
 
   const handleLogOut = async () => {
+    gaEvent("UserAction", "Logout");
     try {
       await Auth.signOut();
       await setAuth(false);
@@ -256,6 +257,7 @@ const Header = ({ resultPage = false }) => {
   };
 
   const handleLeaveTrevi = async () => {
+    gaEvent("UserAction", "Leave Trevi");
     let token = null;
     await Auth.currentSession()
       .then((data) => {
@@ -377,7 +379,6 @@ const Header = ({ resultPage = false }) => {
         onClose={handleToggleChangePassword}
         classNames={{ modal: "customModal" }}
         center
-        showCloseIcon={false}
       >
         <ChangePassword toggleModal={handleToggleChangePassword} />
       </Modal>

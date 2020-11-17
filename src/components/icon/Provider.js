@@ -7,6 +7,7 @@ import { TreviContext } from "../../utils/context";
 import request from "../../utils/request";
 import { redirectMSG } from "../../config";
 import { getConnectedAccount } from "../../redux/actions/account";
+import { gaEvent } from "../../utils/helper";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -118,6 +119,7 @@ const Provider = ({ name, icon, uiname }) => {
   };
 
   const handleAddAccount = async (name) => {
+    gaEvent("UserAction", `Add account ${name}`);
     let token = null;
     await Auth.currentSession()
       .then((data) => {

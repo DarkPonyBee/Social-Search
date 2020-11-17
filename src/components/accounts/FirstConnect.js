@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
@@ -6,6 +6,7 @@ import Icon from "../icon/Icon";
 import Provider from "../icon/Provider";
 import { availableAccounts } from "../../config";
 import { setFirstConnect } from "../../redux/actions/global";
+import { gaEvent } from "../../utils/helper";
 
 const FirstConnectContainer = styled.div`
   .firstconnect {
@@ -194,6 +195,11 @@ const FirstConnect = () => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result
   );
+
+  useEffect(() => {
+    gaEvent("UserAction", "Onboarding");
+  }, []);
+
   const addAccount = connectedAccounts.length === 0 ? false : true;
 
   return (

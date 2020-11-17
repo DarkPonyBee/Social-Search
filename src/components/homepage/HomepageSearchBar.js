@@ -6,7 +6,9 @@ const StyledHomepageSearchBarContainer = styled.div`
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
   max-width: 900px;
   width: 90%;
+  display: flex;
   .searchbar {
+    width: 100%;
     box-shadow: ${(props) =>
       props.showSuggestionList
         ? "0 0px 8px 0 #e0e2e4"
@@ -57,6 +59,12 @@ const StyledHomepageSearchBarContainer = styled.div`
       }
     }
   }
+  ion-icon {
+    width: ${(props) => (props.resultPage ? "25px" : "35px")};
+    height: ${(props) => (props.resultPage ? "25px" : "35px")};
+    margin: auto 0px auto 10px;
+    cursor: pointer;
+  }
   .searchbar-list {
     z-index: 1;
     position: absolute;
@@ -103,6 +111,10 @@ const StyledHomepageSearchBarContainer = styled.div`
         }
       }
     }
+    ion-icon {
+      width: 25px;
+      height: 25px;
+    }
     .searchbar-list {
       padding: 20px 25px;
       font-size: 18px;
@@ -127,6 +139,7 @@ const HomepageSearchBar = () => {
           ></ion-icon>
         </div>
       </div>
+      <ion-icon name="alert-circle-outline"></ion-icon>
     </StyledHomepageSearchBarContainer>
   );
 };
