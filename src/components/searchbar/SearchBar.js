@@ -199,7 +199,7 @@ const SearchBar = ({ resultPage = false }) => {
   };
 
   const openResultPage = () => {
-    gaEvent("UserAction", `Search`,null, searchBarQuery);
+    gaEvent("Results", `Search`,null, searchBarQuery);
     setShowSuggestionList(false);
     history.push(`/result/?q=${searchBarQuery}&cursor=0`);
   };

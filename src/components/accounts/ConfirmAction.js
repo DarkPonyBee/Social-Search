@@ -123,7 +123,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
 
     setLoading(true);
     if (icon === "trash") {
-      gaEvent("UserAction", "Delete account");
+      gaEvent("Accounts", "Delete account");
       await request()
         .delete(`/accounts/${accountId}`, {
           headers: {

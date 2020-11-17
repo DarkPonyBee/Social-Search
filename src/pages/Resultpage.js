@@ -94,10 +94,10 @@ const Resultpage = () => {
     
     if (type === "next") {
       history.push(`/result/?q=${searchQuery}&cursor=${nextCursor}`);
-      gaEvent("UserAction", `Paging`,nextCursor,type);
+      gaEvent("Results", `Paging`,nextCursor,type);
     }
     else if (type === "prev") {
-      gaEvent("UserAction", `Paging`,prevCursor,type);
+      gaEvent("Results", `Paging`,prevCursor,type);
       history.push(`/result/?q=${searchQuery}&cursor=${prevCursor}`);
     }
       

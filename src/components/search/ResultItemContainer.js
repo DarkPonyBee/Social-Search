@@ -22,7 +22,7 @@ const ResultItemContainer = ({ data }) => {
 
   const handleOpenSubResult = (e) => {
     e.stopPropagation();
-    gaEvent("UserAction", "Show thread");
+    gaEvent("Results", "Show thread");
     setOpenSubResult(!openSubResult);
   };
 
