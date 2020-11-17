@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Collapse } from "react-collapse";
 
 import ResultItem from "./ResultItem";
+import { gaEvent } from "../../utils/helper";
 
 const StyledResultItemContainer = styled.div`
   border-bottom: 0.5px solid rgba(230, 6, 207, 0.2);
@@ -21,6 +22,7 @@ const ResultItemContainer = ({ data }) => {
 
   const handleOpenSubResult = (e) => {
     e.stopPropagation();
+    gaEvent("UserAction", "Show thread");
     setOpenSubResult(!openSubResult);
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Modal } from "react-responsive-modal";
 import { Auth } from "aws-amplify";
@@ -12,7 +12,6 @@ import AddAccounts from "../components/accounts/AddAccounts";
 import FirstConnect from "../components/accounts/FirstConnect";
 import LOGO from "../assets/images/logo.png";
 import BG from "../assets/images/mainpage-bg.svg";
-import { TreviContext } from "../utils/context";
 import { getConnectedAccount } from "../redux/actions/account";
 import request from "../utils/request";
 import { setFirstConnect, setShowAddAccount } from "../redux/actions/global";
@@ -45,10 +44,6 @@ const MainpageConnecteAccounts = styled.div`
 `;
 
 const Searchpage = ({ location: { state } }) => {
-  const { setLoading } = useContext(TreviContext);
-  const isLoading = useSelector(
-    (store) => store.account.connectedAccount.loading
-  );
   const firstConnect = useSelector((store) => store.global.firstConnect);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
   const fromResult = state?.fromResult;
@@ -72,14 +67,9 @@ const Searchpage = ({ location: { state } }) => {
         },
       });
     };
-
     notifyUserSession();
-    getConnectedAccount(true);
-  }, [firstConnect, fromResult]);
-
-  useEffect(() => {
-    setLoading(isLoading);
-  }, [isLoading, setLoading]);
+    getConnectedAccount(false);
+  }, [fromResult]);
 
   return (
     <MainPageContainer>
@@ -91,7 +81,6 @@ const Searchpage = ({ location: { state } }) => {
       <MainpageConnecteAccounts>
         <ConnectedAccounts></ConnectedAccounts>
       </MainpageConnecteAccounts>
-
       <Modal
         open={firstConnect}
         onClose={() => {

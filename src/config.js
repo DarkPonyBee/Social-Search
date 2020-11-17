@@ -149,6 +149,8 @@ const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
+const trackingID = "UA-178487831-1";
+
 export {
   API_URL,
   availableAccounts,
@@ -164,4 +166,5 @@ export {
   accountSyncIntervalTime,
   bugsnagKEY,
   passcode,
+  trackingID,
 };

@@ -2,9 +2,10 @@ import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
+import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
-import { signIn } from "../../utils/helper";
+import { gaEvent, signIn } from "../../utils/helper";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -178,6 +179,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    gaEvent("UserAction", "Login");
     const errorState = validate();
     if (Object.keys(errorState).length > 0) {
       return setError(errorState);
@@ -185,8 +187,12 @@ const SignIn = () => {
 
     setLoading(true);
     let loginState = await signIn(form.email, form.password);
+    if (loginState === true) history.push("/search");
+    else {
+      setFormError(loginState);
+      NotificationManager.error(loginState, "Error", 5000, () => {});
+    }
     setLoading(false);
-    if (loginState) history.push("/search");
   };
 
   return (

@@ -10,6 +10,7 @@ import ReactTooltip from "react-tooltip";
 import { TreviContext } from "../../utils/context";
 import { availableIcons, recaptchaKey, passcode } from "../../config";
 import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
+import { gaEvent } from "../../utils/helper";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -355,6 +356,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    gaEvent("UserAction", "Signup");
     const errorState = validate();
     drecaptchaRef.current.reset();
     mrecaptchaRef.current.reset();

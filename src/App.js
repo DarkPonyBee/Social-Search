@@ -5,6 +5,7 @@ import LoadingOverlay from "react-loading-overlay";
 import { NotificationContainer } from "react-notifications";
 import { useSelector } from "react-redux";
 import { Auth } from "aws-amplify";
+import ReactGA from "react-ga";
 
 import Homepage from "./pages/Homepage";
 import Signup from "./pages/Signup";
@@ -17,7 +18,7 @@ import { TreviContext } from "./utils/context";
 import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getConnectedAccount } from "./redux/actions/account";
-import { accountSyncIntervalTime } from "./config";
+import { accountSyncIntervalTime, trackingID } from "./config";
 import { getAuth, setAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
@@ -40,6 +41,11 @@ function App() {
   const isSyncing = connectedAccounts.some(
     (item) => item.account_state.is_syncing
   );
+
+  useEffect(() => {
+    ReactGA.initialize(trackingID);
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, []);
 
   useEffect(() => {
     if (isSyncing) {

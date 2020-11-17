@@ -1,5 +1,6 @@
 import { Auth } from "aws-amplify";
 import request from "./request";
+import ReactGA from "react-ga";
 
 export const getAuth = () => {
   const auth = localStorage.getItem("auth");
@@ -26,6 +27,13 @@ export const signIn = async (email, password) => {
     });
     return true;
   } catch (err) {
-    return false;
+    return err.message;
   }
+};
+
+export const gaEvent = (category, action) => {
+  ReactGA.event({
+    category: category,
+    action: action,
+  });
 };

@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import ReactTooltip from "react-tooltip";
 
 import { getSearchResult, setSearchQuery } from "../../redux/actions/search";
-import { getParam } from "../../utils/helper";
+import { gaEvent, getParam } from "../../utils/helper";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
   max-width: 900px;
   width: 90%;
+  display: flex;
   .searchbar {
+    width: 100%;
     box-shadow: ${(props) =>
       props.showSuggestionList
         ? "0 0px 8px 0 #e0e2e4"
@@ -62,6 +65,12 @@ const StyledSearchBarContainer = styled.div`
       }
     }
   }
+  ion-icon {
+    width: ${(props) => (props.resultPage ? "25px" : "35px")};
+    height: ${(props) => (props.resultPage ? "25px" : "35px")};
+    margin: auto 0px auto 10px;
+    cursor: pointer;
+  }
   .searchbar-list {
     z-index: 1;
     position: absolute;
@@ -107,6 +116,10 @@ const StyledSearchBarContainer = styled.div`
           padding-right: 10px;
         }
       }
+    }
+    ion-icon {
+      width: 25px;
+      height: 25px;
     }
     .searchbar-list {
       padding: 20px 25px;
@@ -186,6 +199,7 @@ const SearchBar = ({ resultPage = false }) => {
   };
 
   const openResultPage = () => {
+    gaEvent("UserAction", `Search - ${searchBarQuery}`);
     setShowSuggestionList(false);
     history.push(`/result/?q=${searchBarQuery}&cursor=0`);
   };
@@ -225,6 +239,19 @@ const SearchBar = ({ resultPage = false }) => {
           ></ion-icon>
         </div>
       </div>
+      <ion-icon
+        name="alert-circle-outline"
+        data-for="searchbarinfo"
+        data-tip='You can filter (narrow) the search results by typing filter:value.<br/>Several filters can be combined with your search, separated by blanks.<br/>For example "project splendid source:outlook type:pdf" will narrow<br/>the results for "project splendid" to pdf attachments to outlook emails.<br/>The following filters are available:<br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack, ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:John Marks</li><li>since:yesterday</li></ul>'
+      ></ion-icon>
+      <ReactTooltip
+        id="searchbarinfo"
+        effect="solid"
+        clickable={true}
+        html={true}
+        // offset={{ top: -10, left: 0 }}
+        // className="customToolTip"
+      ></ReactTooltip>
       {/* {showSuggestionList && (
         <div className="searchbar-list">
           {searchResult.map((item, index) => {
