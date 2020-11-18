@@ -199,7 +199,7 @@ const SearchBar = ({ resultPage = false }) => {
   };
 
   const openResultPage = () => {
-    gaEvent("Results", `Search`,null, searchBarQuery);
+    gaEvent("Results", `Search`, null, searchBarQuery);
     setShowSuggestionList(false);
     history.push(`/result/?q=${searchBarQuery}&cursor=0`);
   };
@@ -249,8 +249,9 @@ const SearchBar = ({ resultPage = false }) => {
         effect="solid"
         clickable={true}
         html={true}
-        // offset={{ top: -10, left: 0 }}
-        // className="customToolTip"
+        className="customToolTip"
+        backgroundColor="white"
+        textColor="black"
       ></ReactTooltip>
       {/* {showSuggestionList && (
         <div className="searchbar-list">

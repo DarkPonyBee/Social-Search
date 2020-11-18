@@ -68,7 +68,7 @@ const Searchpage = ({ location: { state } }) => {
       });
     };
     notifyUserSession();
-    getConnectedAccount(false);
+    fromResult ? getConnectedAccount(true) : getConnectedAccount(false);
   }, [fromResult]);
 
   return (

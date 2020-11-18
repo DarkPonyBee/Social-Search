@@ -1,14 +1,13 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { isEmail } from "validator";
 import ReCAPTCHA from "react-google-recaptcha";
 import { NotificationManager } from "react-notifications";
 import { Auth } from "aws-amplify";
-import ReactTooltip from "react-tooltip";
 
 import { TreviContext } from "../../utils/context";
-import { availableIcons, recaptchaKey, passcode } from "../../config";
+import { availableIcons, recaptchaKey } from "../../config";
 import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
 import { gaEvent } from "../../utils/helper";
 
@@ -281,27 +280,8 @@ const SignUp = () => {
   const history = useHistory();
   const drecaptchaRef = useRef();
   const mrecaptchaRef = useRef();
-  const tooltipRef = useRef();
-  const signupCodeRef = useRef();
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        signupCodeRef.current &&
-        !signupCodeRef.current.contains(event.target)
-      )
-        ReactTooltip.hide(tooltipRef.current);
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
-
-  ReactTooltip.rebuild();
 
   const FORM_DATA_ITEMS = {
-    passcode: "",
     email_signup: "",
     password_signup: "",
     confirmPassword: "",
@@ -329,7 +309,6 @@ const SignUp = () => {
       [e.target.name]: "",
     });
     setFormError("");
-    if (e.target.name === "passcode") ReactTooltip.show(tooltipRef.current);
   };
 
   const handleCaptcha = () => {
@@ -338,8 +317,6 @@ const SignUp = () => {
 
   const validate = () => {
     const errorState = {};
-    if (form.passcode !== passcode)
-      errorState.passcode = "Please enter a valid Sign-Up Code";
     if (!isEmail(form.email_signup))
       errorState.email = "Please enter a valid e-mail address";
     if (form.password_signup.length < 6)
@@ -506,37 +483,6 @@ const SignUp = () => {
               ></input>
               {error.confirmPassword && (
                 <div className="input-item-error">{error.confirmPassword}</div>
-              )}
-            </div>
-            <div className="input-item input-item__signupcode">
-              {form.passcode && (
-                <div className="input-item-header">Sign Up Code</div>
-              )}
-              <input
-                ref={signupCodeRef}
-                className={
-                  error.passcode
-                    ? "input-item-error-border"
-                    : form.passcode
-                    ? "input-item-active"
-                    : ""
-                }
-                name="passcode"
-                type="text"
-                placeholder="Sign Up Code"
-                onChange={handleChange}
-                onFocus={handleFocus}
-                value={form.passcode}
-              ></input>
-              <ion-icon
-                ref={tooltipRef}
-                data-for="signupcodedesc"
-                data-tip="This product is on invite only closed beta.<br />You will need a passcode to sign up.<br />Want to be a part of our beta users? <a href='https://www.trevi.io/contact/'>email us</a>."
-                name="help-circle-outline"
-                class="help-icon"
-              ></ion-icon>
-              {error.passcode && (
-                <div className="input-item-error">{error.passcode}</div>
               )}
             </div>
             <div className="check-item">

@@ -282,6 +282,9 @@ const Icon = ({ data, header = false }) => {
               id="accountname"
               place="bottom"
               effect="solid"
+              className="customToolTip"
+              backgroundColor="white"
+              textColor="black"
             ></ReactTooltip>
           </div>
         ) : (

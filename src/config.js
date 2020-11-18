@@ -37,7 +37,6 @@ const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
 const aws_user_pools_web_client_id = "73qek8ikcn8259uhbn1lvgslpv";
 const aws_cognito_identity_pool_id = "us-east-1:209715472977";
 const aws_user_pools_id = "us-east-1_kylhAkCDK";
-const passcode = "Trevi1984";
 const ga_trackingID = "UA-178487831-1";
 
 const availableAccounts = [
@@ -150,8 +149,6 @@ const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
-
-
 export {
   API_URL,
   availableAccounts,
@@ -166,6 +163,5 @@ export {
   redirectMSG,
   accountSyncIntervalTime,
   bugsnagKEY,
-  passcode,
   ga_trackingID,
 };

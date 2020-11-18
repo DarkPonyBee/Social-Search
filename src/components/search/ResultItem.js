@@ -435,7 +435,14 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                     {renderHTML(getTitle(data.title))}
                   </Truncate>
                 </div>
-                <ReactTooltip id="title" place="bottom" effect="float" />
+                <ReactTooltip
+                  id="title"
+                  place="bottom"
+                  effect="float"
+                  className="customToolTip"
+                  backgroundColor="white"
+                  textColor="black"
+                />
               </div>
               {(data.primary_people?.length > 0 ||
                 data.secondary_people?.length > 0) &&
@@ -455,7 +462,14 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
                     {strapingHTML(getUsers())}
                   </Truncate>
                 </div>
-                <ReactTooltip id="user" place="bottom" effect="float" />
+                <ReactTooltip
+                  id="user"
+                  place="bottom"
+                  effect="float"
+                  className="customToolTip"
+                  backgroundColor="white"
+                  textColor="black"
+                />
               </div>
             </a>
             <a
