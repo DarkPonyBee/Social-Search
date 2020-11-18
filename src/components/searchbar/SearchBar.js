@@ -240,7 +240,7 @@ const SearchBar = ({ resultPage = false }) => {
         </div>
       </div>
       <ion-icon
-        name="alert-circle-outline"
+        name="information-circle-outline"
         data-for="searchbarinfo"
         data-tip='You can filter (narrow) the search results by typing filter:value.<br/>Several filters can be combined with your search, separated by blanks.<br/>For example "project splendid source:outlook type:pdf" will narrow<br/>the results for "project splendid" to pdf attachments to outlook emails.<br/>The following filters are available:<br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack, ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:John Marks</li><li>since:yesterday</li></ul>'
       ></ion-icon>
