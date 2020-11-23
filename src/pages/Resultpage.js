@@ -57,23 +57,30 @@ const StyledResultPage = styled.div`
 
     &-pagination {
       display: ${(props) => (props.isloading ? "none" : "flex")};
-      justify-content: center;
       margin-top: 30px;
       margin-bottom: 30px;
 
       &__item {
-        padding: 6px 12px;
+        padding: 5px 20px;
         line-height: 1.42857143;
         text-decoration: none;
-        color: #4f4fc4;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-left: -1px;
+        color: #e606cf;
+        background-color: transparent;
+        border: 0.5px solid #e606cf;
+        border-radius: 18px;
 
         &:hover {
           cursor: pointer;
           color: #fff;
-          background-color: #4f4fc4;
+          background-color: #e606cf;
+        }
+
+        &--left {
+          margin-right: auto;
+        }
+
+        &--right {
+          margin-left: auto;
         }
       }
     }
@@ -91,16 +98,13 @@ const Resultpage = () => {
   const prevCursor = searchResult.result.prev_cursor;
 
   const handleBtnClick = (type) => {
-    
     if (type === "next") {
       history.push(`/result/?q=${searchQuery}&cursor=${nextCursor}`);
-      gaEvent("Results", `Paging`,nextCursor,type);
-    }
-    else if (type === "prev") {
-      gaEvent("Results", `Paging`,prevCursor,type);
+      gaEvent("Results", `Paging`, nextCursor, type);
+    } else if (type === "prev") {
+      gaEvent("Results", `Paging`, prevCursor, type);
       history.push(`/result/?q=${searchQuery}&cursor=${prevCursor}`);
     }
-      
   };
 
   return (
@@ -148,17 +152,17 @@ const Resultpage = () => {
             {prevCursor != null && (
               <div
                 onClick={() => handleBtnClick("prev")}
-                className="resultpage-list-pagination__item"
+                className="resultpage-list-pagination__item resultpage-list-pagination__item--left"
               >
-                Prev
+                &#8592; Previous
               </div>
             )}
             {nextCursor != null && (
               <div
                 onClick={() => handleBtnClick("next")}
-                className="resultpage-list-pagination__item"
+                className="resultpage-list-pagination__item resultpage-list-pagination__item--right"
               >
-                Next
+                Next &#8594;
               </div>
             )}
           </div>
