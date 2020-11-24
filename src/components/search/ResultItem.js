@@ -148,7 +148,7 @@ const StyledResultItem = styled.div`
         display: inline-flex;
         margin-right: 5px;
         padding: 1px 7px;
-        border: 0.5px solid rgba(87, 88, 86, 0.48);
+        border: 0.5px solid #e606cf;
         border-radius: 11px;
         color: #2d2e2c;
         font-size: 10px;
@@ -168,9 +168,7 @@ const StyledResultItem = styled.div`
         transition: all ease 0.3s;
         &:hover {
           cursor: pointer;
-          border-color: #4f4fc4;
-          background-color: #4f4fc4;
-          color: #ffffff;
+          box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
         }
       }
       &-extra {
@@ -178,6 +176,17 @@ const StyledResultItem = styled.div`
         font-size: 14px;
         letter-spacing: -0.32px;
         line-height: 17px;
+        display: flex;
+        flex-wrap: wrap;
+        &__item {
+          margin-right: 18px;
+          &:last-child {
+            margin-right: 0px;
+          }
+          &__title {
+            color: #e606cf;
+          }
+        }
       }
     }
     &-thread {
@@ -248,14 +257,14 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const [userTruncate, setUserTruncate] = useState(false);
 
   const getExtraString = (extra) => {
-    return extra
-      .map(
-        (item) =>
-          item.display_name +
-          ": " +
-          (item.type === "date" ? getFormattedDate(item.value) : item.value)
-      )
-      .join(", ");
+    return extra.map((item) => (
+      <div className="resultitem-content-extra__item">
+        <span className="resultitem-content-extra__item__title">
+          {item.display_name}{" "}
+        </span>
+        {item.type === "date" ? getFormattedDate(item.value) : item.value}
+      </div>
+    ));
   };
 
   const handleTruncate = (truncate, name) => {
