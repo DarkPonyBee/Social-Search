@@ -6,12 +6,13 @@ import ConfirmAction from "../accounts/ConfirmAction";
 import Truncate from "react-truncate";
 import ReactTooltip from "react-tooltip";
 
-const StyledContainer = styled.div`
+const StyledContainer = styled.a`
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 5px 5px 0px;
   margin-bottom: 30px;
+  text-decoration: none !important;
   .icon-indexed {
     display: ${(props) =>
       props.state === "active"
@@ -215,6 +216,7 @@ const Icon = ({ data, header = false }) => {
   const accountId = data.id;
   const accountName = data.name;
   const accountSource = data.source;
+  const accountLink = data.link;
 
   const handleTruncate = (truncate) => {
     if (truncated !== truncate) {
@@ -226,6 +228,9 @@ const Icon = ({ data, header = false }) => {
     <StyledContainer
       state={accountState.state}
       isSyncing={accountState.is_syncing}
+      href={accountLink ? accountLink : null}
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <div className="icon-indexed">
         {accountState.state === "active"
