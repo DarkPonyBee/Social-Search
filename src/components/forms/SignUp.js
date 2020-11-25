@@ -10,6 +10,7 @@ import { TreviContext } from "../../utils/context";
 import { availableIcons, recaptchaKey } from "../../config";
 import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
 import { gaEvent } from "../../utils/helper";
+import LOGO from "../../assets/images/logo.png";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -71,6 +72,13 @@ const StyledSignUp = styled.div`
             margin: auto;
             width: 35px;
           }
+        }
+      }
+      &-logo {
+        margin-top: 30px;
+        img {
+          max-width: 120px;
+          max-height: 50px;
         }
       }
     }
@@ -408,6 +416,9 @@ const SignUp = () => {
             <div className="signup-content-left-down-item">
               ...and many more!
             </div>
+          </div>
+          <div className="signup-content-left-logo">
+            <img src={LOGO} alt="Logo"></img>
           </div>
         </div>
         <div className="signup-content-right">
