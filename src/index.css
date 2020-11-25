@@ -49,6 +49,16 @@ code {
 }
 
 .customToolTip {   
-  box-shadow: 0 12px 15px 0 rgba(0,0,0,.25);
+  width: 415px;
+  box-shadow: 0 0 0 1px rgba(111,119,130,0.12), 0 5px 20px 0 rgba(21,27,38,0.08);
   border-radius: 10px !important;
+}
+
+.customToolTip__title {
+  color: #141413;
+  /* font-family: "Proxima Nova"; */
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24px;
 }
