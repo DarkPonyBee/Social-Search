@@ -7,11 +7,20 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 import ResultItemContainer from "../components/search/ResultItemContainer";
 import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import AddAccounts from "../components/accounts/AddAccounts";
 import { setShowAddAccount } from "../redux/actions/global";
 import { gaEvent } from "../utils/helper";
+import BG from "../assets/images/mainpage-bg.svg";
 // import FilterDropdown from "../components/filter/FilterDropdown";
 // import FilterDate from "../components/filter/FilterDate";
+
+const MainPageContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  background: url(${BG}) no-repeat left -50px bottom -50px;
+  min-height: 100vh;
+`;
 
 const StyledResultPage = styled.div`
   display: flex;
@@ -108,7 +117,7 @@ const Resultpage = () => {
   };
 
   return (
-    <>
+    <MainPageContainer>
       <Header resultPage={true}></Header>
       <StyledResultPage isloading={isLoading}>
         {/* <div className="resultpage-filter">
@@ -168,7 +177,7 @@ const Resultpage = () => {
           </div>
         </div>
       </StyledResultPage>
-
+      <Footer />
       <Modal
         open={showAddAccount}
         onClose={() => setShowAddAccount(false)}
@@ -178,7 +187,7 @@ const Resultpage = () => {
       >
         <AddAccounts></AddAccounts>
       </Modal>
-    </>
+    </MainPageContainer>
   );
 };
 

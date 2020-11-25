@@ -6,6 +6,7 @@ import { NotificationManager } from "react-notifications";
 import { useSelector } from "react-redux";
 
 import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import SearchBar from "../components/searchbar/SearchBar";
 import ConnectedAccounts from "../components/accounts/ConnectedAccounts";
 import AddAccounts from "../components/accounts/AddAccounts";
@@ -81,6 +82,8 @@ const Searchpage = ({ location: { state } }) => {
       <MainpageConnecteAccounts>
         <ConnectedAccounts></ConnectedAccounts>
       </MainpageConnecteAccounts>
+      <Footer />
+
       <Modal
         open={firstConnect}
         onClose={() => {
