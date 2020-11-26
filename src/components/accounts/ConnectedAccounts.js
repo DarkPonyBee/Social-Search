@@ -24,6 +24,7 @@ const AccountsContainer = styled.div`
     }
   }
   .accounts-content {
+    margin-bottom: 70px;
     padding: 35px 100px;
     &-loader {
       display: flex;
