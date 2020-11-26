@@ -26,7 +26,7 @@ const StyledResultPage = styled.div`
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin: auto;
+  margin: 0px auto auto auto;
 
   .resultpage-filter {
     display: flex;
