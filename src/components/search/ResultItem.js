@@ -85,8 +85,7 @@ const StyledResultItem = styled.div`
           &-container {
             font-size: 20px;
             white-space: nowrap;
-            /* ${(props) => (props.titletruncate ? "overflow: hidden" : "")}; */
-            overflow: hidden;
+            ${(props) => (props.titletruncate ? "overflow: hidden" : "")};
             ${(props) =>
               props.titletruncate ? "text-overflow: ellipsis" : ""};
             em {
@@ -257,8 +256,8 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   const [userTruncate, setUserTruncate] = useState(false);
 
   const getExtraString = (extra) => {
-    return extra.map((item) => (
-      <div className="resultitem-content-extra__item">
+    return extra.map((item, index) => (
+      <div key={index} className="resultitem-content-extra__item">
         <span className="resultitem-content-extra__item__title">
           {item.display_name}{" "}
         </span>
