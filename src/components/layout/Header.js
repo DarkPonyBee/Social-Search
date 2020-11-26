@@ -243,6 +243,7 @@ const Header = ({ resultPage = false }) => {
   const handleLogOut = async () => {
     gaEvent("UserAction", "Logout");
     try {
+      document.cookie = "app_login=;";
       await Auth.signOut();
       await setAuth(false);
       window.location.href = "https://www.trevi.io/";
@@ -285,6 +286,7 @@ const Header = ({ resultPage = false }) => {
               if (error) {
                 return reject(error);
               }
+              document.cookie = "app_login=;";
               window.location.href = "https://www.trevi.io/";
               resolve();
             });

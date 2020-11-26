@@ -21,6 +21,7 @@ export const signIn = async (email, password) => {
   try {
     let cognitoUser = await Auth.signIn(email, password);
     let token = cognitoUser.signInUserSession.idToken.jwtToken;
+    document.cookie = "app_login=1;domain=trevi.io;";
     await setAuth(true);
     await request().put("/user", null, {
       headers: { authorizer: token },
@@ -31,11 +32,11 @@ export const signIn = async (email, password) => {
   }
 };
 
-export const gaEvent = (category, action,value, label) => {
+export const gaEvent = (category, action, value, label) => {
   ReactGA.event({
     category: category,
     action: action,
     value: value,
-    label: label
+    label: label,
   });
 };
