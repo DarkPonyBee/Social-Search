@@ -28,6 +28,8 @@ import ICONEMAIL from "./assets/images/icon-email.svg";
 import ICONTASK from "./assets/images/icon-task.svg";
 import ICONMESSAGE from "./assets/images/icon-message.svg";
 import ICONCONTAINER from "./assets/images/icon-container.svg";
+import ICONCHANNEL from "./assets/images/icon-channel.svg";
+import ICONPROJECT from "./assets/images/icon-project.svg";
 // import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
 // import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
 import ICONFOLDER from "./assets/images/icon-folder.svg";
@@ -118,8 +120,8 @@ const contentType = [
   { value: "application/rtf", icon: ICONTEXTFILE },
   { value: "text/calendar", icon: ICONTEXTFILE },
   { value: "code", icon: ICONCODEFILE },
-  // { value: "project", icon: ICONFILE },
-  { value: "channel", icon: ICONFILE },
+  { value: "project", icon: ICONPROJECT },
+  { value: "channel", icon: ICONCHANNEL },
   { value: "board", icon: ICONFILE },
   { value: "image", icon: ICONIMAGE },
   { value: "video", icon: ICONVIDEO },
