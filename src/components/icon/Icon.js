@@ -6,13 +6,12 @@ import ConfirmAction from "../accounts/ConfirmAction";
 import Truncate from "react-truncate";
 import ReactTooltip from "react-tooltip";
 
-const StyledContainer = styled.a`
+const StyledContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 5px 5px 0px;
   margin-bottom: 30px;
-  text-decoration: none !important;
   .icon-indexed {
     display: ${(props) =>
       props.state === "active"
@@ -228,9 +227,6 @@ const Icon = ({ data, header = false }) => {
     <StyledContainer
       state={accountState.state}
       isSyncing={accountState.is_syncing}
-      href={accountLink ? accountLink : null}
-      rel="noopener noreferrer"
-      target="_blank"
     >
       <div className="icon-indexed">
         {accountState.state === "active"
@@ -245,7 +241,13 @@ const Icon = ({ data, header = false }) => {
             accountState.is_syncing ? "icon-container-border-syncing" : ""
           }`}
         ></div>
-        <img src={availableIcons[accountSource]} alt={accountName}></img>
+        <a
+          href={accountLink ? accountLink : null}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img src={availableIcons[accountSource]} alt={accountName} />
+        </a>
         <div className="icon-container-delete">
           <ConfirmAction
             icon="trash"

@@ -150,7 +150,8 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
       <div
         className="confirm-icon-container"
         ref={confirmButton}
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           setShowConfirm(!showConfirm);
         }}
         title={icon}
