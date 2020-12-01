@@ -114,6 +114,8 @@ const Provider = ({ name, icon, uiname }) => {
         window.removeEventListener("storage", storageListener);
       }
     } catch (e) {
+      oauthPopup.close();
+      window.localStorage.removeItem("code");
       window.removeEventListener("storage", storageListener);
     }
   };
