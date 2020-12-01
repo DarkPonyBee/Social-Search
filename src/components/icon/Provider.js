@@ -92,6 +92,7 @@ const Provider = ({ name, icon, uiname }) => {
   const storageListener = () => {
     try {
       if (localStorage.getItem("code")) {
+        console.log("storageListener code: " + localStorage.getItem("code"));
         let code = localStorage.getItem("code");
         if (code === "200") {
           NotificationManager.success(
