@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import INFOIMG from "../../assets/images/icon-info-colored.svg";
+
 const StyledHomepageSearchBarContainer = styled.div`
   position: relative;
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
@@ -59,7 +61,7 @@ const StyledHomepageSearchBarContainer = styled.div`
       }
     }
   }
-  ion-icon {
+  .searchbar-info {
     width: ${(props) => (props.resultPage ? "25px" : "35px")};
     height: ${(props) => (props.resultPage ? "25px" : "35px")};
     margin: auto 0px auto 10px;
@@ -139,7 +141,7 @@ const HomepageSearchBar = () => {
           ></ion-icon>
         </div>
       </div>
-      <ion-icon name="alert-circle-outline"></ion-icon>
+      <img className="searchbar-info" src={INFOIMG} alt="InfoImage" />{" "}
     </StyledHomepageSearchBarContainer>
   );
 };

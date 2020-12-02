@@ -13,12 +13,13 @@ import { setShowAddAccount } from "../redux/actions/global";
 import { gaEvent } from "../utils/helper";
 import BG from "../assets/images/mainpage-bg.svg";
 // import FilterDropdown from "../components/filter/FilterDropdown";
-// import FilterDate from "../components/filter/FilterDate";
+import FilterDate from "../components/filter/FilterDate";
 
 const MainPageContainer = styled.section`
   display: flex;
   flex-direction: column;
-  background: url(${BG}) no-repeat left -50px bottom -50px;
+  background-image: linear-gradient(180deg, #f2f4fe 0%, #ffffff 15%);
+  /* background: url(${BG}) no-repeat left -50px bottom -50px; */
   min-height: 100vh;
 `;
 
@@ -120,12 +121,9 @@ const Resultpage = () => {
     <MainPageContainer>
       <Header resultPage={true}></Header>
       <StyledResultPage isloading={isLoading}>
-        {/* <div className="resultpage-filter">
-        <FilterDropdown></FilterDropdown>
-        <FilterDropdown></FilterDropdown>
-        <FilterDropdown></FilterDropdown>
-        <FilterDate></FilterDate>
-      </div> */}
+        <div className="resultpage-filter">
+          <FilterDate></FilterDate>
+        </div>
         <div className="resultpage-list">
           {isLoading ? (
             <div className="resultpage-list-loader">

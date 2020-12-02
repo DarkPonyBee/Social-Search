@@ -6,6 +6,7 @@ import ReactTooltip from "react-tooltip";
 
 import { getSearchResult, setSearchQuery } from "../../redux/actions/search";
 import { gaEvent, getParam } from "../../utils/helper";
+import INFOIMG from "../../assets/images/icon-info-colored.svg";
 
 const StyledSearchBarContainer = styled.div`
   position: relative;
@@ -65,7 +66,7 @@ const StyledSearchBarContainer = styled.div`
       }
     }
   }
-  ion-icon {
+  .searchbar-info {
     width: ${(props) => (props.resultPage ? "25px" : "35px")};
     height: ${(props) => (props.resultPage ? "25px" : "35px")};
     margin: auto 0px auto 10px;
@@ -239,11 +240,13 @@ const SearchBar = ({ resultPage = false }) => {
           ></ion-icon>
         </div>
       </div>
-      <ion-icon
-        name="information-circle-outline"
+      <img
+        className="searchbar-info"
+        src={INFOIMG}
+        alt="InfoImage"
         data-for="searchbarinfo"
-        data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can filter (narrow) the search results by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will narrow the results for "project splendid" to pdf attachments to outlook emails. <b>The following filters are available:</b><br/><br/><ul><li>source - for example source:outlook, source:gmail, ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:John</li><li>since:yesterday, since:today</li></ul>'
-      ></ion-icon>
+        data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can filter (narrow) the search results by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will narrow the results for "project splendid" to pdf attachments to outlook emails. Use lowercase letters for filter values. <br/><b>The following filters are available:</b><br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:john, from:john, to:john, from:john@gmail.com, ...</li><li>containing folder, channel, project,... - for example in:budget (and also folder:budget, project:coffee, channel:design)</li><li>since:yesterday, since:today, since:lastweek, since:lastmonth, since:lastyear</li></ul>'
+      />
       <ReactTooltip
         id="searchbarinfo"
         effect="solid"

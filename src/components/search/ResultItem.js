@@ -333,6 +333,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     ];
 
     let currentDateObj = new Date();
+    let weekDateObj = new Date(Date.now() - 604800000);
     let isoDateObj = new Date(isoDate + "Z");
     let t, spl, hm, formattedDate;
 
@@ -346,6 +347,13 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
       spl = t.split(" ");
       hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
       formattedDate = hm;
+    } else if (weekDateObj < isoDateObj) {
+      //this week
+      t = isoDateObj.toLocaleTimeString("en-GB");
+      spl = t.split(" ");
+      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
+      formattedDate =
+        isoDateObj.getDate() + " " + months[isoDateObj.getMonth()] + " " + hm;
     } else if (isoDateObj.getFullYear() === currentDateObj.getFullYear()) {
       //this year
       formattedDate =
