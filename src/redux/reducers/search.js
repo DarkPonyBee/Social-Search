@@ -2,6 +2,7 @@ import * as types from "../constants";
 
 const initialState = {
   searchQuery: "",
+  searchOrigin: 100,
   searchResult: {
     result: {},
     loading: false,
@@ -15,6 +16,11 @@ export default function reducer(state = initialState, actions) {
       return {
         ...state,
         searchQuery: actions.payload,
+      };
+    case types.SET_SEARCH_ORIGIN:
+      return {
+        ...state,
+        searchOrigin: actions.payload,
       };
     case types.GET_SEARCH_RESULT:
       return {

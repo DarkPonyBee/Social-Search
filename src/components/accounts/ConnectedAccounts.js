@@ -71,7 +71,7 @@ const AccountsContainer = styled.div`
 
 const ConnnectedAccounts = () => {
   const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
+    (store) => store.account.connectedAccount.result.accounts
   );
   const isLoading = useSelector(
     (store) => store.account.connectedAccount.loading

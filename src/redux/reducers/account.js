@@ -2,7 +2,9 @@ import * as types from "../constants";
 
 const initialState = {
   connectedAccount: {
-    result: [],
+    result: {
+      accounts: [],
+    },
     loading: false,
     error: {},
   },
@@ -33,7 +35,7 @@ export default function reducer(state = initialState, actions) {
         ...state,
         connectedAccount: {
           ...state.connectedAccount,
-          result: [],
+          result: { accounts: [] },
           error: actions.payload,
           loading: false,
         },

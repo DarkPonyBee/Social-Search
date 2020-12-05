@@ -9,7 +9,11 @@ export function setSearchQuery(query = "") {
   store.dispatch({ payload: query, type: types.SET_SEARCH_QUERY });
 }
 
-export async function getSearchResult(query = "", resultsCursor = 0) {
+export function setSearchOrigin(origin = 100) {
+  store.dispatch({ payload: origin, type: types.SET_SEARCH_ORIGIN });
+}
+
+export async function getSearchResult(query = "", resultsCursor = 0, origin) {
   let token = null;
   try {
     let res = await Auth.currentSession();
@@ -20,7 +24,9 @@ export async function getSearchResult(query = "", resultsCursor = 0) {
   }
 
   const headers = { authorizer: token };
-  const params = { q: query, cursor: resultsCursor };
+  const params = origin
+    ? { q: query, cursor: resultsCursor, origin: origin }
+    : { q: query, cursor: resultsCursor };
   store.dispatch({ type: types.GET_SEARCH_RESULT });
   return request()
     .post("/search", null, { params, headers })

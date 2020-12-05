@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import { setSearchOrigin } from "../../redux/actions/search";
 
 const Container = styled.div`
   width: 100%;
@@ -47,30 +49,30 @@ const Container = styled.div`
 `;
 
 const FilterDate = () => {
-  const [value, setValue] = useState(0);
-
-  const getMonthDiff = () => {
-    let months = 0;
-    const d1 = new Date(2011, 0, 1);
-    const d2 = new Date();
-    months = (d2.getFullYear() - d1.getFullYear()) * 12;
-    months -= d1.getMonth();
-    months += d2.getMonth();
-    return months <= 0 ? 0 : months;
-  };
+  const tEarliest = useSelector(
+    (store) => store.account.connectedAccount.result.earliest_date
+  );
+  const searchOrigin = useSelector((store) => store.search.searchOrigin);
+  const [value, setValue] = useState(searchOrigin);
 
   let minDate = 0;
-  let maxDate = getMonthDiff();
+  let maxDate = 100;
+
+  const getDateFromUnixTimestamp = (timestamp) => {
+    let date = new Date(timestamp);
+    return date.getMonth() + 1 + "/" + date.getFullYear();
+  };
 
   const getDate = (value) => {
-    if (value === 0) return "2011";
-    else if (value === maxDate) return "now";
+    if (value === 0) {
+      return tEarliest ? getDateFromUnixTimestamp(tEarliest) : "now";
+    } else if (value === maxDate) return "now";
     else {
-      let currentDate = new Date(2011, 0, 1);
-      let calcDate = new Date(
-        currentDate.setMonth(currentDate.getMonth() + value)
+      const tNow = Date.now();
+      const date = new Date(
+        Math.floor(tNow - ((tNow - tEarliest) * (100 - value)) / 100)
       );
-      return calcDate.getMonth() + 1 + "/" + calcDate.getFullYear();
+      return date.getMonth() + 1 + "/" + date.getFullYear();
     }
   };
 
@@ -82,6 +84,7 @@ const FilterDate = () => {
         value={value}
         formatLabel={(value) => getDate(value)}
         onChange={(value) => setValue(value)}
+        onChangeComplete={() => setSearchOrigin(value)}
       ></InputRange>
     </Container>
   );

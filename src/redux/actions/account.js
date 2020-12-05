@@ -20,7 +20,7 @@ export async function getConnectedAccount(isSyncing = false) {
   store.dispatch({ type: types.GET_CONNECTED_ACCOUNT, payload: isSyncing });
 
   return request()
-    .get("/accounts", { headers })
+    .get("/accounts?include_earliest=true", { headers })
     .then((response) => {
       console.log(response.data);
       store.dispatch({
@@ -30,7 +30,7 @@ export async function getConnectedAccount(isSyncing = false) {
     })
     .catch(() => {
       return request()
-        .get("/accounts", { headers })
+        .get("/accounts?include_earliest=true", { headers })
         .then((response) => {
           console.log(response.data);
           store.dispatch({

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal } from "react-responsive-modal";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -10,6 +10,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import AddAccounts from "../components/accounts/AddAccounts";
 import { setShowAddAccount } from "../redux/actions/global";
+import { getConnectedAccount } from "../redux/actions/account";
 import { gaEvent } from "../utils/helper";
 import BG from "../assets/images/mainpage-bg.svg";
 // import FilterDropdown from "../components/filter/FilterDropdown";
@@ -106,6 +107,10 @@ const Resultpage = () => {
   const result = searchResult.result?.results;
   const nextCursor = searchResult.result.next_cursor;
   const prevCursor = searchResult.result.prev_cursor;
+
+  useEffect(() => {
+    getConnectedAccount(true);
+  }, []);
 
   const handleBtnClick = (type) => {
     if (type === "next") {

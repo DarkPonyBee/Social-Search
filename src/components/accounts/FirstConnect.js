@@ -193,7 +193,7 @@ const FirstConnectContainer = styled.div`
 const FirstConnect = () => {
   const [showProvider, setShowProvider] = useState(false);
   const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
+    (store) => store.account.connectedAccount.result.accounts
   );
 
   useEffect(() => {

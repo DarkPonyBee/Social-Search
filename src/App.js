@@ -36,7 +36,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const timerID = useRef(null);
   const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
+    (store) => store.account.connectedAccount.result.accounts
   );
   const isSyncing = connectedAccounts.some(
     (item) => item.account_state.is_syncing

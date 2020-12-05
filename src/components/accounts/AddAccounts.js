@@ -58,7 +58,7 @@ const AddAccountsContainer = styled.div`
 
 const AddAccounts = () => {
   const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
+    (store) => store.account.connectedAccount.result.accounts
   );
 
   return (

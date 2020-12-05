@@ -79,7 +79,7 @@ const AccountsContainer = styled.div`
 
 const HeaderConnnectedAccounts = () => {
   const connectedAccounts = useSelector(
-    (store) => store.account.connectedAccount.result
+    (store) => store.account.connectedAccount.result.accounts
   );
 
   return (
