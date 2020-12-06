@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 320px;
   padding: 0px 15px;
-  margin: auto 0px auto auto;
+  // margin: auto 0px auto auto;
 
   .input-range__track {
     background: #dde2ef;

@@ -47,7 +47,7 @@ const StyledResultPage = styled.div`
 
   .resultpage-list {
     max-width: 900px;
-    padding-top: 40px;
+    padding-top: 0px;
 
     &-loader {
       display: flex;
