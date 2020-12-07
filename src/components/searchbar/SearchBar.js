@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -137,31 +137,41 @@ const SearchBar = ({ resultPage = false }) => {
   const tEarliest = useSelector(
     (store) => store.account.connectedAccount.result.earliest_date
   );
+
   const [searchBarQuery, setSearchBarQuery] = useState(searchQuery);
   const [showSuggestionList, setShowSuggestionList] = useState(false);
+
+  const getOrigin = useMemo(() => {
+    if (searchOrigin === 100) return "now";
+    const tNow = Date.now();
+    return tEarliest
+      ? Math.floor(tNow - ((tNow - tEarliest) * (100 - searchOrigin)) / 100)
+      : tEarliest;
+  }, [searchOrigin, tEarliest]);
 
   useEffect(() => {
     const searchCursorURL = getParam("cursor", location.search);
     const searchQueryURL = getParam("q", location.search);
-    const getOrigin = () => {
-      console.log("getOrigin searchOrigin" + searchOrigin);
-      if (searchOrigin === 100) return "now";
-      const tNow = Date.now();
-      return tEarliest
-        ? Math.floor(tNow - ((tNow - tEarliest) * (100 - searchOrigin)) / 100)
-        : tEarliest;
-    };
+
     if (resultPage) {
       let filterSearchQuery = searchQueryURL ? searchQueryURL : "";
       let filterSearchCursor = searchCursorURL ? parseInt(searchCursorURL) : 0;
       setSearchBarQuery(filterSearchQuery);
       setSearchQuery(filterSearchQuery);
-      getSearchResult(filterSearchQuery, filterSearchCursor, getOrigin());
+      getSearchResult(filterSearchQuery, filterSearchCursor, getOrigin);
     } else {
       setSearchBarQuery("");
       setSearchQuery("");
     }
-  }, [location, resultPage, tEarliest, searchOrigin]);
+  }, [location, resultPage, getOrigin, searchOrigin]);
+
+  useEffect(() => {
+    console.log("first render");
+  }, []);
+
+  useEffect(() => {
+    console.log("location render");
+  }, [searchOrigin]);
 
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
