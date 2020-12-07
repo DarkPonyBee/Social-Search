@@ -144,8 +144,8 @@ const SearchBar = ({ resultPage = false }) => {
     const searchCursorURL = getParam("cursor", location.search);
     const searchQueryURL = getParam("q", location.search);
     const getOrigin = () => {
-      console.log('getOrigin searchOrigin' + searchOrigin);
-      if (searchOrigin==100) return ("now");
+      console.log("getOrigin searchOrigin" + searchOrigin);
+      if (searchOrigin === 100) return "now";
       const tNow = Date.now();
       return tEarliest
         ? Math.floor(tNow - ((tNow - tEarliest) * (100 - searchOrigin)) / 100)

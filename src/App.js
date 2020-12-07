@@ -19,7 +19,7 @@ import RoutePrivate from "./components/route/RoutePrivate";
 import RoutePublic from "./components/route/RoutePublic";
 import { getConnectedAccount } from "./redux/actions/account";
 import { accountSyncIntervalTime, ga_trackingID } from "./config";
-import { getAuth, setAuth } from "./utils/helper";
+import { bugReport, getAuth, setAuth } from "./utils/helper";
 
 const StyledLoader = styled(LoadingOverlay)`
   position: absolute;
@@ -62,6 +62,7 @@ function App() {
         await Auth.currentSession();
       } catch (err) {
         await setAuth(false);
+        bugReport(err);
       }
     };
     checkToken();

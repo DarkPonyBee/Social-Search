@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
+import { bugReport } from "../../utils/helper";
 
 const StyledReset = styled.div`
   width: 500px;
@@ -206,6 +207,7 @@ const ResetPassword = () => {
       } catch (err) {
         setFormError(err.message);
         NotificationManager.error(err.message, "Error", 5000, () => {});
+        bugReport(err);
       }
     } else {
       try {
@@ -214,6 +216,7 @@ const ResetPassword = () => {
       } catch (err) {
         setFormError(err.message);
         NotificationManager.error(err.message, "Error", 5000, () => {});
+        bugReport(err);
       }
     }
     setLoading(false);

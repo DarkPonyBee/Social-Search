@@ -18,7 +18,7 @@ import { TreviContext } from "../../utils/context";
 import LOGO from "../../assets/images/logo.png";
 import SearchBar from "../searchbar/SearchBar";
 import HeaderConnnectedAccounts from "../accounts/HeaderConnectedAccounts";
-import { gaEvent, setAuth } from "../../utils/helper";
+import { bugReport, gaEvent, setAuth } from "../../utils/helper";
 import LeaveTrevi from "../accounts/LeaveTrevi";
 import ChangePassword from "../forms/ChangePassword";
 import request from "../../utils/request";
@@ -212,6 +212,7 @@ const Header = ({ resultPage = false }) => {
       } catch (err) {
         console.log(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
+        bugReport(err);
       }
     };
     getUserInfo();
@@ -250,6 +251,7 @@ const Header = ({ resultPage = false }) => {
     } catch (err) {
       console.log(err);
       NotificationManager.error(err.message, "Error", 5000, () => {});
+      bugReport(err);
     }
   };
 

@@ -7,7 +7,7 @@ import { NotificationManager } from "react-notifications";
 import { TreviContext } from "../../utils/context";
 import { setFirstConnect } from "../../redux/actions/global";
 import { useSelector } from "react-redux";
-import { signIn } from "../../utils/helper";
+import { bugReport, signIn } from "../../utils/helper";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -188,6 +188,7 @@ const ConfirmSignup = () => {
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
+      bugReport(err);
     }
   };
 
@@ -206,6 +207,7 @@ const ConfirmSignup = () => {
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
+      bugReport(err);
     }
     setLoading(false);
   };

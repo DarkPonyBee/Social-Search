@@ -4,6 +4,7 @@ import { NotificationManager } from "react-notifications";
 import * as types from "../constants";
 import request from "../../utils/request";
 import store from "../store";
+import { bugReport } from "../../utils/helper";
 
 export async function getConnectedAccount(isSyncing = false) {
   let token = null;
@@ -13,6 +14,7 @@ export async function getConnectedAccount(isSyncing = false) {
   } catch (err) {
     console.log(err);
     NotificationManager.error(err.message, "Error", 5000, () => {});
+    bugReport(err);
     return;
   }
   const headers = { authorizer: token };

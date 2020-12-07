@@ -4,7 +4,7 @@ import { Auth } from "aws-amplify";
 import { NotificationManager } from "react-notifications";
 
 import { TreviContext } from "../../utils/context";
-import { gaEvent } from "../../utils/helper";
+import { bugReport, gaEvent } from "../../utils/helper";
 
 const StyledChangePassword = styled.div`
   width: 500px;
@@ -164,6 +164,7 @@ const ChangePassword = ({ toggleModal }) => {
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
+      bugReport(err);
     }
     setLoading(false);
   };

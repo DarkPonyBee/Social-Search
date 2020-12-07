@@ -9,7 +9,7 @@ import { Auth } from "aws-amplify";
 import { TreviContext } from "../../utils/context";
 import { availableIcons, recaptchaKey } from "../../config";
 import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
-import { gaEvent } from "../../utils/helper";
+import { bugReport, gaEvent } from "../../utils/helper";
 import LOGO from "../../assets/images/logo.png";
 
 const StyledSignUp = styled.div`
@@ -361,6 +361,7 @@ const SignUp = () => {
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});
+      bugReport(err);
     }
     setLoading(false);
   };

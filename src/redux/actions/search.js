@@ -4,6 +4,7 @@ import { NotificationManager } from "react-notifications";
 import * as types from "../constants";
 import request from "../../utils/request";
 import store from "../store";
+import { bugReport } from "../../utils/helper";
 
 export function setSearchQuery(query = "") {
   store.dispatch({ payload: query, type: types.SET_SEARCH_QUERY });
@@ -21,6 +22,7 @@ export async function getSearchResult(query = "", resultsCursor = 0, origin) {
   } catch (err) {
     console.log(err);
     NotificationManager.error(err.message, "Error", 5000, () => {});
+    bugReport(err);
   }
 
   const headers = { authorizer: token };
