@@ -7,7 +7,7 @@ import { TreviContext } from "../../utils/context";
 import request from "../../utils/request";
 import { redirectMSG } from "../../config";
 import { getConnectedAccount } from "../../redux/actions/account";
-import { gaEvent } from "../../utils/helper";
+import { gaEvent,bugReport } from "../../utils/helper";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -115,9 +115,11 @@ const Provider = ({ name, icon, uiname }) => {
         window.removeEventListener("storage", storageListener);
       }
     } catch (e) {
+      console.log(e);
       oauthPopup.close();
       window.localStorage.removeItem("code");
       window.removeEventListener("storage", storageListener);
+      bugReport(e);
     }
   };
 
@@ -131,6 +133,7 @@ const Provider = ({ name, icon, uiname }) => {
       .catch((err) => {
         console.log(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
+        bugReport(err);
         return;
       });
 
@@ -166,6 +169,7 @@ const Provider = ({ name, icon, uiname }) => {
       })
       .catch((err) => {
         console.log(err);
+        bugReport(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
       });
     setLoading(false);

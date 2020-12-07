@@ -1,6 +1,7 @@
 import { Auth } from "aws-amplify";
 import request from "./request";
 import ReactGA from "react-ga";
+import Bugsnag from "@bugsnag/js";
 
 export const getAuth = () => {
   const auth = localStorage.getItem("auth");
@@ -40,3 +41,10 @@ export const gaEvent = (category, action, value, label) => {
     label: label,
   });
 };
+
+
+export const bugReport = (e) => {
+  Bugsnag.notify(e);
+};
+
+

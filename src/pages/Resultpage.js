@@ -46,7 +46,7 @@ const StyledResultPage = styled.div`
   }
 
   .resultpage-list {
-    max-width: 900px;
+    width: 100%;
     padding-top: 0px;
 
     &-loader {

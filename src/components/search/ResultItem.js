@@ -18,11 +18,11 @@ const StyledResultItem = styled.div`
     position: relative;
 
     &-header {
-      padding: 0px 10px;
+      padding: 0px 6px;
       &-date {
         padding-bottom: 5px;
-        color: rgba(45, 46, 44, 0.51);
-        font-size: 12px;
+        color: rgba(45, 46, 44, 0.70);
+        font-size: 11px;
         letter-spacing: 0.17px;
         line-height: 15px;
         text-align: center;
@@ -37,7 +37,7 @@ const StyledResultItem = styled.div`
       }
     }
     &-content {
-      width: calc(100% - 80px);
+      width: calc(100% - 85px);
       padding: 0px 10px;
       &-container {
         padding-bottom: 5px;

@@ -9,7 +9,7 @@ const Container = styled.div`
   width: 100%;
   max-width: 320px;
   padding: 0px 15px;
-  // margin: auto 0px auto auto;
+  margin: 0px auto;
 
   .input-range__track {
     background: #dde2ef;
@@ -64,6 +64,7 @@ const FilterDate = () => {
   };
 
   const getDate = (value) => {
+    //console.log(value);
     if (value === 0) {
       return tEarliest ? getDateFromUnixTimestamp(tEarliest) : "now";
     } else if (value === maxDate) return "now";
