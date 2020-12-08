@@ -13,7 +13,9 @@ const StyledSearchBarContainer = styled.div`
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
   max-width: 900px;
   width: 90%;
-  display: flex;
+  .searchbar-total {
+    display: flex;
+  }
   .searchbar {
     width: 100%;
     box-shadow: ${(props) =>
@@ -237,48 +239,49 @@ const SearchBar = ({ resultPage = false }) => {
       showSuggestionList={showSuggestionList}
       resultPage={resultPage}
     >
-      <div className="searchbar">
-        <div className="searchbar-container">
-          <input
-            type="text"
-            name="searchQuery"
-            placeholder="Search Your Cloud"
-            onChange={onInputChange}
-            onKeyDown={onKeyDown}
-            value={searchBarQuery}
-          ></input>
-          {showSuggestionList && (
+      <div className="searchbar-total">
+        <div className="searchbar">
+          <div className="searchbar-container">
+            <input
+              type="text"
+              name="searchQuery"
+              placeholder="Search Your Cloud"
+              onChange={onInputChange}
+              onKeyDown={onKeyDown}
+              value={searchBarQuery}
+            ></input>
+            {showSuggestionList && (
+              <ion-icon
+                name="close-outline"
+                class="searchbar-container-closeicon"
+                onClick={handleCloseIcon}
+              ></ion-icon>
+            )}
             <ion-icon
-              name="close-outline"
-              class="searchbar-container-closeicon"
-              onClick={handleCloseIcon}
+              type="submit"
+              name="search-outline"
+              class="searchbar-container-icon"
+              onClick={handleSearchIcon}
             ></ion-icon>
-          )}
-          <ion-icon
-            type="submit"
-            name="search-outline"
-            class="searchbar-container-icon"
-            onClick={handleSearchIcon}
-          ></ion-icon>
+          </div>
         </div>
-      </div>
-      <img
-        className="searchbar-info"
-        src={INFOIMG}
-        alt="InfoImage"
-        data-for="searchbarinfo"
-        data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can filter (narrow) the search results by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will narrow the results for "project splendid" to pdf attachments to outlook emails. Use lowercase letters for filter values. <br/><b>The following filters are available:</b><br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:john, from:john, to:john, from:john@gmail.com, ...</li><li>containing folder, channel, project,... - for example in:budget (and also folder:budget, project:coffee, channel:design)</li><li>since:yesterday, since:today, since:lastweek, since:lastmonth, since:lastyear</li></ul>'
-      />
-      <ReactTooltip
-        id="searchbarinfo"
-        effect="solid"
-        clickable={true}
-        html={true}
-        className="customToolTip"
-        backgroundColor="white"
-        textColor="black"
-      ></ReactTooltip>
-      {/* {showSuggestionList && (
+        <img
+          className="searchbar-info"
+          src={INFOIMG}
+          alt="InfoImage"
+          data-for="searchbarinfo"
+          data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can filter (narrow) the search results by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will narrow the results for "project splendid" to pdf attachments to outlook emails. Use lowercase letters for filter values. <br/><b>The following filters are available:</b><br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:john, from:john, to:john, from:john@gmail.com, ...</li><li>containing folder, channel, project,... - for example in:budget (and also folder:budget, project:coffee, channel:design)</li><li>since:yesterday, since:today, since:lastweek, since:lastmonth, since:lastyear</li></ul>'
+        />
+        <ReactTooltip
+          id="searchbarinfo"
+          effect="solid"
+          clickable={true}
+          html={true}
+          className="customToolTip"
+          backgroundColor="white"
+          textColor="black"
+        ></ReactTooltip>
+        {/* {showSuggestionList && (
         <div className="searchbar-list">
           {searchResult.map((item, index) => {
             return (
@@ -289,6 +292,7 @@ const SearchBar = ({ resultPage = false }) => {
           })}
         </div>
       )} */}
+      </div>
     </StyledSearchBarContainer>
   );
 };

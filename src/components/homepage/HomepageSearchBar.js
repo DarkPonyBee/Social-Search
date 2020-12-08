@@ -8,7 +8,9 @@ const StyledHomepageSearchBarContainer = styled.div`
   margin: ${(props) => (props.resultPage ? "auto" : "35px auto 0px auto")};
   max-width: 900px;
   width: 90%;
-  display: flex;
+  .searchbar-total {
+    display: flex;
+  }
   .searchbar {
     width: 100%;
     box-shadow: ${(props) =>
@@ -127,21 +129,23 @@ const StyledHomepageSearchBarContainer = styled.div`
 const HomepageSearchBar = () => {
   return (
     <StyledHomepageSearchBarContainer>
-      <div className="searchbar">
-        <div className="searchbar-container">
-          <input
-            type="text"
-            name="searchQuery"
-            placeholder="Search Your Cloud"
-          ></input>
-          <ion-icon
-            type="submit"
-            name="search-outline"
-            class="searchbar-container-icon"
-          ></ion-icon>
+      <div className="searchbar-total">
+        <div className="searchbar">
+          <div className="searchbar-container">
+            <input
+              type="text"
+              name="searchQuery"
+              placeholder="Search Your Cloud"
+            ></input>
+            <ion-icon
+              type="submit"
+              name="search-outline"
+              class="searchbar-container-icon"
+            ></ion-icon>
+          </div>
         </div>
+        <img className="searchbar-info" src={INFOIMG} alt="InfoImage" />{" "}
       </div>
-      <img className="searchbar-info" src={INFOIMG} alt="InfoImage" />{" "}
     </StyledHomepageSearchBarContainer>
   );
 };
