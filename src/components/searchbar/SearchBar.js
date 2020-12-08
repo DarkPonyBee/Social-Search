@@ -167,14 +167,6 @@ const SearchBar = ({ resultPage = false }) => {
     }
   }, [location, resultPage, getOrigin, searchOrigin]);
 
-  useEffect(() => {
-    console.log("first render");
-  }, []);
-
-  useEffect(() => {
-    console.log("location render");
-  }, [searchOrigin]);
-
   // const highlightSearchResult = (query, responseResult) => {
   //   let highlightedSearchResult = [];
   //   responseResult.forEach((item) => {
