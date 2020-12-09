@@ -170,7 +170,7 @@ const Provider = ({ name, icon, uiname }) => {
         console.log(err);
         bugReport(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
-        oauthPopup.close();
+        oauthPopup && oauthPopup.close();
       });
     setLoading(false);
   };
