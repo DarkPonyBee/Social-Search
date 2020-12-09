@@ -84,10 +84,11 @@ const StyledContainer = styled.div`
   }
 `;
 
+let oauthPopup = null;
+let previousUrl = null;
+
 const Provider = ({ name, icon, uiname }) => {
   const { setLoading } = useContext(TreviContext);
-  let oauthPopup = null;
-  let previousUrl = null;
 
   const storageListener = () => {
     try {
@@ -138,6 +139,15 @@ const Provider = ({ name, icon, uiname }) => {
       });
 
     setLoading(true);
+    const width = 500;
+    const height = 600;
+    const top = window.innerHeight / 2 - height / 2;
+    const left = window.innerWidth / 2 - width / 2;
+    const params = `modal=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
+    if (oauthPopup === null || oauthPopup.closed) {
+      console.log(oauthPopup);
+      oauthPopup = window.open("", "", params);
+    }
     await request()
       .get(`/sources/${name}/authorizationEndpoint`, {
         headers: {
@@ -146,24 +156,13 @@ const Provider = ({ name, icon, uiname }) => {
       })
       .then((response) => {
         const url = response.data.oauth_url;
-        const width = 500;
-        const height = 600;
-        const top = window.innerHeight / 2 - height / 2;
-        const left = window.innerWidth / 2 - width / 2;
-        const params = `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`;
         window.localStorage.removeItem("code");
-        if (oauthPopup === null || oauthPopup.closed) {
-          oauthPopup = window.open(url, name, params);
-        } else if (previousUrl !== url) {
-          oauthPopup = window.open(url, name, params);
+        if (previousUrl !== url) {
+          oauthPopup.location = url;
           oauthPopup.focus();
         } else {
           oauthPopup.focus();
         }
-        oauthPopup.focus();
-        oauthPopup.onload = function () {
-          oauthPopup.document.title = "Add account";
-        };
         previousUrl = url;
         window.addEventListener("storage", storageListener);
       })
@@ -171,6 +170,7 @@ const Provider = ({ name, icon, uiname }) => {
         console.log(err);
         bugReport(err);
         NotificationManager.error(err.message, "Error", 5000, () => {});
+        oauthPopup.close();
       });
     setLoading(false);
   };
