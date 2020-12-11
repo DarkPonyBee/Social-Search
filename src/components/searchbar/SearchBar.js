@@ -19,21 +19,21 @@ const StyledSearchBarContainer = styled.div`
   .searchbar {
     width: 100%;
     box-shadow: ${(props) =>
-      props.showSuggestionList
-        ? "0 0px 8px 0 #e0e2e4"
-        : "0 8px 16px 0 #e0e2e4"};
+    props.showSuggestionList
+      ? "0 0px 8px 0 #e0e2e4"
+      : "0 8px 16px 0 #e0e2e4"};
     background-color: #ffffff;
     padding: ${(props) => (props.resultPage ? "0px 25px" : "0px 45px")};
     height: ${(props) => (props.resultPage ? "50px" : "80px")};
     border: 1px solid #979797;
     border-radius: ${(props) =>
-      props.showSuggestionList ? "15px 15px 0px 0px" : "40px"};
+    props.showSuggestionList ? "15px 15px 0px 0px" : "40px"};
     ${(props) => (props.showSuggestionList ? "border-bottom: none" : "")};
     &-container {
       display: flex;
       height: 100%;
       ${(props) =>
-        props.showSuggestionList ? "border-bottom: 1px solid #DADCE3" : ""};
+    props.showSuggestionList ? "border-bottom: 1px solid #DADCE3" : ""};
       input {
         height: 100%;
         width: 100%;
@@ -80,9 +80,9 @@ const StyledSearchBarContainer = styled.div`
     width: 100%;
     background-color: #ffffff;
     box-shadow: ${(props) =>
-      props.showSuggestionList
-        ? "0 8px 8px 0 #e0e2e4"
-        : "0 8px 16px 0 #e0e2e4"};
+    props.showSuggestionList
+      ? "0 8px 8px 0 #e0e2e4"
+      : "0 8px 16px 0 #e0e2e4"};
     border: 1px solid #979797;
     border-top: none;
     border-radius: 0px 0px 15px 15px;
@@ -262,7 +262,7 @@ const SearchBar = ({ resultPage = false }) => {
           src={INFOIMG}
           alt="InfoImage"
           data-for="searchbarinfo"
-          data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can filter (narrow) the search results by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will narrow the results for "project splendid" to pdf attachments to outlook emails. Use lowercase letters for filter values. <br/><b>The following filters are available:</b><br/><br/><ul><li>source - for example source:outlook, source:gmail, source:slack ...</li><li>type - for example type:email, type:message, type:task, type:file, type:pdf, type:pptx, ...</li><li>people - for example people:john, from:john, to:john, from:john@gmail.com, ...</li><li>containing folder, channel, project,... - for example in:budget (and also folder:budget, project:coffee, channel:design)</li><li>since:yesterday, since:today, since:lastweek, since:lastmonth, since:lastyear</li></ul>'
+          data-tip='<div class="customToolTip__title">Advanced search filters</div><br/>You can narrow the search by typing filter:value. Several filters can be combined with your search, separated by blanks. For example "project splendid source:outlook type:pdf" will search for "project splendid" only in pdf attachments to outlook emails. Use lowercase letters for filter values. <br/><br/><b>The following filters are available:</b><br/><ul><li><b>source</b> - source:outlook, source:gmail, source:slack ...</li><li><b>type</b> - type:email, type:file, type:pdf, type:docx, ...</li><li><b>people</b> - people:john, from:john, to:john@gmail.com, ...</li><li><b>container</b> - in:budget, folder:budget, channel:design, ...</li><li><b>since</b> - since:yesterday, since:today, since:lastweek, ...</li></ul>'
         />
         <ReactTooltip
           id="searchbarinfo"
