@@ -103,6 +103,9 @@ const Resultpage = () => {
   const searchResult = useSelector((store) => store.search.searchResult);
   const searchQuery = useSelector((store) => store.search.searchQuery);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
+  const tEarliest = useSelector(
+    (store) => store.account.connectedAccount.result.earliest_date
+  );
   const isLoading = searchResult.loading;
   const result = searchResult.result?.results;
   const nextCursor = searchResult.result.next_cursor;
@@ -127,7 +130,7 @@ const Resultpage = () => {
       <Header resultPage={true}></Header>
       <StyledResultPage isloading={isLoading}>
         <div className="resultpage-filter">
-          <FilterDate></FilterDate>
+          {tEarliest && <FilterDate></FilterDate>}
         </div>
         <div className="resultpage-list">
           {isLoading ? (

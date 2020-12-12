@@ -2,7 +2,7 @@ import * as types from "../constants";
 
 const initialState = {
   searchQuery: "",
-  searchOrigin: 100,
+  searchOrigin: Date.now(),
   searchResult: {
     result: {},
     loading: false,

@@ -6,7 +6,12 @@ import sanitizeHtml from "sanitize-html-react";
 import Truncate from "react-truncate";
 
 import { availableIcons } from "../../config";
-import { contentType, contentKind, contentDefaultIcon } from "../../config";
+import {
+  contentType,
+  contentKind,
+  contentDefaultIcon,
+  months,
+} from "../../config";
 
 const StyledResultItem = styled.div`
   padding: 25px 0px;
@@ -21,7 +26,7 @@ const StyledResultItem = styled.div`
       padding: 0px 6px;
       &-date {
         padding-bottom: 5px;
-        color: rgba(45, 46, 44, 0.70);
+        color: rgba(45, 46, 44, 0.7);
         font-size: 11px;
         letter-spacing: 0.17px;
         line-height: 15px;
@@ -317,21 +322,6 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
   };
 
   const getFormattedDate = (isoDate) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-
     let currentDateObj = new Date();
     let weekDateObj = new Date(Date.now() - 604800000);
     let isoDateObj = new Date(isoDate + "Z");

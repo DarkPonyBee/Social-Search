@@ -151,6 +151,27 @@ const accountSyncIntervalTime = 4000;
 
 const bugsnagKEY = "d59732c6f4888de4f0e260ab216b54dd";
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+const timeStamps = {
+  year: 31556926000,
+  month: 2629743000,
+  week: 604800000,
+};
+
 export {
   API_URL,
   availableAccounts,
@@ -166,4 +187,6 @@ export {
   accountSyncIntervalTime,
   bugsnagKEY,
   ga_trackingID,
+  months,
+  timeStamps,
 };
