@@ -25,6 +25,12 @@ code {
     monospace;
 }
 
+span {
+  font-family: Proxima Nova Rg, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .customModal {
   border-radius: 10px;
   padding: 0px !important;

@@ -166,11 +166,7 @@ const months = [
   "Dec",
 ];
 
-const timeStamps = {
-  year: 31556926000,
-  month: 2629743000,
-  week: 604800000,
-};
+const monthTimeStamps = 2629743000;
 
 export {
   API_URL,
@@ -188,5 +184,5 @@ export {
   bugsnagKEY,
   ga_trackingID,
   months,
-  timeStamps,
+  monthTimeStamps,
 };

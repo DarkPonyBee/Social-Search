@@ -1,14 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+
+import TIMESHIFTINFOIMG from "../../assets/images/timeshift-info-icon.svg";
+import ZOOMINIMG from "../../assets/images/zoomin.svg";
+import ZOOMOUTIMG from "../../assets/images/zoomout.svg";
 import { setSearchOrigin } from "../../redux/actions/search";
-import { months, timeStamps } from "../../config.js";
+import { months, monthTimeStamps } from "../../config.js";
 
 const Container = styled.div`
   width: 100%;
-  max-width: 400px;
+  max-width: 425px;
   padding: 0px 15px;
   margin: 0px auto;
   display: flex;
@@ -35,6 +39,7 @@ const Container = styled.div`
   .input-range__label-container {
     color: rgba(45, 46, 44, 0.67);
     font-size: 11px;
+    font-weight: bold !important;
     letter-spacing: 0;
     line-height: 12px;
   }
@@ -55,23 +60,26 @@ const Container = styled.div`
     .zoom-item {
       width: 20px;
       height: 20px;
-      line-height: 20px;
-      text-align: center;
-      vertical-align: middle;
+      display: flex;
       user-select: none;
       cursor: pointer;
-      background: white;
-      -webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-      -moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-      box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
-      border-radius: 3px;
 
-      &:hover {
-        -webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.75);
-        box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.75);
+      img {
+        margin: auto;
+
+        &:hover {
+          -webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+          -moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+          box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.5);
+          border-radius: 50px;
+        }
       }
     }
+  }
+
+  .info-icon {
+    margin-right: 25px;
+    cursor: pointer;
   }
 `;
 
@@ -83,43 +91,35 @@ const FilterDate = () => {
     (store) => store.account.connectedAccount.result.earliest_date
   );
   const [value, setValue] = useState(100);
-  const [zoomLevel, setZoomLevel] = useState("full");
+  const [zoomLevel, setZoomLevel] = useState(false);
 
   const tMin = useRef(tEarliest);
   const tMax = useRef(tNow);
+
+  const checkInitialPeriod = useMemo(
+    () => tNow - tEarliest >= 2 * monthTimeStamps,
+    [tEarliest]
+  );
 
   const getEndpointsDateFromUnixTimestamp = (timestamp) => {
     let date = new Date(timestamp);
     let formattedDate;
 
-    if (zoomLevel === "full" || zoomLevel === "year") {
-      formattedDate = months[date.getMonth()] + " " + date.getFullYear();
-    } else if (zoomLevel === "month" || zoomLevel === "week") {
-      formattedDate =
-        date.getDate() +
-        " " +
-        months[date.getMonth()] +
-        " " +
-        date.getFullYear();
-    }
+    let mmm = months[date.getMonth()];
+    let yy = date.getFullYear().toString().substr(-2);
+    formattedDate = mmm + " " + yy;
 
     return formattedDate;
   };
 
   const getSliderDateFromUnixTimestamp = (timestamp) => {
     let date = new Date(timestamp);
-    let t, spl, hm, formattedDate;
+    let formattedDate;
 
-    if (zoomLevel === "full" || zoomLevel === "year") {
-      formattedDate = months[date.getMonth()] + " " + date.getFullYear();
-    } else if (zoomLevel === "month") {
-      formattedDate = date.getDate() + " " + months[date.getMonth()];
-    } else if (zoomLevel === "week") {
-      t = date.toLocaleTimeString("en-GB");
-      spl = t.split(" ");
-      hm = spl[0].split(":")[0] + ":" + spl[0].split(":")[1];
-      formattedDate = date.getDate() + " " + months[date.getMonth()] + " " + hm;
-    }
+    let dd = date.getDate();
+    let mmm = months[date.getMonth()];
+    let yy = date.getFullYear().toString().substr(-2);
+    formattedDate = dd + " " + mmm + " " + yy;
 
     return formattedDate;
   };
@@ -140,9 +140,9 @@ const FilterDate = () => {
     if (value === 0) {
       return tMin.current
         ? getEndpointsDateFromUnixTimestamp(tMin.current)
-        : "now";
+        : "Now";
     } else if (value === 100)
-      return tMax.current && zoomLevel !== "full"
+      return tMax.current && zoomLevel
         ? getEndpointsDateFromUnixTimestamp(tMax.current)
         : "Now";
     else {
@@ -153,79 +153,42 @@ const FilterDate = () => {
   const calcEndpoints = (delta) => {
     let new_tMin, new_tMax;
 
-    if (searchOrigin + Math.floor(delta / 2) < tMax.current) {
-      if (searchOrigin - Math.floor(delta / 2) > tMin.current) {
-        new_tMin = searchOrigin - Math.floor(delta / 2);
-        new_tMax = searchOrigin + Math.floor(delta / 2);
+    if (searchOrigin + delta < tMax.current) {
+      if (searchOrigin - delta > tMin.current) {
+        new_tMin = searchOrigin - delta;
+        new_tMax = searchOrigin + delta;
       } else {
         new_tMin = tMin.current;
-        new_tMax = Math.min(tMax.current, tMin.current + delta);
+        new_tMax = Math.min(tMax.current, tMin.current + 2 * delta);
       }
     } else {
       new_tMax = tMax.current;
-      new_tMin = Math.max(tMin.current, tMax.current - delta);
+      new_tMin = Math.max(tMin.current, tMax.current - 2 * delta);
     }
     tMin.current = new_tMin;
     tMax.current = new_tMax;
   };
 
   const handleZoomIn = () => {
-    if (zoomLevel === "week") return;
-
-    let delta;
-    if (zoomLevel === "full") {
-      delta = timeStamps.year;
-    } else if (zoomLevel === "year") {
-      delta = timeStamps.month;
-    } else if (zoomLevel === "month") {
-      delta = timeStamps.week;
-    }
-
-    calcEndpoints(delta);
-
+    if (zoomLevel) return;
+    calcEndpoints(monthTimeStamps);
     setValue(getValueFromTimestamp(searchOrigin));
-    setZoomLevel((prev) => {
-      if (prev === "full") {
-        return "year";
-      } else if (prev === "year") {
-        return "month";
-      } else if (prev === "month") {
-        return "week";
-      }
-    });
+    setZoomLevel(true);
   };
 
   const handleZoomOut = () => {
-    if (zoomLevel === "full") return;
-
-    let delta;
-    if (zoomLevel === "week") {
-      delta = timeStamps.month;
-    } else if (zoomLevel === "month") {
-      delta = timeStamps.year;
-    }
-
-    if (zoomLevel !== "year") {
-      calcEndpoints(delta);
-    } else {
-      tMin.current = tEarliest;
-      tMax.current = tNow;
-    }
-
+    if (!zoomLevel) return;
+    tMin.current = tEarliest;
+    tMax.current = tNow;
     setValue(getValueFromTimestamp(searchOrigin));
-    setZoomLevel((prev) => {
-      if (prev === "week") {
-        return "month";
-      } else if (prev === "month") {
-        return "year";
-      } else if (prev === "year") {
-        return "full";
-      }
-    });
+    setZoomLevel(false);
   };
 
   return (
     <Container>
+      <div className="info-icon">
+        <img src={TIMESHIFTINFOIMG} alt="TimeShiftInfoIcon" />
+      </div>
       <InputRange
         maxValue={100}
         minValue={0}
@@ -235,14 +198,16 @@ const FilterDate = () => {
         onChangeComplete={() => setSearchOrigin(getTimestampFromValue(value))}
         disabled={!tEarliest}
       ></InputRange>
-      <div className="zoom-container">
-        <div className="zoom-item" onClick={handleZoomIn}>
-          +
+      {checkInitialPeriod && (
+        <div className="zoom-container">
+          <div className="zoom-item" onClick={handleZoomIn}>
+            <img src={ZOOMINIMG} alt="ZoomInImage" />
+          </div>
+          <div className="zoom-item" onClick={handleZoomOut}>
+            <img src={ZOOMOUTIMG} alt="ZoomOutImage" />
+          </div>
         </div>
-        <div className="zoom-item" onClick={handleZoomOut}>
-          -
-        </div>
-      </div>
+      )}
     </Container>
   );
 };
