@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import InputRange from "react-input-range";
@@ -75,6 +75,18 @@ const Container = styled.div`
           border-radius: 50px;
         }
       }
+
+      &-disabled {
+        opacity: 0.6;
+
+        img {
+          &:hover {
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+          }
+        }
+      }
     }
   }
 
@@ -102,14 +114,20 @@ const FilterDate = () => {
     [tEarliest]
   );
 
+  useEffect(() => {
+    setSearchOrigin(Date.now());
+  }, []);
+
   const getEndpointsDateFromUnixTimestamp = (timestamp) => {
     let date = new Date(timestamp);
     let formattedDate;
 
+    let dd = date.getDate();
     let mmm = months[date.getMonth()];
-    let yy = date.getFullYear().toString().substr(-2);
-    formattedDate = mmm + " " + yy;
+    let yyyy = date.getFullYear().toString();
 
+    if (zoomLevel) formattedDate = dd + " " + mmm + " " + yyyy.substr(-2);
+    else formattedDate = mmm + " " + yyyy;
     return formattedDate;
   };
 
@@ -185,6 +203,12 @@ const FilterDate = () => {
     setZoomLevel(false);
   };
 
+  const handleComplete = (value) => {
+    // if (value === 100) setSearchOrigin("now");
+    // else
+    setSearchOrigin(getTimestampFromValue(value));
+  };
+
   return (
     <Container>
       <div className="info-icon">
@@ -210,15 +234,21 @@ const FilterDate = () => {
         value={value}
         formatLabel={(value) => getDate(value)}
         onChange={(value) => setValue(value)}
-        onChangeComplete={() => setSearchOrigin(getTimestampFromValue(value))}
+        onChangeComplete={(value) => handleComplete(value)}
         disabled={!tEarliest}
       ></InputRange>
       {checkInitialPeriod && (
         <div className="zoom-container">
-          <div className="zoom-item" onClick={handleZoomIn}>
+          <div
+            className={`zoom-item ${zoomLevel && "zoom-item-disabled"}`}
+            onClick={handleZoomIn}
+          >
             <img src={ZOOMINIMG} alt="ZoomInImage" />
           </div>
-          <div className="zoom-item" onClick={handleZoomOut}>
+          <div
+            className={`zoom-item ${!zoomLevel && "zoom-item-disabled"}`}
+            onClick={handleZoomOut}
+          >
             <img src={ZOOMOUTIMG} alt="ZoomOutImage" />
           </div>
         </div>
