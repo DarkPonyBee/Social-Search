@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
+import ReactTooltip from "react-tooltip";
 
 import TIMESHIFTINFOIMG from "../../assets/images/timeshift-info-icon.svg";
 import ZOOMINIMG from "../../assets/images/zoomin.svg";
@@ -187,7 +188,21 @@ const FilterDate = () => {
   return (
     <Container>
       <div className="info-icon">
-        <img src={TIMESHIFTINFOIMG} alt="TimeShiftInfoIcon" />
+        <img
+          src={TIMESHIFTINFOIMG}
+          alt="TimeShiftInfoIcon"
+          data-for="timshiftinfo"
+          data-tip="Slide left or right to focus your search around a specific point in time. Results closer to the selected time are prioritized. Use +/- to zoom in and out on the slider's resolution and pick the precise time you want."
+        />
+        <ReactTooltip
+          id="timshiftinfo"
+          effect="solid"
+          clickable={true}
+          html={true}
+          className="customToolTip"
+          backgroundColor="white"
+          textColor="black"
+        ></ReactTooltip>
       </div>
       <InputRange
         maxValue={100}
