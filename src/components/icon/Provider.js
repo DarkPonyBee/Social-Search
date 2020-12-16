@@ -7,6 +7,7 @@ import { TreviContext } from "../../utils/context";
 import request from "../../utils/request";
 import { redirectMSG } from "../../config";
 import { getConnectedAccount } from "../../redux/actions/account";
+import { setShowAddAccount } from "../../redux/actions/global";
 import { gaEvent, bugReport } from "../../utils/helper";
 
 const StyledContainer = styled.div`
@@ -102,6 +103,7 @@ const Provider = ({ name, icon, uiname }) => {
             5000,
             () => {}
           );
+          setShowAddAccount(false);
           getConnectedAccount(true);
         } else {
           NotificationManager.error(
