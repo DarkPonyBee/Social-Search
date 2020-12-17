@@ -45,6 +45,12 @@ const MainpageConnecteAccounts = styled.div`
 `;
 
 const Searchpage = ({ location: { state } }) => {
+  const connectedAccounts = useSelector(
+    (store) => store.account.connectedAccount.result.accounts
+  );
+  const isLoading = useSelector(
+    (store) => store.account.connectedAccount.loading
+  );
   const firstConnect = useSelector((store) => store.global.firstConnect);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
   const fromResult = state?.fromResult;
@@ -71,6 +77,11 @@ const Searchpage = ({ location: { state } }) => {
     notifyUserSession();
     fromResult ? getConnectedAccount(true) : getConnectedAccount(false);
   }, [fromResult]);
+
+  useEffect(() => {
+    if (connectedAccounts.length === 0) setFirstConnect(true);
+    else setFirstConnect(false);
+  }, [connectedAccounts, isLoading]);
 
   return (
     <MainPageContainer>
