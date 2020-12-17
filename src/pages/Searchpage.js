@@ -48,8 +48,8 @@ const Searchpage = ({ location: { state } }) => {
   const connectedAccounts = useSelector(
     (store) => store.account.connectedAccount.result.accounts
   );
-  const isLoading = useSelector(
-    (store) => store.account.connectedAccount.loading
+  const isFeched = useSelector(
+    (store) => store.account.connectedAccount.isFeched
   );
   const firstConnect = useSelector((store) => store.global.firstConnect);
   const showAddAccount = useSelector((store) => store.global.showAddAccount);
@@ -79,9 +79,10 @@ const Searchpage = ({ location: { state } }) => {
   }, [fromResult]);
 
   useEffect(() => {
-    if (connectedAccounts.length === 0) setFirstConnect(true);
-    else setFirstConnect(false);
-  }, [connectedAccounts, isLoading]);
+    if (isFeched) {
+      if (connectedAccounts.length === 0) setFirstConnect(true);
+    }
+  }, [connectedAccounts, isFeched]);
 
   return (
     <MainPageContainer>

@@ -7,6 +7,7 @@ const initialState = {
     },
     loading: false,
     error: {},
+    isFeched: false,
   },
 };
 
@@ -28,6 +29,7 @@ export default function reducer(state = initialState, actions) {
           ...state.connectedAccount,
           result: actions.payload,
           loading: false,
+          isFeched: true,
         },
       };
     case types.GET_CONNECTED_ACCOUNT_FAIL:
