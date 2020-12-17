@@ -85,8 +85,7 @@ const LeaveTrevi = (props) => {
     <StyledLeaveTrevi>
       <div className="leavetrevi__title">Leave Trevi</div>
       <div className="leavetrevi__description">
-        Are you sure you want to leave Trevi? All your information and indexed
-        documents will be deleted from our servers.
+        Are you sure you want to leave Trevi? All your accounts will be deleted from our servers and you won’t be able to search them from one place anymore.
       </div>
       <div className="leavetrevi__buttons">
         <div className="leavetrevi__buttons__yes" onClick={handleLeaveTrevi}>

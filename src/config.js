@@ -8,6 +8,8 @@ import SLACKICON from "./assets/images/slack.svg";
 import DROPBOXICON from "./assets/images/dropbox.svg";
 import ASANAICON from "./assets/images/asana.svg";
 import ONEDRIVEICON from "./assets/images/onedrive.svg";
+import MONDAYICON from "./assets/images/monday.png";
+import JIRAICON from "./assets/images/jira.png";
 
 import ICONCODEFILE from "./assets/images/icon-code-file.svg";
 import ICONHTML from "./assets/images/icon-html.svg";
@@ -33,6 +35,8 @@ import ICONPROJECT from "./assets/images/icon-project.svg";
 // import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
 // import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
 import ICONFOLDER from "./assets/images/icon-folder.svg";
+import ICONBOARD from "./assets/images/icon-board.png";
+
 
 const API_URL = "https://api-dev.trevi.io";
 const recaptchaKey = "6LfmuLsZAAAAAMeV3ySEskoDnpB9aWnWRqRM0BlO";
@@ -70,6 +74,16 @@ const availableAccounts = [
     icon: ASANAICON,
     uiname: "Asana",
   },
+  {
+    name: "monday",
+    icon: MONDAYICON,
+    uiname: "Monday",
+  },
+  {
+    name: "jira",
+    icon: JIRAICON,
+    uiname: "Jira",
+  },
 ];
 
 const availableIcons = {
@@ -81,6 +95,8 @@ const availableIcons = {
   dropbox: DROPBOXICON,
   asana: ASANAICON,
   onedrive: ONEDRIVEICON,
+  monday: MONDAYICON,
+  jira: JIRAICON
 };
 
 const contentType = [
@@ -122,7 +138,7 @@ const contentType = [
   { value: "code", icon: ICONCODEFILE },
   { value: "project", icon: ICONPROJECT },
   { value: "channel", icon: ICONCHANNEL },
-  { value: "board", icon: ICONFILE },
+  { value: "board", icon: ICONBOARD },
   { value: "image", icon: ICONIMAGE },
   { value: "video", icon: ICONVIDEO },
   { value: "audio", icon: ICONAUDIO },

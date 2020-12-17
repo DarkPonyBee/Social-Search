@@ -360,7 +360,7 @@ const SignUp = () => {
       history.push("/confirm-signup");
     } catch (err) {
       setFormError(err.message);
-      NotificationManager.error(err.message, "Error", 5000, () => {});
+      NotificationManager.error(err.message, "Error", 5000, () => { });
       bugReport(err);
     }
     setLoading(false);
@@ -414,6 +414,12 @@ const SignUp = () => {
             <div className="signup-content-left-down-item">
               <img src={availableIcons.gdrive} alt="Google Drive"></img>
             </div>
+            {/* <div className="signup-content-left-down-item">
+              <img src={availableIcons.monday} alt="Monday"></img>
+            </div>
+            <div className="signup-content-left-down-item">
+              <img src={availableIcons.jira} alt="JIRA"></img>
+            </div> */}
             <div className="signup-content-left-down-item">
               ...and many more!
             </div>
@@ -434,8 +440,8 @@ const SignUp = () => {
                   error.email
                     ? "input-item-error-border"
                     : form.email_signup
-                    ? "input-item-active"
-                    : ""
+                      ? "input-item-active"
+                      : ""
                 }
                 name="email_signup"
                 type="email"
@@ -458,8 +464,8 @@ const SignUp = () => {
                   error.password
                     ? "input-item-error-border"
                     : form.password_signup
-                    ? "input-item-active"
-                    : ""
+                      ? "input-item-active"
+                      : ""
                 }
                 name="password_signup"
                 type="password"
@@ -482,8 +488,8 @@ const SignUp = () => {
                   error.confirmPassword
                     ? "input-item-error-border"
                     : form.confirmPassword
-                    ? "input-item-active"
-                    : ""
+                      ? "input-item-active"
+                      : ""
                 }
                 name="confirmPassword"
                 type="password"
