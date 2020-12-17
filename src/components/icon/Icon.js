@@ -244,7 +244,9 @@ const Icon = ({ data, header = false }) => {
         <a
           href={accountLink ? accountLink : null}
           rel="noopener noreferrer"
-          target="_blank"
+          target={
+            !accountLink.toLowerCase().includes("trevi.io") ? "_blank" : "_self"
+          }
         >
           <img src={availableIcons[accountSource]} alt={accountName} />
         </a>
