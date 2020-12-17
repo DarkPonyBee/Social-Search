@@ -28,9 +28,9 @@ const FirstConnectContainer = styled.div`
       height: 3px;
       width: 100%;
       background: ${(props) =>
-        props.addAccount
-          ? "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 100%)"
-          : "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 50%, #dedfe2 50%, #dedfe2 100%)"};
+    props.addAccount
+      ? "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 100%)"
+      : "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 50%, #dedfe2 50%, #dedfe2 100%)"};
       border-left: 20px solid white;
       border-right: 50px solid white;
     }
@@ -206,8 +206,8 @@ const FirstConnect = () => {
     <FirstConnectContainer addAccount={addAccount}>
       <p className="firstconnect__title">
         {addAccount
-          ? "Great Job! Your First source is now ready to sync"
-          : "Thanks for signing up! Now, let's add your accounts"}
+          ? "Great Job! Your first account is synching with Trevi!"
+          : "Thanks for signing up! Now, let's add your accounts."}
       </p>
       <div className="firstconnect__progressbar__container">
         <ul className="firstconnect__progressbar">
@@ -219,9 +219,8 @@ const FirstConnect = () => {
           </li>
           <li>
             <div
-              className={`firstconnect__progressbar__icon firstconnect__progressbar__icon--${
-                addAccount ? "complete" : "active"
-              }`}
+              className={`firstconnect__progressbar__icon firstconnect__progressbar__icon--${addAccount ? "complete" : "active"
+                }`}
             >
               2
             </div>
@@ -229,9 +228,8 @@ const FirstConnect = () => {
           </li>
           <li>
             <div
-              className={`firstconnect__progressbar__icon ${
-                addAccount ? "firstconnect__progressbar__icon--active" : ""
-              }`}
+              className={`firstconnect__progressbar__icon ${addAccount ? "firstconnect__progressbar__icon--active" : ""
+                }`}
             >
               3
             </div>
@@ -269,12 +267,12 @@ const FirstConnect = () => {
       {!showProvider && (
         <p className="firstconnect__description">
           <strong>
-            {addAccount ? "PRO TIP: " : "Let’s sync your 1st source-account."}
+            {addAccount ? "PRO TIP: " : "Let’s sync your first account."}
           </strong>
           {!addAccount && <br />}
           {addAccount
-            ? "You can start searching as soon as your first account is connected and syncing. For optimal results, allow your accounts to fully sync."
-            : "Select any of the supported services & platforms below, and connect it to Trevi for it to appear in your search results"}
+            ? "You can start searching as soon as your first account is connected and syncing. For full results, allow your accounts to fully sync."
+            : "Select any of the supported services and platforms below, and connect it to Trevi for it to appear in your search results."}
         </p>
       )}
       {(!addAccount || showProvider) && (

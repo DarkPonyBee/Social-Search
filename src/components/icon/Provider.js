@@ -96,19 +96,19 @@ const Provider = ({ name, icon, uiname }) => {
         console.log("storageListener code: " + localStorage.getItem("code"));
         let code = localStorage.getItem("code");
         if (code === "200") {
-          NotificationManager.success(
-            redirectMSG[code],
-            "Add Accounts",
-            5000,
-            () => {}
-          );
+          //   NotificationManager.success(
+          //     redirectMSG[code],
+          //     "Add Accounts",
+          //     5000,
+          //     () => {}
+          //   );
           getConnectedAccount(true);
         } else {
           NotificationManager.error(
             redirectMSG[code],
             "Add Accounts",
             5000,
-            () => {}
+            () => { }
           );
         }
         oauthPopup.close();
@@ -133,7 +133,7 @@ const Provider = ({ name, icon, uiname }) => {
       })
       .catch((err) => {
         console.log(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
+        NotificationManager.error(err.message, "Error", 5000, () => { });
         bugReport(err);
         return;
       });
@@ -169,7 +169,7 @@ const Provider = ({ name, icon, uiname }) => {
       .catch((err) => {
         console.log(err);
         bugReport(err);
-        NotificationManager.error(err.message, "Error", 5000, () => {});
+        NotificationManager.error(err.message, "Error", 5000, () => { });
         oauthPopup && oauthPopup.close();
       });
     setLoading(false);

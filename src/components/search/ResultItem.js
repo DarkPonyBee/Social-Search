@@ -264,7 +264,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
     return extra.map((item, index) => (
       <div key={index} className="resultitem-content-extra__item">
         <span className="resultitem-content-extra__item__title">
-          {item.display_name}{" "}
+          {item.display_name}{": "}
         </span>
         {item.type === "date" ? getFormattedDate(item.value) : item.value}
       </div>
@@ -520,9 +520,7 @@ const ResultItem = ({ data, subitem, handleOpenSubResult, openSubResult }) => {
         </div>
         {data.sub_results && data.sub_results.length !== 0 && (
           <div
-            className={`resultitem-thread ${
-              openSubResult ? "resultitem-thread-active" : ""
-            }`}
+            className={`resultitem-thread ${openSubResult ? "resultitem-thread-active" : ""}`}
             onClick={(e) => handleOpenSubResult(e)}
           >
             <div className="resultitem-thread-count">

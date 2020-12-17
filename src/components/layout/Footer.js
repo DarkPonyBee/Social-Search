@@ -43,7 +43,7 @@ const Footer = () => {
           className="footer-link__item"
           href="https://www.trevi.io/info/legal-disclosures/"
         >
-          Disclaimers
+          Disclosures
         </a>
         <a className="footer-link__item" href="https://www.trevi.io/contact/">
           Contact
