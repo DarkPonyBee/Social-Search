@@ -97,22 +97,13 @@ const Provider = ({ name, icon, uiname }) => {
         console.log("storageListener code: " + localStorage.getItem("code"));
         let code = localStorage.getItem("code");
         if (code === "200") {
-<<<<<<< HEAD
           //   NotificationManager.success(
           //     redirectMSG[code],
           //     "Add Accounts",
           //     5000,
           //     () => {}
           //   );
-=======
-          NotificationManager.success(
-            redirectMSG[code],
-            "Add Accounts",
-            5000,
-            () => {}
-          );
           setShowAddAccount(false);
->>>>>>> 2525dade4b99c118012ee013f3e292a6e1052c8f
           getConnectedAccount(true);
         } else {
           NotificationManager.error(
