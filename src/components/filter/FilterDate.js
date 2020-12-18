@@ -137,8 +137,14 @@ const FilterDate = () => {
 
     let dd = date.getDate();
     let mmm = months[date.getMonth()];
-    let yy = date.getFullYear().toString().substr(-2);
-    formattedDate = dd + " " + mmm + " " + yy;
+    if (zoomLevel) {
+      let yy = date.getFullYear().toString().substr(-2);
+      formattedDate = dd + " " + mmm + " " + yy;
+    } else {
+      let yy = date.getFullYear().toString();
+      formattedDate = mmm + " " + yy;
+    }
+   
 
     return formattedDate;
   };
