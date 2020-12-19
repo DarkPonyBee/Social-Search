@@ -152,9 +152,9 @@ const Resultpage = () => {
                   ></ResultItemContainer>
                 );
               })
-            ) : nextCursor != null ? (
+            ) : prevCursor != null ? (
               <div className="resultpage-list-empty">
-                No more results for <b>{searchQuery}</b>
+                No more matching documents
               </div>
             ) : (
               <div className="resultpage-list-empty">
