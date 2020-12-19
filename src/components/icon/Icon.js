@@ -45,6 +45,7 @@ const StyledContainer = styled.div`
       transform: translate(-50%, -50%);
       width: 68px;
       height: 68px;
+      border: 1px solid #f0f0f0;
       border-radius: 100%;
       box-shadow: 0 0 13px -5px rgba(0, 0, 0, 0.1);
       &:hover {
@@ -62,7 +63,6 @@ const StyledContainer = styled.div`
       border-radius: 100%;
       height: 68px;
       width: 68px;
-      border: 1px solid #f0f0f0;
       background-color: #ffffff;
       &-syncing {
         border: 5px solid transparent !important;
