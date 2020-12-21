@@ -42,9 +42,6 @@ export const gaEvent = (category, action, value, label) => {
   });
 };
 
-
 export const bugReport = (e) => {
   Bugsnag.notify(e);
 };
-
-
