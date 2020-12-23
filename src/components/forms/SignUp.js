@@ -79,6 +79,7 @@ const StyledSignUp = styled.div`
         margin-top: 30px;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         img {
           max-width: 120px;
           max-height: 50px;
