@@ -28,9 +28,9 @@ const FirstConnectContainer = styled.div`
       height: 3px;
       width: 100%;
       background: ${(props) =>
-    props.addAccount
-      ? "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 100%)"
-      : "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 50%, #dedfe2 50%, #dedfe2 100%)"};
+        props.addAccount
+          ? "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 100%)"
+          : "linear-gradient(90deg, rgba(0, 1, 255, 1) 0%, red 50%, #dedfe2 50%, #dedfe2 100%)"};
       border-left: 20px solid white;
       border-right: 50px solid white;
     }
@@ -201,14 +201,16 @@ const FirstConnect = () => {
   }, []);
 
   const addAccount = connectedAccounts.length === 0 ? false : true;
+  const addAccountTitle =
+    connectedAccounts.length <= 0
+      ? "Thanks for signing up! Now, let's add your accounts."
+      : connectedAccounts.length === 1
+      ? "Great Job! Your first account is synching with Trevi!"
+      : "Your accounts are syncing with Trevi!";
 
   return (
     <FirstConnectContainer addAccount={addAccount}>
-      <p className="firstconnect__title">
-        {addAccount
-          ? "Great Job! Your first account is synching with Trevi!"
-          : "Thanks for signing up! Now, let's add your accounts."}
-      </p>
+      <p className="firstconnect__title">{addAccountTitle}</p>
       <div className="firstconnect__progressbar__container">
         <ul className="firstconnect__progressbar">
           <li>
@@ -219,8 +221,9 @@ const FirstConnect = () => {
           </li>
           <li>
             <div
-              className={`firstconnect__progressbar__icon firstconnect__progressbar__icon--${addAccount ? "complete" : "active"
-                }`}
+              className={`firstconnect__progressbar__icon firstconnect__progressbar__icon--${
+                addAccount ? "complete" : "active"
+              }`}
             >
               2
             </div>
@@ -228,8 +231,9 @@ const FirstConnect = () => {
           </li>
           <li>
             <div
-              className={`firstconnect__progressbar__icon ${addAccount ? "firstconnect__progressbar__icon--active" : ""
-                }`}
+              className={`firstconnect__progressbar__icon ${
+                addAccount ? "firstconnect__progressbar__icon--active" : ""
+              }`}
             >
               3
             </div>
