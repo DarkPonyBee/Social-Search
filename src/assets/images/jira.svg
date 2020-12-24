@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="104px" viewBox="0 0 100 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>jira-3</title>
+    <defs>
+        <linearGradient x1="67.6733882%" y1="40.3110476%" x2="40.8075146%" y2="81.641044%" id="linearGradient-1">
+            <stop stop-color="#0052CC" offset="18%"></stop>
+            <stop stop-color="#2684FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="32.6334015%" y1="-23.3247078%" x2="59.3414537%" y2="17.8549121%" id="linearGradient-2">
+            <stop stop-color="#0052CC" offset="18%"></stop>
+            <stop stop-color="#2684FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="New-Source" transform="translate(-20.000000, 0.000000)" fill-rule="nonzero">
+            <g id="jira-3" transform="translate(20.000000, 0.000000)">
+                <path d="M98.7723021,48.7863006 L54.2956965,4.30969495 L49.9860015,0 L16.5051165,33.480885 L1.19508672,48.7863006 C-0.396936727,50.3865297 -0.396936727,52.9723214 1.19508672,54.5725505 L31.7828467,85.1603105 L49.9860015,103.358851 L83.4622723,69.8779661 L83.9836808,69.3611719 L98.7723021,54.5956217 C99.5463585,53.8272229 99.9816976,52.781649 99.9816976,51.6909611 C99.9816976,50.6002733 99.5463585,49.5546994 98.7723021,48.7863006 Z M49.9860015,66.96177 L34.7036571,51.6794256 L49.9860015,36.3970811 L65.2637317,51.6794256 L49.9860015,66.96177 Z" id="Shape" fill="#2684FF"></path>
+                <path d="M49.9860015,36.3970811 C39.9805984,26.3939643 39.9311227,10.188608 49.8752599,0.124584329 L16.435903,33.5500985 L34.6344436,51.7486391 L49.9860015,36.3970811 Z" id="Path" fill="url(#linearGradient-1)"></path>
+                <path d="M65.3052598,51.6378974 L49.9860015,66.96177 C60.0323037,77.0107957 60.0323037,93.3005969 49.9860015,103.349623 L83.5176431,69.836438 L65.3052598,51.6378974 Z" id="Path" fill="url(#linearGradient-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,48 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="114px" height="100px" viewBox="0 0 114 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>google_drive</title>
+<svg width="55px" height="55px" viewBox="0 0 55 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>GoogleDrive_2020</title>
     <defs>
-        <linearGradient x1="25.2862267%" y1="50.154757%" x2="93.9340029%" y2="91.885404%" id="linearGradient-1">
-            <stop stop-color="#1A237E" stop-opacity="0.2" offset="0%"></stop>
-            <stop stop-color="#1A237E" stop-opacity="0.02" offset="100%"></stop>
-        </linearGradient>
-        <radialGradient cx="29.4938098%" cy="1.00581481%" fx="29.4938098%" fy="1.00581481%" r="109.736592%" gradientTransform="translate(0.294938,0.010058),scale(0.907575,1.000000),translate(-0.294938,-0.010058)" id="radialGradient-2">
-            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="0%"></stop>
-            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
-        </radialGradient>
-        <radialGradient cx="29.4938098%" cy="1.00581481%" fx="29.4938098%" fy="1.00581481%" r="114.838237%" gradientTransform="translate(0.294938,0.010058),scale(0.867257,1.000000),translate(-0.294938,-0.010058)" id="radialGradient-3">
-            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="0%"></stop>
-            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
-        </radialGradient>
+        <rect id="path-1" x="0" y="0" width="54.9921446" height="54.9921446"></rect>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="google_drive" transform="translate(-5.000000, -5.000000)">
-            <g id="Group" transform="translate(23.000000, 72.000000)" fill-rule="nonzero">
-                <polygon id="Path" fill="#4285F4" points="0.266666667 0.472131148 0.266666667 32 77.6 32 95.68 0.472131148"></polygon>
-                <polygon id="Path" fill="url(#linearGradient-1)" points="18.8266667 0.472131148 37.44 32 0.266666667 32"></polygon>
-                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="18.5066667 1.04918033 94.6666667 1.04918033 95.7333333 0.419672131 18.8266667 0.419672131"></polygon>
-                <polygon id="Path" fill-opacity="0.2" fill="#1A237E" points="94.6133333 1.04918033 77.2266667 31.3704918 0.64 31.3704918 0.266666667 32 77.6 32 95.68 0.472131148"></polygon>
-                <polygon id="Path" fill-opacity="0.05" fill="#1A237E" points="19.2 1.04918033 18.8266667 0.419672131 0.266666667 32 0.96 32"></polygon>
+        <g id="GoogleDrive_2020">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="rect4"></g>
+            <g id="g25" mask="url(#mask-2)">
+                <g transform="translate(0.000000, 3.000000)" id="g23">
+                    <path d="M4.08706897,41.3827586 L6.46913793,45.4963793 C6.96059302,46.3434332 7.66467024,47.0475104 8.51172414,47.5389655 L17.032931,32.8084483 L0,32.8084483 C0.000925451242,33.7860284 0.257201493,34.7464098 0.743448276,35.5944828 L4.08706897,41.3827586 Z" id="path11" fill="#0066DA" fill-rule="nonzero"></path>
+                    <path d="M27.0201724,15.4758621 L18.5084483,0.737758621 C17.6599797,1.230526 16.9551594,1.93665401 16.4639655,2.78603448 L0.743448276,30.0224138 C0.257201493,30.8704868 0.000925451242,31.8308682 0,32.8084483 L17.032931,32.8084483 L27.0201724,15.4758621 Z" id="path13" fill="#00AC47" fill-rule="nonzero"></path>
+                    <path d="M27.0201724,15.4758621 L35.5318966,0.737758621 C34.68764,0.24396936 33.72579,-0.0128734368 32.7477586,-0.00583631866 L21.2944828,-0.00583631866 C20.3183897,0.00188620111 19.360279,0.257730461 18.5103448,0.737758621 L27.0201724,15.4758621 Z" id="path15" fill="#00832D" fill-rule="nonzero"></path>
+                    <path d="M37.0168966,32.8084483 L17.032931,32.8084483 L8.51172414,47.5408621 C9.35668057,48.0346318 10.3191326,48.2914604 11.2977586,48.2844557 L42.7444828,48.2844557 C43.7205759,48.2767345 44.6786865,48.0208902 45.5286207,47.5408621 L37.0168966,32.8084483 Z" id="path17" fill="#2684FC" fill-rule="nonzero"></path>
+                    <path d="M45.5305172,47.5408621 C46.3757235,47.048098 47.0777952,46.3434116 47.5674138,45.4963793 L48.5574138,43.7894828 L53.2987931,35.5887931 C53.7844594,34.7405717 54.0400846,33.7801793 54.0403448,32.8027586 L37.0491379,32.8027586 L45.5305172,47.5408621 Z" id="path19" fill="#EA4335" fill-rule="nonzero"></path>
+                    <path d="M45.4356897,16.4051724 L37.5744828,2.78793103 C37.0844292,1.93782399 36.3801811,1.23096027 35.5318966,0.737758621 L27.0201724,15.4701724 L37.0168966,32.8027586 L54.0156897,32.8027586 C54.0147642,31.8251785 53.7584882,30.8647971 53.2722414,30.0167241 L45.4356897,16.4051724 Z" id="path21" fill="#FFBA00" fill-rule="nonzero"></path>
+                </g>
             </g>
-            <g id="Group" transform="translate(5.000000, 5.000000)" fill-rule="nonzero">
-                <polygon id="Path" fill="#0F9D58" points="38.3128205 0.0535135135 0.317948718 66.8383784 18.2820513 99 61.6290598 23.5459459"></polygon>
-                <polygon id="Path" fill-opacity="0.1" fill="#263238" points="38.3128205 0.0535135135 38.6307692 1.87297297 55.9589744 32.0545946 18.2290598 97.7156757 0.953846154 66.7848649 0.264957265 66.7848649 18.2290598 98.9464865 56.6478632 32.0545946"></polygon>
-                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="1.00683761 66.8383784 38.6307692 0.695675676 38.2598291 0.0535135135 0.264957265 66.8383784"></polygon>
-            </g>
-            <g id="Group" transform="translate(43.000000, 5.000000)" fill-rule="nonzero">
-                <polygon id="Path" fill="#FFCD40" points="36.8133803 0.0536 0.158450704 0.0536 38.3978873 66.9464 74.6830986 66.9464"></polygon>
-                <polygon id="Path" fill-opacity="0.2" fill="#FFFFFF" points="36.8133803 0.0536 0.158450704 0.0536 1.21478873 0.6968 36.443662 0.6968 73.943662 66.9464 74.6302817 66.9464"></polygon>
-                <polygon id="Path" fill-opacity="0.1" fill="#BF360C" points="38.7147887 66.3032 1.21478873 0.6432 0.158450704 -7.61701813e-15 38.3978873 66.8928"></polygon>
-            </g>
-            <g id="Group">
-                <rect id="Rectangle" x="0.160416667" y="0.426168224" width="76.7326389" height="113.307477"></rect>
-                <polygon id="Path" fill="#0F9D58" fill-rule="nonzero" points="43.4729167 5.38037383 5.13333333 71.8626168 23.2604167 103.878505 67.0006944 28.7663551"></polygon>
-            </g>
-            <g id="Group" transform="translate(36.000000, 0.000000)" fill-rule="nonzero">
-                <rect id="Rectangle" fill="url(#radialGradient-2)" x="0.211764706" y="0.425974026" width="89.4705882" height="81.2012987"></rect>
-                <polygon id="Path" fill="#FFCD40" points="44.3117647 5.37792208 7.57058824 5.37792208 45.9 71.8298701 82.2705882 71.8298701"></polygon>
-            </g>
-            <path d="M79.9262218,6 L43.0737782,6 L5,72.1460249 L23.0014098,104 L99.9985902,104 L118,72.1460249 L79.9262218,6 Z M41.4807331,72.1460249 L61.5,37.7479719 L81.5192669,72.1460249 L41.4807331,72.1460249 Z" id="Shape" fill="url(#radialGradient-3)" fill-rule="nonzero"></path>
         </g>
     </g>
 </svg>

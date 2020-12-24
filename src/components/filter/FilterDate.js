@@ -144,7 +144,7 @@ const FilterDate = () => {
       let yy = date.getFullYear().toString();
       formattedDate = mmm + " " + yy;
     }
-   
+
 
     return formattedDate;
   };
@@ -222,7 +222,7 @@ const FilterDate = () => {
           src={TIMESHIFTINFOIMG}
           alt="TimeShiftInfoIcon"
           data-for="timshiftinfo"
-          data-tip="Slide left or right to focus your search around a specific point in time. Results closer to the selected time are prioritized. Use +/- to zoom in and out on the slider's resolution and pick the precise time you want."
+          data-tip='<div class="customToolTip__title">TimeShift Slider</div><br/>Use the slider to focus your search around a point in time in the past. Results closer to the selected time will be prioritized, so this is useful for finding older content. You can also fine-tune your selection by clicking + and picking a specific date on the zoomed-in slider.'
         />
         <ReactTooltip
           id="timshiftinfo"

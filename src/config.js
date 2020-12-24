@@ -8,8 +8,8 @@ import SLACKICON from "./assets/images/slack.svg";
 import DROPBOXICON from "./assets/images/dropbox.svg";
 import ASANAICON from "./assets/images/asana.svg";
 import ONEDRIVEICON from "./assets/images/onedrive.svg";
-import MONDAYICON from "./assets/images/monday.png";
-import JIRAICON from "./assets/images/jira.png";
+import MONDAYICON from "./assets/images/monday.svg";
+import JIRAICON from "./assets/images/jira.svg";
 
 import ICONCODEFILE from "./assets/images/icon-code-file.svg";
 import ICONHTML from "./assets/images/icon-html.svg";
@@ -35,7 +35,7 @@ import ICONPROJECT from "./assets/images/icon-project.svg";
 // import ICONFILEMULTIPLE from "./assets/images/icon-file-multiple.svg";
 // import ICONEMAILMULTIPLE from "./assets/images/icon-email-multiple.svg";
 import ICONFOLDER from "./assets/images/icon-folder.svg";
-import ICONBOARD from "./assets/images/icon-board.png";
+import ICONBOARD from "./assets/images/icon-board.svg";
 
 
 const API_URL = "https://api-dev.trevi.io";
