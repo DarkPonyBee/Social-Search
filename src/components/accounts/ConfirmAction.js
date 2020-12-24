@@ -154,7 +154,7 @@ const ConfirmAction = ({ icon, accountId, accountName, accountSource }) => {
           e.stopPropagation();
           setShowConfirm(!showConfirm);
         }}
-        title={"Delete account"}
+        title="Delete account"
       >
         <i className={`fa fa-${icon === "active" ? "play" : icon}`}></i>
       </div>
