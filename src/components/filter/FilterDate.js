@@ -147,7 +147,7 @@ const FilterDate = () => {
 
     return formattedDate;
   };
-
+git 
   const getTimestampFromValue = (value) => {
     return Math.floor(
       tMax.current - ((tMax.current - tMin.current) * (100 - value)) / 100
