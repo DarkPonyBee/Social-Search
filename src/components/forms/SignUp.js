@@ -11,6 +11,7 @@ import { availableIcons, recaptchaKey } from "../../config";
 import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
 import { bugReport, gaEvent } from "../../utils/helper";
 import LOGO from "../../assets/images/logo.png";
+import MCAFEE from "../../assets/images/mcafee-secure-icon.png";
 
 const StyledSignUp = styled.div`
   width: 900px;
@@ -76,6 +77,9 @@ const StyledSignUp = styled.div`
       }
       &-logo {
         margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
         img {
           max-width: 120px;
           max-height: 50px;
@@ -360,7 +364,7 @@ const SignUp = () => {
       history.push("/confirm-signup");
     } catch (err) {
       setFormError(err.message);
-      NotificationManager.error(err.message, "Error", 5000, () => { });
+      NotificationManager.error(err.message, "Error", 5000, () => {});
       bugReport(err);
     }
     setLoading(false);
@@ -426,6 +430,7 @@ const SignUp = () => {
           </div>
           <div className="signup-content-left-logo">
             <img src={LOGO} alt="Logo"></img>
+            <img src={MCAFEE} alt="Mcafee"></img>
           </div>
         </div>
         <div className="signup-content-right">
@@ -440,8 +445,8 @@ const SignUp = () => {
                   error.email
                     ? "input-item-error-border"
                     : form.email_signup
-                      ? "input-item-active"
-                      : ""
+                    ? "input-item-active"
+                    : ""
                 }
                 name="email_signup"
                 type="email"
@@ -464,8 +469,8 @@ const SignUp = () => {
                   error.password
                     ? "input-item-error-border"
                     : form.password_signup
-                      ? "input-item-active"
-                      : ""
+                    ? "input-item-active"
+                    : ""
                 }
                 name="password_signup"
                 type="password"
@@ -488,8 +493,8 @@ const SignUp = () => {
                   error.confirmPassword
                     ? "input-item-error-border"
                     : form.confirmPassword
-                      ? "input-item-active"
-                      : ""
+                    ? "input-item-active"
+                    : ""
                 }
                 name="confirmPassword"
                 type="password"

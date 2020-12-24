@@ -203,7 +203,7 @@ const ConfirmSignup = () => {
       await Auth.confirmSignUp(signupEmail, form.code);
       setFirstConnect(true);
       let loginState = await signIn(signupEmail, signupPassword);
-      if (loginState) history.push("/search");
+      if (loginState === true) history.push("/search");
     } catch (err) {
       setFormError(err.message);
       NotificationManager.error(err.message, "Error", 5000, () => {});

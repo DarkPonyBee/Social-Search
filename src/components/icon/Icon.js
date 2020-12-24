@@ -49,7 +49,6 @@ const StyledContainer = styled.div`
       border-radius: 100%;
       box-shadow: 0 0 13px -5px rgba(0, 0, 0, 0.1);
       &:hover {
-        cursor: pointer;
         box-shadow: 0 0 13px -5px rgba(0, 0, 0, 1);
       }
       img {

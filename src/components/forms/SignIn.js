@@ -4,8 +4,10 @@ import styled from "styled-components";
 import { isEmail } from "validator";
 import { NotificationManager } from "react-notifications";
 
+import { setSignupEmail, setSignupPassword } from "../../redux/actions/global";
 import { TreviContext } from "../../utils/context";
-import { gaEvent, signIn } from "../../utils/helper";
+import { gaEvent, signIn, bugReport } from "../../utils/helper";
+import { Auth } from "aws-amplify";
 
 const StyledSignIn = styled.div`
   width: 500px;
@@ -188,7 +190,17 @@ const SignIn = () => {
     setLoading(true);
     let loginState = await signIn(form.email, form.password);
     if (loginState === true) history.push("/search");
-    else {
+    else if (loginState === "User is not confirmed.") {
+      setSignupEmail(form.email);
+      setSignupPassword(form.password);
+      try {
+        await Auth.resendSignUp(form.email);
+      } catch (err) {
+        NotificationManager.error(err.message, "Error", 5000, () => {});
+        bugReport(err);
+      }
+      history.push("/confirm-signup");
+    } else {
       setFormError(loginState);
       NotificationManager.error(loginState, "Error", 5000, () => {});
     }
