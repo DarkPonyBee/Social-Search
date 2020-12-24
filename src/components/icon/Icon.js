@@ -37,15 +37,25 @@ const StyledContainer = styled.div`
   .icon-container {
     position: relative;
     margin: auto;
-    img {
+    a {
+      display: flex;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      max-width: 42px;
-      ${(props) => (props.state === "pause" ? "opacity: 0.36;" : "")};
+      width: 68px;
+      height: 68px;
+      border-radius: 100%;
+      box-shadow: 0 0 13px -5px rgba(0, 0, 0, 0.1);
       &:hover {
         cursor: pointer;
+        box-shadow: 0 0 13px -5px rgba(0, 0, 0, 1);
+      }
+      img {
+        width: 48px;
+        height: 48px;
+        ${(props) => (props.state === "pause" ? "opacity: 0.36;" : "")};
+        margin: auto;
       }
     }
     &-border {
@@ -54,7 +64,6 @@ const StyledContainer = styled.div`
       width: 68px;
       border: 1px solid #f0f0f0;
       background-color: #ffffff;
-      box-shadow: 0 0 13px -5px rgba(0, 0, 0, 0.1);
       &-syncing {
         border: 5px solid transparent !important;
         background: linear-gradient(
@@ -97,6 +106,11 @@ const StyledContainer = styled.div`
       background-color: #e60622;
       border-radius: 50%;
       color: #ffffff;
+      &:hover {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+      }
     }
     &-pause {
       display: none;
@@ -108,6 +122,11 @@ const StyledContainer = styled.div`
       background-color: rgba(1, 1, 3, 0.72);
       border-radius: 50%;
       color: #ffffff;
+      &:hover {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+      }
     }
     &-active {
       display: none;
@@ -119,6 +138,11 @@ const StyledContainer = styled.div`
       background-color: #4fc47f;
       border-radius: 50%;
       color: #ffffff;
+      &:hover {
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+      }
     }
   }
   .icon-name {
@@ -245,7 +269,11 @@ const Icon = ({ data, header = false }) => {
           href={accountLink ? accountLink : null}
           rel="noopener noreferrer"
           target={
-            accountLink ? (!accountLink.toLowerCase().includes("trevi.io") ? "_blank" : "_self") : "_self"
+            accountLink
+              ? !accountLink.toLowerCase().includes("trevi.io")
+                ? "_blank"
+                : "_self"
+              : "_self"
           }
         >
           <img src={availableIcons[accountSource]} alt={accountName} />

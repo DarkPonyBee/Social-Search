@@ -145,7 +145,6 @@ const FilterDate = () => {
       formattedDate = mmm + " " + yy;
     }
 
-
     return formattedDate;
   };
 
@@ -156,6 +155,7 @@ const FilterDate = () => {
   };
 
   const getValueFromTimestamp = (timestamp) => {
+    if (timestamp === "now") return 100;
     return Math.fround(
       100 - ((tMax.current - timestamp) * 100) / (tMax.current - tMin.current)
     );
@@ -210,9 +210,8 @@ const FilterDate = () => {
   };
 
   const handleComplete = (value) => {
-    // if (value === 100) setSearchOrigin("now");
-    // else
-    setSearchOrigin(getTimestampFromValue(value));
+    if (!zoomLevel && value === 100) setSearchOrigin("now");
+    else setSearchOrigin(getTimestampFromValue(value));
   };
 
   return (
